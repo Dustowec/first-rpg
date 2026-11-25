@@ -213,11 +213,23 @@ def advance_time(state: dict, steps: int = 1,
     """
     Продвигает время на steps шагов. Тикает регенерацию, DoT, проверяет голод.
     Возвращает (new_state, events). Если игрок погиб — events содержит death.
+
+    Канон голода (§ 7.2) берётся из world_time.get_hunger_deadlines: перк
+    «Тугий пояс» (scavenging >= 6) сдвигает дедлайны 7/17 -> 9/19. На новом дне
+    флаги сытости обнуляются, счётчик дней с зачистки тикает (§ 28.2).
     """
+    # Локальный импорт — чтобы не завязывать модуль на порядок импортов engine.
+    from engine.world_time import get_hunger_deadlines
+
     st = copy.deepcopy(state)
     world = st["world"]
     player = st["player"]
     level = player.get("level", 1)
+
+    try:
+        morning_deadline, evening_deadline = get_hunger_deadlines(player)
+    except (KeyError, AttributeError, TypeError):
+        morning_deadline, evening_deadline = 7, 17
 
     for _ in range(steps):
         # Шаг суток
@@ -225,26 +237,33 @@ def advance_time(state: dict, steps: int = 1,
         if world["stepOfDay"] > 20:
             world["stepOfDay"] = 1
             world["day"] += 1
+            # Новый день (§ 7.2): два приёма пищи нужно закрыть заново
+            world["fedMorning"] = False
+            world["fedEvening"] = False
+            # Счётчик дней с зачистки для респавна (§ 28.2, канон #1)
+            for nd in st.get("map", {}).get("nodes", []):
+                nd_state = nd.get("state", {})
+                if isinstance(nd_state.get("daysSinceCleared"), int):
+                    nd_state["daysSinceCleared"] += 1
 
         step = world["stepOfDay"]
 
-        # --- Проверка голода (§7.2) ---
-        # Завтрак: дедлайн шаг 7; ужин: дедлайн шаг 17
-        if step == 7 and not world.get("fedMorning"):
+        # --- Проверка голода (§7.2), дедлайны с учётом перка ---
+        if step == morning_deadline and not world.get("fedMorning"):
             _kill_player(st, "starvation_morning")
             return st, [{"id": "player_death", "cause": "starvation_morning"}]
-        if step == 17 and not world.get("fedEvening"):
+        if step == evening_deadline and not world.get("fedEvening"):
             _kill_player(st, "starvation_evening")
             return st, [{"id": "player_death", "cause": "starvation_evening"}]
 
-        # Блокировка регенерации в фазе голода
+        # --- Блокировка регенерации в фазе голода (окна от дедлайнов) ---
         hunger_blocked = False
-        if step <= 6 and not world.get("fedMorning"):
+        if step < morning_deadline and not world.get("fedMorning"):
             hunger_blocked = True
-        if 10 <= step <= 16 and not world.get("fedEvening"):
+        if 10 <= step < evening_deadline and not world.get("fedEvening"):
             hunger_blocked = True
 
-        # --- Естестве��ная регенерация (§7.3) ---
+        # --- Естественная регенерация (§7.3) ---
         if not world.get("inCombat") and not hunger_blocked:
             # Проверяем нет ли активных DoT
             has_dot = any(ef.get("type") in ("poison", "bleeding") for ef in world.get("activeEffects", []))

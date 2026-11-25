@@ -564,6 +564,8 @@ def _on_monster_defeated(
         events.append({"id": "lair_next_monster", "mobId": next_mob_id})
     else:
         # Все враги победлены
+        if lair_queue:
+            current_node["state"]["lairQueueIndex"] = len(lair_queue)
         current_node["state"]["monster"] = None
         current_node["state"]["daysSinceCleared"] = 0
         world["inCombat"] = False

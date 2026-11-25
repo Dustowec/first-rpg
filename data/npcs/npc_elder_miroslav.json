@@ -14,7 +14,8 @@
   "initialReputation": "neutral",
   "actionWhitelist": [
     "give_hint",
-    "none"
+    "none",
+    "end_dialogue"
   ],
   "services": [],
   "tradeStock": [],

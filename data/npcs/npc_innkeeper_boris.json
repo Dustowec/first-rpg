@@ -14,8 +14,10 @@
   "initialReputation": "neutral",
   "actionWhitelist": [
     "barter_offer",
+    "discount_10",
     "give_hint",
-    "none"
+    "none",
+    "end_dialogue"
   ],
   "services": [
     "rest"

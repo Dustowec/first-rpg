@@ -15,7 +15,9 @@
   "actionWhitelist": [
     "give_hint",
     "barter_offer",
-    "none"
+    "discount_10",
+    "none",
+    "end_dialogue"
   ],
   "services": [],
   "tradeStock": [

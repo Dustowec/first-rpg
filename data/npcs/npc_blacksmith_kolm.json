@@ -14,7 +14,9 @@
   "initialReputation": "neutral",
   "actionWhitelist": [
     "open_trade",
-    "none"
+    "discount_10",
+    "none",
+    "end_dialogue"
   ],
   "services": [
     "repair",

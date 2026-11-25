@@ -14,8 +14,10 @@
   "initialReputation": "neutral",
   "actionWhitelist": [
     "open_trade",
+    "discount_10",
     "give_hint",
-    "none"
+    "none",
+    "end_dialogue"
   ],
   "services": [
     "campfire"

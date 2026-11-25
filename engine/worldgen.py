@@ -468,7 +468,10 @@ def enter_next_region(state: dict, _game_data: Any = None) -> tuple[dict, list[d
         return state, [{"id": "err_not_in_lair"}]
 
     lair_state = current_node.get("state", {})
-    if lair_state.get("monster") is not None or lair_state.get("lairQueue"):
+    lair_queue = lair_state.get("lairQueue") or []
+    if lair_state.get("monster") is not None or (
+        lair_queue and lair_state.get("lairQueueIndex", 0) < len(lair_queue)
+    ):
         return state, [{"id": "err_lair_not_cleared"}]
 
     current_region = state["meta"]["region"]
