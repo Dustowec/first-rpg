@@ -113,15 +113,21 @@ def start_combat(
     # Трата AP для обычного боя
     if not is_ambush:
         state, events = advance_time(state, steps=1, game_data=game_data, rng=rng, session_path=session_path, template_path=template_path)
-        # Если игрок умер от голода при трате AP — возвращаем результат
-        if state.get("flags", {}).get("isDead"):
+        # KI-3: при гибели (голод/DoT) advance_time возвращает свежее состояние
+        # новой игры — монстра в текущем узле там нет, флаг isDead стоит на
+        # выброшенном состоянии. Поэтому решение принимаем по событиям.
+        if any(e.get("id") in ("player_died", "player_death") for e in events):
             return state, events
         # Обновляем ссылки на обновлённое состояние
         world = state["world"]
         player = state["player"]
         map_data = state["map"]
         current_node = _get_current_node(map_data)
-        current_node["state"]["monster"]["revealed"] = True
+        node_monster = current_node.get("state", {}).get("monster")
+        if node_monster is None:
+            # Состояние сменилось под ногами (permadeath-сброс) — бой не начинаем
+            return state, events
+        node_monster["revealed"] = True
     else:
         # Засада: 0 AP, принудительно revealed
         current_node["state"]["monster"]["revealed"] = True

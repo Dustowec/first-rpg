@@ -276,6 +276,56 @@ class TestPlayerDeath:
 
 
 # ---------------------------------------------------------------------------
+# Е. Смерть от голода при трате AP на старте боя (KI-3)
+# ---------------------------------------------------------------------------
+
+
+class TestStarvationOnStartCombat:
+
+    def _make_starving_state(self, tmp_path: Path) -> dict:
+        """Монстр раскрыт в ТЕКУЩЕМ узле, дедлайн еды на следующем шаге."""
+        state = _make_state(
+            node_monster={"mobId": "mob_wolf_forest", "hp": 6, "maxHp": 6},
+            node_revealed=True,
+        )
+        state["world"]["fedMorning"] = False   # не ел утром
+        state["world"]["stepOfDay"] = 6        # дедлайн завтрака — шаг 7
+        return state
+
+    def test_starvation_does_not_crash(self, tmp_path: Path) -> None:
+        """KI-3: гибель от голода в start_combat не даёт TypeError и не шлёт combat_started."""
+        state = self._make_starving_state(tmp_path)
+        new_state, events = start_combat(
+            state, _GD, is_ambush=False, rng=random.Random(1),
+            session_path=str(tmp_path / "session.json"),
+            template_path=str(tmp_path / "template.json"),
+        )
+
+        ids = [e["id"] for e in events]
+        assert "player_died" in ids, f"events: {ids}"
+        assert any(e.get("reason") == "starvation_morning" for e in events if e["id"] == "player_died")
+        assert new_state["world"].get("inCombat") is not True
+        assert "combat_started" not in ids
+
+    def test_starvation_via_controller_permadeath(self, tmp_path: Path) -> None:
+        """Контроллер видит смерть и делает permadeath-сброс вместо боя."""
+        from engine.controller import dispatch_command
+        state = self._make_starving_state(tmp_path)
+        new_state, events = dispatch_command(
+            state,
+            {"type": "start_combat"},
+            _GD,
+            rng=random.Random(1),
+            session_path=str(tmp_path / "session.json"),
+            template_path=str(tmp_path / "template.json"),
+        )
+        ids = [e["id"] for e in events]
+        assert "player_died" in ids
+        assert "session_reset_permadeath" in ids
+        assert new_state["flags"]["isDead"] is False
+
+
+# ---------------------------------------------------------------------------
 # Утилиты (для лair тестов)
 # ---------------------------------------------------------------------------
 from engine.combat import _on_monster_defeated  # noqa: E402
