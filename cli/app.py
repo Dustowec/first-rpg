@@ -143,6 +143,26 @@ def event_text(event: dict, game_data: GameData) -> str:
                  enemy=monster_name(game_data, event.get("mobId", "")), damage=event.get("damage", 0))
     if eid == "attack_miss":
         return t(game_data, "battle_attack_miss", "Вы промахнулись.")
+    if eid == "battle_enemy_attack":
+        enemy = event.get("enemy") or monster_name(game_data, event.get("mobId", ""))
+        return t(game_data, "battle_enemy_attack", "{enemy} атакует вас и наносит {damage} урона.",
+                 enemy=enemy, damage=event.get("damage", 0))
+    if eid == "battle_enemy_miss":
+        enemy = event.get("enemy") or monster_name(game_data, event.get("mobId", ""))
+        return t(game_data, "battle_enemy_miss", "{enemy} промахнулся по вам.", enemy=enemy)
+    if eid == "monster_dot_tick":
+        return t(game_data, "battle_monster_dot", "Яд отнимает у врага {damage} HP.", damage=event.get("damage", 0))
+    if eid == "monster_regen":
+        enemy = event.get("enemy") or monster_name(game_data, event.get("mobId", ""))
+        return t(game_data, "battle_enemy_regen", "{enemy} восстанавливает {amount} HP.",
+                 enemy=enemy, amount=event.get("amount", 0))
+    if eid == "combat_started":
+        enemy = event.get("enemy") or monster_name(game_data, event.get("mobId", ""))
+        return t(game_data, "battle_start", "Бой начинается! {enemy} появляется!", enemy=enemy)
+    if eid == "combat_fled_success":
+        return t(game_data, "combat_fled_success", "Вы отступили.")
+    if eid == "combat_fled_failed":
+        return t(game_data, "combat_fled_failed", "Отступить не вышло — противник бьёт!")
     if eid == "combat_victory":
         return t(game_data, "journal_victory", "Победа! Локация зачищена.")
     if eid == "lair_next_monster":
@@ -452,7 +472,7 @@ def render_combat_body(state: dict, game_data: GameData) -> str:
     durability = weapon.get("durability", {})
     return "\n".join([
         f"БОЙ · {monster_name(game_data, mob.get('mobId', ''))} {hp_bar(mob.get('hp', 0), mob.get('maxHp', 1))}"
-        f" · вы {hp_bar(hp.get('current', 0), hp.get('max', 1))} · раунд {combat_state.get('round', 1)}",
+        f" · вы {hp_bar(hp.get('current', 0), hp.get('max', 1))} · раунд №{combat_state.get('round', 1)}",
         f"Оружие: {item_name(game_data, weapon.get('itemId', ''))} "
         f"(прочность {durability.get('current', 0)}/{durability.get('max', 0)})",
     ])
