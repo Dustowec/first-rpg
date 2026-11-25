@@ -40,6 +40,8 @@
   "battle_attack_miss": "Вы промахнулись по {enemy}.",
   "battle_enemy_attack": "{enemy} атакует вас и наносит {damage} урона.",
   "battle_enemy_miss": "{enemy} промахнулся по вам.",
+  "battle_monster_dot": "Яд отнимает у врага {damage} HP.",
+  "battle_enemy_regen": "{enemy} восстанавливает {amount} HP.",
   "battle_enemy_died": "{enemy} погибает!",
   "battle_victory": "Победа! Получено {xp} опыта и {gold} золота.",
   "battle_defeat": "Вы повержены...",

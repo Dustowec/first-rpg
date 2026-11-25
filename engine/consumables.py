@@ -340,6 +340,29 @@ def process_weapon_coating_on_hit(
 # Г. Тик боевых эффектов за 1 раунд (§13.2, §32.3)
 # ---------------------------------------------------------------------------
 
+def clear_combat_effects(state: dict[str, Any]) -> dict[str, Any]:
+    """Снимает боевые эффекты при завершении боя, чтобы тики не утекали в мир."""
+    new_state = copy.deepcopy(state)
+    world = new_state.get("world", {})
+    world["activeEffects"] = [
+        eff for eff in world.get("activeEffects", [])
+        if not eff.get("combatOnly", False)
+    ]
+    return new_state
+
+
+def _monster_hp(monster: dict) -> tuple[dict | None, str]:
+    """Возвращает (контейнер, ключ) с текущим HP монстра.
+
+    Боевой монстр (world["activeCombat"]["monster"]) хранит hp/maxHp плоско,
+    тестовая фикстура — в resources.hp.current (профиль = GameData-статы).
+    """
+    resources = monster.get("resources")
+    if isinstance(resources, dict) and isinstance(resources.get("hp"), dict):
+        return resources["hp"], "current"
+    return monster, "hp"
+
+
 def tick_combat_round_effects(
     state: dict[str, Any],
     target_monster: dict[str, Any],
@@ -351,41 +374,56 @@ def tick_combat_round_effects(
 
     # 1. Тикаем эффекты игрока (activeEffects)
     active_effects = world.get("activeEffects", [])
-    new_active: list[dict[str, Any]] = []
+    buffs: list[dict[str, Any]] = []
     for eff in active_effects:
+        # Покрытия тратятся по ударам, а не по раундам (§13.2)
+        if eff.get("category") == "coating" or eff.get("chargesLeft") is not None:
+            buffs.append(eff)
+            continue
         eff["ticksLeft"] = eff.get("ticksLeft", 0) - 1
         if eff["ticksLeft"] <= 0:
-            events.append({"id": "effect_expired", "itemId": eff.get("id", "")})
-        else:
-            # Применяем DoT от эффектов игрока (например, яд от паука)
-            if eff.get("hpDeltaPerTurn") is not None:
-                resources = new_state["player"]["resources"]
-                resources["hp"]["current"] = max(
-                    0,
-                    resources["hp"]["current"] + eff["hpDeltaPerTurn"],
-                )
-            new_active.append(eff)
+            events.append({"id": "effect_expired", "itemId": eff.get("id", ""),
+                           "type": eff.get("type", "unknown")})
+            continue
+        # Применяем DoT от эффектов игрока (например, яд от паука)
+        hp_delta = eff.get("hpDeltaPerTurn")
+        if hp_delta:
+            hp_res = new_state["player"]["resources"]["hp"]
+            hp_res["current"] = max(0, min(hp_res["current"] + hp_delta, hp_res["max"]))
+        buffs.append(eff)
 
-    world["activeEffects"] = new_active
+    world["activeEffects"] = buffs
 
     # 2. Тикаем эффекты монстра
     monster_effects = target_monster.get("activeEffects", [])
+    hp_container, hp_key = _monster_hp(target_monster)
     new_monster_effects: list[dict[str, Any]] = []
     for eff in monster_effects:
         eff["ticksLeft"] = eff.get("ticksLeft", 0) - 1
         if eff["ticksLeft"] <= 0:
             events.append({"id": "monster_effect_expired", "type": eff.get("type", "")})
-        else:
-            # Наносим урон монстру от DoT
-            hp_delta = eff.get("hpDeltaPerTurn", 0)
-            if hp_delta is not None:
-                monster_hp = target_monster["resources"]["hp"]["current"]
-                target_monster["resources"]["hp"]["current"] = max(
-                    0,
-                    monster_hp + hp_delta,
-                )
-            new_monster_effects.append(eff)
+            continue
+        # Наносим урон монстру от DoT
+        hp_delta = eff.get("hpDeltaPerTurn", 0)
+        if hp_delta and hp_container is not None:
+            hp_container[hp_key] = max(0, hp_container[hp_key] + hp_delta)
+            if hp_delta < 0:
+                events.append({
+                    "id": "monster_dot_tick",
+                    "type": eff.get("type", ""),
+                    "damage": -hp_delta,
+                    "hp": hp_container[hp_key],
+                })
+        new_monster_effects.append(eff)
 
     target_monster["activeEffects"] = new_monster_effects
 
+    # Боевой монстр (world["activeCombat"]["monster"]) — копия из deepcopy;
+    # переносим результат тика в новое состояние, иначе урон по DoT теряется.
+    active_combat = world.get("activeCombat")
+    if active_combat and active_combat.get("monster") is not None:
+        if target_monster.get("mobId") == active_combat["monster"].get("mobId"):
+            active_combat["monster"] = target_monster
+
     return new_state, events
+

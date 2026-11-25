@@ -40,7 +40,13 @@ def _get_player_attr(player: dict, attr: str) -> int:
     if "attributes" in player and "agility" in player["attributes"]:
         return player["attributes"].get(attr, 1)
     return player.get("resources", {}).get("attributes", {}).get(attr, 1)
-from engine.consumables import process_weapon_coating_on_hit, tick_combat_round_effects, use_consumable
+from engine.consumables import (
+    clear_combat_effects,
+    process_weapon_coating_on_hit,
+    tick_combat_round_effects,
+    use_consumable,
+)
+
 from engine.constants import DEFAULT_SESSION_PATH, DEFAULT_TEMPLATE_PATH
 from engine.inventory import add_item, register_armor_hit, register_weapon_hit
 from engine.magic import (
@@ -193,16 +199,29 @@ def start_combat(
     # Определение первого хода
     first_attacker = determine_first_attacker(player, scaled, is_ambush, rng)
 
-    events = [{"id": "combat_started", "mobId": mob_id, "isAmbush": is_ambush, "firstAttacker": first_attacker}]
+    events = [{
+        "id": "combat_started",
+        "mobId": mob_id,
+        "enemy": monster_data.get("name", {}).get("ru", mob_id) if monster_data else mob_id,
+        "isAmbush": is_ambush,
+        "firstAttacker": first_attacker,
+    }]
+
 
     # Если монстр первый — его ход
     if first_attacker == "monster":
         state, monster_events = _execute_monster_turn(state, game_data, rng, session_path, template_path)
         events.extend(monster_events)
+        if any(e.get("id") == "player_died" for e in monster_events):
+            return state, events
+        player = state["player"]
         if player["resources"]["hp"]["current"] <= 0:
             state, death_events = handle_player_death(state, reason="combat", session_path=session_path, template_path=template_path)
             events.extend(death_events)
             return state, events
+        # Ход монстра доиграл раунд — тики и кулдауны (KI-1)
+        state, round_events = _end_round(state, game_data, rng, session_path, template_path)
+        events.extend(round_events)
 
     return state, events
 
@@ -353,7 +372,10 @@ def _execute_monster_turn(
     player = state["player"]
     active_combat = world["activeCombat"]
     combat_mob = active_combat["monster"]
-    round_num = active_combat["round"]
+    # Реген идёт по прожитым раундам: если монстр ходит первым (засада),
+    # его ход в раунде 1 — это первый прожитый раунд (KI-1).
+    round_num = active_combat["round"] + (1 if active_combat.get("isAmbush") else 0)
+    events: list[dict] = []
 
     # Получаем данные монстра для specialTraits
     mob_id = combat_mob["mobId"]
@@ -366,7 +388,14 @@ def _execute_monster_turn(
         regen_interval = special_traits.get("regenIntervalRounds", 1)
         if round_num % regen_interval == 0:
             max_hp = combat_mob["maxHp"]
+            hp_before = combat_mob["hp"]
             combat_mob["hp"] = min(max_hp, combat_mob["hp"] + regen_hp)
+            if combat_mob["hp"] > hp_before:
+                events.append({
+                    "id": "monster_regen",
+                    "enemy": monster_data.get("name", {}).get("ru", mob_id) if monster_data else mob_id,
+                    "amount": combat_mob["hp"] - hp_before,
+                })
 
     # Атака монстра
     player_evasion = 0  # будет рассчитана в roll_monster_attack
@@ -394,6 +423,15 @@ def _execute_monster_turn(
         # Урон игроку
         player["resources"]["hp"]["current"] = max(0, player["resources"]["hp"]["current"] - result["damage"])
 
+        # Событие удара врага (KI-2): журнал CLI рендерит battle_enemy_attack
+        events.append({
+            "id": "battle_enemy_attack",
+            "mobId": mob_id,
+            "enemy": monster_data.get("name", {}).get("ru", mob_id) if monster_data else mob_id,
+            "damage": result["damage"],
+            "damageType": result.get("damageType", "physical"),
+        })
+
         # Износ брони
         state, armor_events = register_armor_hit(state)
         events.extend(armor_events)
@@ -409,12 +447,20 @@ def _execute_monster_turn(
                     "type": dot.get("type", "poison"),
                     "hpDeltaPerTurn": dot.get("hpDeltaPerTurn", -1),
                     "ticksLeft": dot.get("ticks", 3),
+                    "combatOnly": True,
                 })
                 events.append({"id": "monster_onhit_dot", "dotType": dot.get("type", "poison")})
 
         # Проверка second wind
         wind_events = check_second_wind_trigger(state)
         events.extend(wind_events)
+    else:
+        # Событие промаха врага (KI-2): журнал CLI рендерит battle_enemy_miss
+        events.append({
+            "id": "battle_enemy_miss",
+            "mobId": mob_id,
+            "enemy": monster_data.get("name", {}).get("ru", mob_id) if monster_data else mob_id,
+        })
 
     # Проверка смерти игрока
     if player["resources"]["hp"]["current"] <= 0:
@@ -430,34 +476,76 @@ def _execute_monster_turn(
 # ---------------------------------------------------------------------------
 
 
-def _end_round(state: dict, combat_mob: dict) -> dict:
-    """Завершение раунда: тики эффектов, кулдауны, проверка смерти от DoT."""
+def _end_round(
+    state: dict,
+    game_data: Any,
+    rng: random.Random | None = None,
+    session_path: str = DEFAULT_SESSION_PATH,
+    template_path: str = DEFAULT_TEMPLATE_PATH,
+) -> tuple[dict, list[dict]]:
+    """Завершение раунда: тики эффектов, кулдауны, реген, смерть от DoT (§3.4 Г).
+
+    Вызывается строго после того, как отходили и игрок, и монстр. Именно здесь
+    (и только здесь) инкрементируется activeCombat["round"] — KI-1.
+    """
+    if rng is None:
+        rng = random.Random()
+
     state = copy.deepcopy(state)
     world = state["world"]
-    active_combat = world["activeCombat"]
+    active_combat = world.get("activeCombat")
+    if not active_combat:
+        return state, []
 
-    # Тики эффектов
-    state, _ = tick_combat_round_effects(state, combat_mob)
+    combat_mob = active_combat["monster"]
+    events: list[dict] = []
 
-    # Уменьшение кулдауна crushing
+    # 1. Тики эффектов игрока и монстра (события больше не выбрасываются)
+    state, tick_events = tick_combat_round_effects(state, combat_mob)
+    events.extend(tick_events)
+
+    # 2. Уменьшение кулдауна «Сокрушения»
+    world = state["world"]
     combat_flags = world.get("combatFlags", {})
     combat_flags["crushingCooldown"] = max(0, combat_flags.get("crushingCooldown", 0) - 1)
 
-    # Проверка смерти монстра от DoT
-    if combat_mob["hp"] <= 0:
-        # Победa обработается в следующем шаге
-        return state
+    # 3. Реген монстра по прожитым раундам (сейчас завершается раунд round_num)
+    round_num = active_combat["round"]
+    mob_id = combat_mob["mobId"]
+    monster_data = game_data.get_monster(mob_id)
+    special_traits = monster_data.get("specialTraits", {}) if monster_data else {}
+    if "regenHp" in special_traits:
+        regen_interval = special_traits.get("regenIntervalRounds", 1)
+        if round_num % regen_interval == 0:
+            hp_before = combat_mob["hp"]
+            combat_mob["hp"] = min(combat_mob["maxHp"], combat_mob["hp"] + special_traits["regenHp"])
+            if combat_mob["hp"] > hp_before:
+                events.append({
+                    "id": "monster_regen",
+                    "enemy": monster_data.get("name", {}).get("ru", mob_id),
+                    "amount": combat_mob["hp"] - hp_before,
+                })
 
-    # Проверка смерти игрока от DoT
+    # 4. Смерть монстра от DoT — сразу обычная победа (лут/XP/combat_victory)
+    if combat_mob["hp"] <= 0:
+        world["activeCombat"]["monster"] = combat_mob
+        return _on_monster_defeated(state, game_data, rng, session_path, template_path)
+
+    # 5. Смерть игрока от DoT
     player = state["player"]
     if player["resources"]["hp"]["current"] <= 0:
-        # Смерть обработается вызывающей стороной
-        pass
+        world["activeCombat"]["monster"] = combat_mob
+        state, death_events = handle_player_death(
+            state, reason="dot_damage", session_path=session_path, template_path=template_path
+        )
+        events.extend(death_events)
+        return state, events
 
-    # Увеличение раунда
-    active_combat["round"] += 1
+    # 6. Раунд прожит — следующий (по обновлённым ссылкам: тики делают deepcopy)
+    state["world"]["activeCombat"]["round"] += 1
 
-    return state
+    return state, events
+
 
 
 # ---------------------------------------------------------------------------
@@ -577,6 +665,8 @@ def _on_monster_defeated(
         world["inCombat"] = False
         world["activeCombat"] = None
         world["combatFlags"] = {}
+        # Боевые эффекты не утекают в мир после победы (KI-1)
+        state = clear_combat_effects(state)
         events.append({"id": "combat_victory"})
 
     return state, events
@@ -611,14 +701,22 @@ def _handle_flee(
         world["inCombat"] = False
         world["activeCombat"] = None
         world["combatFlags"] = {}
+        state = clear_combat_effects(state)
 
         return state, [{"id": "combat_fled_success"}]
     else:
-        # Провал: ход монстра
+        # Провал: ход монстра; игрок не получил второго хода — раунд доигран
         state, monster_events = _execute_monster_turn(state, game_data, rng, session_path, template_path)
         # Добавляем событие провала побега
-        monster_events.insert(0, {"id": "combat_fled_failed"})
-        return state, monster_events
+        events = [{"id": "combat_fled_failed"}]
+        events.extend(monster_events)
+        if any(e.get("id") == "player_died" for e in monster_events):
+            return state, events
+        if state["world"].get("activeCombat") is None:
+            return state, events
+        state, round_events = _end_round(state, game_data, rng, session_path, template_path)
+        events.extend(round_events)
+        return state, events
 
 
 # ---------------------------------------------------------------------------
@@ -691,12 +789,13 @@ def _handle_player_attack(
 
         events.append({
             "id": "attack_hit",
+            "mobId": combat_mob["mobId"],
             "damage": result["damage"],
             "damageType": result.get("damageType", "physical"),
             "isCrit": result.get("isCrit", False),
         })
     else:
-        events.append({"id": "attack_miss"})
+        events.append({"id": "attack_miss", "mobId": combat_mob["mobId"]})
 
     # Проверка смерти монстра
     if combat_mob["hp"] <= 0:
@@ -705,6 +804,15 @@ def _handle_player_attack(
     # Ход монстра
     state, monster_events = _execute_monster_turn(state, game_data, rng, session_path, template_path)
     events.extend(monster_events)
+    if any(e.get("id") == "player_died" for e in monster_events):
+        return state, events
+    if world.get("activeCombat") is None:
+        # permadeath-сброс: боя больше нет
+        return state, events
+
+    # Раунд доигран: тики эффектов, кулдауны, реген (KI-1)
+    state, round_events = _end_round(state, game_data, rng, session_path, template_path)
+    events.extend(round_events)
     return state, events
 
 

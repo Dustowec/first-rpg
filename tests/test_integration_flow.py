@@ -169,8 +169,11 @@ def test_combat_cycle_rewards_and_hidden_stats(paths):
     body = app.render_combat_body(state, GD)
     mob = GD.get_monster("mob_ghoul")
     assert "[HP " in body and "#" in body and "Гуль" in body
+    # Строка раунда — открытая информация, из проверки скрытых статов её исключаем
+    body_without_round = body.replace(f"раунд №{state['world']['activeCombat']['round']}", "")
     for hidden_value in (mob["hp"], mob["acc"], mob["def"], mob["dmg"]["max"]):
-        assert str(hidden_value) not in body, f"утечка скрытого стата {hidden_value}"
+        assert str(hidden_value) not in body_without_round, f"утечка скрытого стата {hidden_value}"
+
 
     screen = app.render_combat_screen(state, GD)
     assert "БОЙ" in screen and "[1] Ударить" in screen
