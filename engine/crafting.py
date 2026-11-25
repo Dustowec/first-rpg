@@ -147,8 +147,6 @@ def craft_recipe(
     world = new_state["world"]
     events: list[dict] = []
 
-    # 1. Валидация (без траты AP)
-
     # 1.1 Вне боя
     if world.get("inCombat", False):
         return new_state, [{"id": "err_in_combat"}]
@@ -202,75 +200,10 @@ def craft_recipe(
     if is_frugal and rng is not None and rng.random() <= 0.25:
         saved_ingredients = True
     else:
-        # Списываем ингредиенты
+        # Списываем ингредиенты через remove_item
         for ing in ingredients:
-            remove_item(new_state, ing["itemId"], ing["count"])
-            # remove_item возвращает (new_state, events), но мы модифицируем
-            # new_state на месте — нужно обновить ссылку
-            # Переделаем: remove_item уже делает deepcopy, поэтому нужно
-            # объединить результаты. Используем helper.
-            pass
-
-        # Пересобираем inventory после remove_item
-        # remove_item модифицирует new_state["player"]["inventory"] на месте
-        # т.к. мы передаём new_state, а не копию
-        # Но remove_item делает deepcopy внутри себя... Посмотрим внимательнее.
-
-        # remove_item делает copy.deepcopy(state) и возвращает новую копию.
-        # Значит, нам нужно заменить new_state на результат remove_item.
-        # Переделаем логику:
-
-        # Сбросим inventory к исходному состоянию (до списывания)
-        # и списнём правильно через replace
-
-        # Переподходим иначе:
-        # Собираем новый инвентарь вручную
-        pass
-
-    # --- Правильная реализация списывания ---
-    # Сбрасываем new_state к исходному (без изменений ингредиентов)
-    # и применяем списание корректно
-
-    # Перезагружаем player и inventory из исходного state для корректного
-    # применения списаний
-    # На самом деле, remove_item делает deepcopy и возвращает новый state,
-    # поэтому нужно последовательно применять его результаты.
-
-    # Сбросим к копии исходного state (без изменений)
-    new_state = copy.deepcopy(state)
-    player = new_state["player"]
-    world = new_state["world"]
-    events = []
-
-    # Снова проверяем все предусловия (они не изменились)
-    if world.get("inCombat", False):
-        return new_state, [{"id": "err_in_combat"}]
-
-    recipe = game_data.recipes.get(recipe_id)
-    if recipe is None:
-        return new_state, [{"id": "err_unknown_recipe"}]
-
-    station = recipe.get("station", "any")
-    if station != "any" and station not in _get_available_stations(new_state):
-        return new_state, [
-            {"id": "err_station_required", "requiredStation": station}
-        ]
-
-    required_skill = recipe.get("requiredSkill", {})
-    req_skill_id = required_skill.get("id", "")
-    req_skill_level = required_skill.get("level", 0)
-    if player["skills"].get(req_skill_id, 0) < req_skill_level:
-        return new_state, [
-            {
-                "id": "err_skill_too_low",
-                "skill": req_skill_id,
-                "required": req_skill_level,
-            }
-        ]
-
-    # Списание ингредиентов через remove_item
-    for ing in ingredients:
-        new_state, _ = remove_item(new_state, ing["itemId"], ing["count"])
+            new_state, _ = remove_item(new_state, ing["itemId"], ing["count"])
+        player = new_state["player"]
 
     # 3. Выдача результата
     output = recipe.get("output", {})
@@ -298,7 +231,7 @@ def craft_recipe(
         "recipeId": recipe_id,
         "itemId": out_item_id,
         "count": out_count,
-        "savedIngredients": False,
+        "savedIngredients": saved_ingredients,
     })
 
     return new_state, events

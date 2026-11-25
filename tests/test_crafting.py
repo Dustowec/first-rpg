@@ -28,6 +28,7 @@ def _make_state(
     hp_current: int | None = None,
     mp_current: int | None = None,
     gold: int = 15,
+    level: int = 1,
     alchemy: int = 0,
     crafting: int = 0,
     node_type: str = "forest_edge",
@@ -79,6 +80,7 @@ def _make_state(
 
     state: dict = {
         "player": {
+            "level": level,
             "inventory": [{"itemId": iid, "count": cnt} for iid, cnt in (inventory or [])],
             "resources": {
                 "hp": {"current": hp_current or 10, "max": 10},
@@ -294,7 +296,6 @@ class TestFrugalAlchemist(unittest.TestCase):
 
     def test_frugal_saves_ingredients(self) -> None:
         """alchemy==6: ingredients могут сохраняться (~25%)."""
-        rng = random.Random(0)  # детерминированный RNG
         state = _make_state(
             inventory=[("food_berries", 2), ("food_roots", 1)],
             alchemy=6,
@@ -302,15 +303,9 @@ class TestFrugalAlchemist(unittest.TestCase):
             fed_morning=True,
             fed_evening=True,
         )
-        # seed 0 → rng.random() ≈ 0.8445 > 0.25 → ingredients NOT saved
-        # seed 1 → rng.random() ≈ 0.7579 > 0.25 → NOT saved
-        # seed 2 → rng.random() ≈ 0.4206 > 0.25 → NOT saved
-        # seed 3 → rng.random() ≈ 0.2589 > 0.25 → NOT saved
-        # seed 4 → rng.random() ≈ 0.5113 > 0.25 → NOT saved
-        # seed 5 → rng.random() ≈ 0.4051 > 0.25 → NOT saved
-        # seed 6 → rng.random() ≈ 0.1103 <= 0.25 → SAVED!
+        # random.Random(14).random() ≈ 0.1068 <= 0.25 → SAVED!
         new_state, events = craft_recipe(
-            state, "rec_pot_heal_minor", _gd, rng=random.Random(6)
+            state, "rec_pot_heal_minor", _gd, rng=random.Random(14)
         )
         crafted = [e for e in events if e["id"] == "crafted_item"][0]
         self.assertTrue(crafted["savedIngredients"])
