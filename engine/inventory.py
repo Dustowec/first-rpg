@@ -246,7 +246,7 @@ def get_effective_weapon_stats(
     game_data: GameData,
 ) -> dict:
     """Возвращает эффективные статы оружия с учётом износа и модификаторов."""
-    equipped = player["equipment"].get("weapon")
+    equipped = player.get("equipment", {}).get("weapon")
 
     # Безоружный удар
     if equipped is None:
@@ -317,7 +317,7 @@ def get_effective_armor_stats(
     game_data: GameData,
 ) -> dict:
     """Возвращает эффективные статы брони с учётом износа и перков."""
-    equipped = player["equipment"].get("armor")
+    equipped = player.get("equipment", {}).get("armor")
 
     if equipped is None:
         return {"defense": 0, "evasion": 0, "isBroken": False, "isDamaged": False}
@@ -391,7 +391,7 @@ def register_weapon_hit(
     player = new_state["player"]
     events: list[dict] = []
 
-    equipped = player["equipment"].get("weapon")
+    equipped = player.get("equipment", {}).get("weapon")
     if equipped is None:
         return new_state, events
 
