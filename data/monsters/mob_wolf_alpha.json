@@ -1,0 +1,42 @@
+{
+  "id": "mob_wolf_alpha",
+  "category": "monster",
+  "tier": 1,
+  "type": "beast",
+  "name": {
+    "en": "Pack Alpha",
+    "ru": "Вожак стаи"
+  },
+  "description": {
+    "en": "The alpha of a wolf pack, larger and more cunning than its kin.",
+    "ru": "Вожак волчьей стаи, больше и хитрее своих сородичей."
+  },
+  "hp": 9,
+  "dmg": {
+    "min": 2,
+    "max": 3,
+    "type": "slashing"
+  },
+  "def": 1,
+  "acc": 50,
+  "eva": 4,
+  "xp": 25,
+  "gold": {
+    "min": 0,
+    "max": 3
+  },
+  "lootTable": [
+    {
+      "itemId": "mat_bone",
+      "chance": 0.5
+    },
+    {
+      "itemId": "mat_wolf_eye",
+      "chance": 0.4
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": true,
+  "isBoss": false
+}

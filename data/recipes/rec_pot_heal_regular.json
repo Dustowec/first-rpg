@@ -1,0 +1,32 @@
+{
+  "id": "rec_pot_heal_regular",
+  "category": "recipe",
+  "subCategory": "alchemy",
+  "station": "any",
+  "requiredSkill": {
+    "id": "alchemy",
+    "level": 4
+  },
+  "name": {
+    "en": "Healing Potion Recipe",
+    "ru": "Рецепт: Зелье лечения"
+  },
+  "ingredients": [
+    {
+      "itemId": "pot_heal_minor",
+      "count": 2
+    },
+    {
+      "itemId": "food_mushrooms",
+      "count": 1
+    }
+  ],
+  "output": {
+    "itemId": "pot_heal_regular",
+    "count": 1
+  },
+  "description": {
+    "en": "Recipe for healing potion.",
+    "ru": "Рецепт зелья лечения."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "wpn_sword_runic",
+  "category": "weapon",
+  "subCategory": "sword",
+  "name": {
+    "en": "Runic Blade",
+    "ru": "Рунный клинок"
+  },
+  "description": {
+    "en": "An ancient blade etched with runic inscriptions that hum with faint power. A weapon of legend made real.",
+    "ru": "Древний клинок, покрытый рунными надписями, что гудят от слабой магии. Оружие легенды, ставшее явью."
+  },
+  "economy": {
+    "buyPrice": 650,
+    "sellPrice": 160,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "damage": {
+      "min": 5,
+      "max": 8,
+      "type": "slashing",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_heavy",
+      "hidden": false
+    },
+    "durability": {
+      "max": 60,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "rec_pot_antidote",
+  "category": "recipe",
+  "subCategory": "alchemy",
+  "station": "any",
+  "requiredSkill": {
+    "id": "alchemy",
+    "level": 1
+  },
+  "name": {
+    "en": "Antidote Recipe",
+    "ru": "Рецепт: Противоядие"
+  },
+  "ingredients": [
+    {
+      "itemId": "food_moss",
+      "count": 1
+    },
+    {
+      "itemId": "food_roots",
+      "count": 1
+    }
+  ],
+  "output": {
+    "itemId": "pot_antidote",
+    "count": 1
+  },
+  "description": {
+    "en": "Recipe for antidote potion.",
+    "ru": "Рецепт зелья противоядия."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "scavenging",
+  "category": "skill",
+  "name": {
+    "en": "Scavenging",
+    "ru": "Мародёрство"
+  },
+  "description": {
+    "en": "The art of finding resources in the wild. Improves search success and loot quality.",
+    "ru": "Искусство находить ресурсы в дикой природе. Улучшает успех поиска и качество лута."
+  },
+  "milestones": {
+    "3": {
+      "id": "keen_eyes",
+      "en": "Keen Eyes",
+      "ru": "Проницательный взгляд",
+      "description": {
+        "en": "+15% chance to find items during search",
+        "ru": "+15% шанс найти предметы при поиске"
+      }
+    },
+    "6": {
+      "id": "deeper_search",
+      "en": "Deeper Search",
+      "ru": "Глубокий поиск",
+      "description": {
+        "en": "SearchMax +2 for all locations",
+        "ru": "SearchMax +2 для всех локаций"
+      }
+    },
+    "10": {
+      "id": "treasure_hunter",
+      "en": "Treasure Hunter",
+      "ru": "Охотник за сокровищами",
+      "description": {
+        "en": "Chance to find tier 2+ items during search",
+        "ru": "Шанс найти предметы 2+ тира при поиске"
+      }
+    }
+  }
+}

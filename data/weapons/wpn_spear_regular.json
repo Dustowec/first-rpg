@@ -1,0 +1,35 @@
+{
+  "id": "wpn_spear_regular",
+  "category": "weapon",
+  "subCategory": "spear",
+  "name": {
+    "en": "Regular Spear",
+    "ru": "Обычное копьё"
+  },
+  "description": {
+    "en": "A well-balanced spear with a steel head. The peasant's answer to cavalry charges.",
+    "ru": "Хорошо сбалансированное копьё со стальным наконечником. Ответ крестьянина на конные атаки."
+  },
+  "economy": {
+    "buyPrice": 20,
+    "sellPrice": 5,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "damage": {
+      "min": 1,
+      "max": 4,
+      "type": "piercing",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_light",
+      "hidden": false
+    },
+    "durability": {
+      "max": 30,
+      "hidden": false
+    }
+  }
+}

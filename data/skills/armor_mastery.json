@@ -1,0 +1,41 @@
+{
+  "id": "armor_mastery",
+  "category": "skill",
+  "name": {
+    "en": "Armor Mastery",
+    "ru": "Мастерство брони"
+  },
+  "description": {
+    "en": "Expertise in wearing and maintaining armor. Reduces durability loss and improves defense.",
+    "ru": "Экспертиза в ношении и поддержании брони. Снижает потерю прочности и улучшает защиту."
+  },
+  "milestones": {
+    "3": {
+      "id": "reinforced_armor",
+      "en": "Reinforced Armor",
+      "ru": "Усиленная броня",
+      "description": {
+        "en": "Durability loss reduced by 25%",
+        "ru": "Потеря прочности снижена на 25%"
+      }
+    },
+    "6": {
+      "id": "iron_will",
+      "en": "Iron Will",
+      "ru": "Железная воля",
+      "description": {
+        "en": "+2 to all damage resistances",
+        "ru": "+2 ко всем сопротивлениям урону"
+      }
+    },
+    "10": {
+      "id": "unbreakable",
+      "en": "Unbreakable",
+      "ru": "Неразрушимый",
+      "description": {
+        "en": "Armor at 0 durability still provides 50% defense",
+        "ru": "Броня на 0 прочности всё ещё даёт 50% защиты"
+      }
+    }
+  }
+}

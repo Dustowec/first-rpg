@@ -1,0 +1,32 @@
+{
+  "id": "rec_oil_poison",
+  "category": "recipe",
+  "subCategory": "alchemy",
+  "station": "any",
+  "requiredSkill": {
+    "id": "alchemy",
+    "level": 2
+  },
+  "name": {
+    "en": "Swamp Venom Recipe",
+    "ru": "Рецепт: Болотный яд"
+  },
+  "ingredients": [
+    {
+      "itemId": "food_red_mushroom",
+      "count": 2
+    },
+    {
+      "itemId": "food_moss",
+      "count": 1
+    }
+  ],
+  "output": {
+    "itemId": "oil_poison",
+    "count": 1
+  },
+  "description": {
+    "en": "Recipe for poison oil.",
+    "ru": "Рецепт ядовитого масла."
+  }
+}

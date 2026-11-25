@@ -1,0 +1,42 @@
+{
+  "id": "mob_bandit_rogue",
+  "category": "monster",
+  "tier": 2,
+  "type": "humanoid",
+  "name": {
+    "en": "Bandit Rogue",
+    "ru": "Разбойник"
+  },
+  "description": {
+    "en": "A cunning bandit with a razor-sharp blade and a taste for blood.",
+    "ru": "Хитрый бандит с острым клинком и кровосмесительной жаждой."
+  },
+  "hp": 14,
+  "dmg": {
+    "min": 2,
+    "max": 5,
+    "type": "slashing"
+  },
+  "def": 3,
+  "acc": 52,
+  "eva": 6,
+  "xp": 60,
+  "gold": {
+    "min": 4,
+    "max": 10
+  },
+  "lootTable": [
+    {
+      "itemId": "junk_scrap_metal",
+      "chance": 0.25
+    },
+    {
+      "itemId": "food_dried_fish",
+      "chance": 0.15
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arm_cloth_poor",
+  "category": "armor",
+  "subCategory": "cloth",
+  "name": {
+    "en": "Poor Cloth",
+    "ru": "Паршивая ткань"
+  },
+  "description": {
+    "en": "A patched tunic of coarse fabric. Barely offers warmth, let alone protection.",
+    "ru": "Заплатанная туника из грубой ткани. Хоть немного согревает, не то что защищает."
+  },
+  "economy": {
+    "buyPrice": 8,
+    "sellPrice": 1,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "defense": {
+      "value": 1,
+      "hidden": false
+    },
+    "evasion": {
+      "value": 4,
+      "hidden": false
+    },
+    "durability": {
+      "max": 15,
+      "hidden": false
+    }
+  }
+}

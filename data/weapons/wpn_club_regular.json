@@ -1,0 +1,35 @@
+{
+  "id": "wpn_club_regular",
+  "category": "weapon",
+  "subCategory": "blunt",
+  "name": {
+    "en": "Club",
+    "ru": "Дубина"
+  },
+  "description": {
+    "en": "A proper wooden club, turned on a lathe and hardened over fire. Reliable, if unglamorous.",
+    "ru": "Настоящая дубина, сточенная на токарном станке и закалившаяся над огнём. Надёжна, пусть и неказиста."
+  },
+  "economy": {
+    "buyPrice": 15,
+    "sellPrice": 3,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "damage": {
+      "min": 2,
+      "max": 3,
+      "type": "blunt",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_heavy",
+      "hidden": false
+    },
+    "durability": {
+      "max": 20,
+      "hidden": false
+    }
+  }
+}

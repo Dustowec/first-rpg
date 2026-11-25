@@ -1,0 +1,35 @@
+{
+  "id": "wpn_club_simple",
+  "category": "weapon",
+  "subCategory": "blunt",
+  "name": {
+    "en": "Simple Club",
+    "ru": "Простая дубина"
+  },
+  "description": {
+    "en": "A rough-hewn branch, barely shaped by a knife. Heavy enough to bruise, light enough to swing wildly.",
+    "ru": "Необработанная ветка, едва подточенная ножом. Тяжёлая достаточно, чтобы оставить синяк, лёгкая — чтобы махать без разбора."
+  },
+  "economy": {
+    "buyPrice": 3,
+    "sellPrice": 0,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "damage": {
+      "min": 1,
+      "max": 2,
+      "type": "blunt",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_heavy",
+      "hidden": false
+    },
+    "durability": {
+      "max": 15,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "elx_accuracy",
+  "category": "consumable",
+  "subCategory": "elixir",
+  "name": {
+    "en": "Tincture of Keenness",
+    "ru": "Настойка зоркости"
+  },
+  "description": {
+    "en": "A sharp, peppery brew that sharpens the senses and steadies the aim.",
+    "ru": "Резкая, перечная настойка, обостряющая чувства и успокаивающая прицел."
+  },
+  "economy": {
+    "buyPrice": 25,
+    "sellPrice": 6,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "buffEffect": {
+      "stat": "accuracy",
+      "value": 10,
+      "maxHitCapOverride": 85,
+      "durationCombatTurns": 5,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "mob_bandit_chief",
+  "category": "monster",
+  "tier": 3,
+  "type": "humanoid",
+  "name": {
+    "en": "Bandit Chief",
+    "ru": "Главарь бандитов"
+  },
+  "description": {
+    "en": "A ruthless bandit leader, clad in stolen armor and wielding a cruel blade.",
+    "ru": "Безжалостный лидер бандитов, в краденом доспехе и с жестоким клинком."
+  },
+  "hp": 24,
+  "dmg": {
+    "min": 4,
+    "max": 7,
+    "type": "slashing"
+  },
+  "def": 5,
+  "acc": 60,
+  "eva": 3,
+  "xp": 130,
+  "gold": {
+    "min": 15,
+    "max": 35
+  },
+  "lootTable": [
+    {
+      "itemId": "wpn_sword_regular",
+      "chance": 0.1
+    },
+    {
+      "itemId": "food_bread",
+      "chance": 0.3
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": true,
+  "isBoss": false
+}

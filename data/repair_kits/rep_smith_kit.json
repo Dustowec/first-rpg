@@ -1,0 +1,26 @@
+{
+  "id": "rep_smith_kit",
+  "category": "repair_kit",
+  "subCategory": "universal",
+  "name": {
+    "en": "Field Smithing Kit",
+    "ru": "Походный набор кузнеца"
+  },
+  "description": {
+    "en": "A portable blacksmith's kit. Repairs any weapon or plate armor in the field.",
+    "ru": "Портативный кузнечный набор. Чинит любое оружие или латную броню в поле."
+  },
+  "economy": {
+    "buyPrice": 25,
+    "sellPrice": 6,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "durabilityRestore": 15,
+    "targetCategories": [
+      "weapon",
+      "armor"
+    ]
+  }
+}

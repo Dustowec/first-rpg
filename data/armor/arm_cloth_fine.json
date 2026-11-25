@@ -1,0 +1,33 @@
+{
+  "id": "arm_cloth_fine",
+  "category": "armor",
+  "subCategory": "cloth",
+  "name": {
+    "en": "Master's Woven Robe",
+    "ru": "Тканый кафтан мастера"
+  },
+  "description": {
+    "en": "Expertly woven layers of reinforced fabric. Light as air, tough as leather.",
+    "ru": "Искусно сплетённые слои усиленной ткани. Лёгкая как воздух, крепкая как кожа."
+  },
+  "economy": {
+    "buyPrice": 65,
+    "sellPrice": 15,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "defense": {
+      "value": 3,
+      "hidden": false
+    },
+    "evasion": {
+      "value": 8,
+      "hidden": false
+    },
+    "durability": {
+      "max": 30,
+      "hidden": false
+    }
+  }
+}

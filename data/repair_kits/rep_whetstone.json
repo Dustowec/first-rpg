@@ -1,0 +1,25 @@
+{
+  "id": "rep_whetstone",
+  "category": "repair_kit",
+  "subCategory": "weapon",
+  "name": {
+    "en": "Whetstone",
+    "ru": "Точильный камень"
+  },
+  "description": {
+    "en": "A fine-grit whetstone for sharpening blades. Restores weapon durability.",
+    "ru": "Точильный камень с мелким зерном для заточки клинков. Восстанавливает прочность оружия."
+  },
+  "economy": {
+    "buyPrice": 10,
+    "sellPrice": 2,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "durabilityRestore": 10,
+    "targetCategories": [
+      "weapon"
+    ]
+  }
+}

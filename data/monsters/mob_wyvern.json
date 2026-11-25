@@ -1,0 +1,33 @@
+{
+  "id": "mob_wyvern",
+  "category": "monster",
+  "tier": 5,
+  "type": "beast",
+  "name": {
+    "en": "Tsar-Gad (Wyvern)",
+    "ru": "Царь-гад (Виверна)"
+  },
+  "description": {
+    "en": "A massive wyvern with scales like polished iron, breathing toxic fumes.",
+    "ru": "Огромная виверна с чешуёй-политой железом, дышащая ядовитыми испарениями."
+  },
+  "hp": 48,
+  "dmg": {
+    "min": 7,
+    "max": 11,
+    "type": "piercing"
+  },
+  "def": 7,
+  "acc": 72,
+  "eva": 9,
+  "xp": 230,
+  "gold": {
+    "min": 20,
+    "max": 50
+  },
+  "lootTable": [],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

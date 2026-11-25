@@ -1,0 +1,27 @@
+{
+  "id": "spl_fireball",
+  "category": "spell",
+  "subCategory": "damage",
+  "school": "pyromancy",
+  "name": {
+    "en": "Fireball",
+    "ru": "Огненный шар"
+  },
+  "description": {
+    "en": "A roaring sphere of flame that explodes on impact. Devastating against beasts and undead.",
+    "ru": "Ревущий шар пламени, взрывающийся при ударе. Разрушительный против зверей и нежити."
+  },
+  "requiredSkill": {
+    "id": "pyromancy",
+    "level": 5
+  },
+  "stats": {
+    "mpCost": 4,
+    "damage": {
+      "min": 5,
+      "max": 8,
+      "type": "fire",
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arm_plate_fine",
+  "category": "armor",
+  "subCategory": "plate",
+  "name": {
+    "en": "Knight's Plate",
+    "ru": "Рыцарские латы"
+  },
+  "description": {
+    "en": "A masterwork suit of plate armor, fitted for a knight. Nearly impenetrable to common weapons.",
+    "ru": "Доспех мастерской работы, подогнанный для рыцаря. Почти непробиваемый для обычного оружия."
+  },
+  "economy": {
+    "buyPrice": 420,
+    "sellPrice": 105,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "defense": {
+      "value": 10,
+      "hidden": false
+    },
+    "evasion": {
+      "value": -8,
+      "hidden": false
+    },
+    "durability": {
+      "max": 60,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "mob_troll_hill",
+  "category": "monster",
+  "tier": 3,
+  "type": "beast",
+  "name": {
+    "en": "Hill Troll",
+    "ru": "Холмовой тролль"
+  },
+  "description": {
+    "en": "A massive troll with regenerative flesh, lumbering from its cave lair.",
+    "ru": "Огромный тролль с регенерирующей плотью, бредущий из своей пещеры."
+  },
+  "hp": 26,
+  "dmg": {
+    "min": 4,
+    "max": 6,
+    "type": "blunt"
+  },
+  "def": 5,
+  "acc": 55,
+  "eva": 0,
+  "xp": 165,
+  "gold": {
+    "min": 5,
+    "max": 15
+  },
+  "lootTable": [
+    {
+      "itemId": "mat_bone",
+      "chance": 0.8
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {
+    "regenHp": 1,
+    "regenIntervalRounds": 2
+  },
+  "isElite": false,
+  "isBoss": true
+}

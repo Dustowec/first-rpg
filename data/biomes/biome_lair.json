@@ -1,0 +1,61 @@
+{
+  "id": "biome_lair",
+  "category": "biome",
+  "biomeType": "lair",
+  "name": {
+    "en": "Monster Lair",
+    "ru": "Логово монстра"
+  },
+  "description": {
+    "en": "A dark, foreboding lair deep underground, reeking of danger and treasure.",
+    "ru": "Тёмное, зловещее логово глубоко под землёй, пропахшее опасностью и сокровищами."
+  },
+  "pSpawn": 0.08,
+  "canSearch": true,
+  "searchWeightShifts": {
+    "nothing": 10,
+    "junk": -10
+  },
+  "preferredItems": [],
+  "monsterPool": [
+    "mob_troll_hill",
+    "mob_ogre",
+    "mob_flesh_amalgam",
+    "mob_wyvern",
+    "mob_lich_lesser",
+    "mob_troll_ancient"
+  ],
+  "services": [],
+  "namePool": {
+    "adjectives": {
+      "en": [
+        "Dark",
+        "Deadly",
+        "Cursed",
+        "Abyssal",
+        "Forbidden"
+      ],
+      "ru": [
+        "Тёмный",
+        "Смертельный",
+        "Проклятый",
+        "Бездонный",
+        "Запретный"
+      ]
+    },
+    "nouns": {
+      "en": [
+        "Lair",
+        "Den",
+        "Cavern",
+        "Hollow"
+      ],
+      "ru": [
+        "Логово",
+        "Нора",
+        "Пещера",
+        "Ущелье"
+      ]
+    }
+  }
+}

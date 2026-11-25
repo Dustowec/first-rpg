@@ -1,0 +1,38 @@
+{
+  "id": "mob_ghoul",
+  "category": "monster",
+  "tier": 2,
+  "type": "undead",
+  "name": {
+    "en": "Ghoul",
+    "ru": "Гуль"
+  },
+  "description": {
+    "en": "A rotting corpse reanimated by cursed earth, clawing for fresh flesh.",
+    "ru": "Гниющий труп, оживлённый проклятой землёй, тянущийся за свежим мясом."
+  },
+  "hp": 16,
+  "dmg": {
+    "min": 2,
+    "max": 4,
+    "type": "slashing"
+  },
+  "def": 2,
+  "acc": 48,
+  "eva": 2,
+  "xp": 55,
+  "gold": {
+    "min": 2,
+    "max": 6
+  },
+  "lootTable": [
+    {
+      "itemId": "junk_broken_hilt",
+      "chance": 0.2
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

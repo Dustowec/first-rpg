@@ -1,0 +1,38 @@
+{
+  "id": "mob_knight_black",
+  "category": "monster",
+  "tier": 5,
+  "type": "humanoid",
+  "name": {
+    "en": "Black Knight",
+    "ru": "Чёрный рыцарь"
+  },
+  "description": {
+    "en": "A towering knight in blackened plate armor, wielding a cursed blade.",
+    "ru": "Гигантский рыцарь в почерневших латах с проклятым клинком."
+  },
+  "hp": 50,
+  "dmg": {
+    "min": 7,
+    "max": 10,
+    "type": "slashing"
+  },
+  "def": 9,
+  "acc": 72,
+  "eva": 3,
+  "xp": 280,
+  "gold": {
+    "min": 60,
+    "max": 100
+  },
+  "lootTable": [
+    {
+      "itemId": "arm_plate_regular",
+      "chance": 0.1
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

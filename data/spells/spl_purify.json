@@ -1,0 +1,26 @@
+{
+  "id": "spl_purify",
+  "category": "spell",
+  "subCategory": "cure",
+  "school": "restoration",
+  "name": {
+    "en": "Purify",
+    "ru": "Очищение"
+  },
+  "description": {
+    "en": "A cleansing light that burns away toxins and curses. Essential for dangerous expeditions.",
+    "ru": "Очищающий свет, выжигающий токсины и проклятия. Необходим для опасных экспедиций."
+  },
+  "requiredSkill": {
+    "id": "restoration",
+    "level": 5
+  },
+  "stats": {
+    "mpCost": 3,
+    "cureEffects": [
+      "poison",
+      "bleeding",
+      "burn"
+    ]
+  }
+}

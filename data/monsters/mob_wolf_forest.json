@@ -1,0 +1,42 @@
+{
+  "id": "mob_wolf_forest",
+  "category": "monster",
+  "tier": 1,
+  "type": "beast",
+  "name": {
+    "en": "Forest Wolf",
+    "ru": "Лесной волк"
+  },
+  "description": {
+    "en": "A lean, hungry wolf with a scarred muzzle and eyes full of malice.",
+    "ru": "Худой, голодный волк с рубцоватой мордой и глазами, полными злобы."
+  },
+  "hp": 6,
+  "dmg": {
+    "min": 1,
+    "max": 2,
+    "type": "slashing"
+  },
+  "def": 1,
+  "acc": 45,
+  "eva": 2,
+  "xp": 15,
+  "gold": {
+    "min": 0,
+    "max": 2
+  },
+  "lootTable": [
+    {
+      "itemId": "mat_bone",
+      "chance": 0.3
+    },
+    {
+      "itemId": "mat_wolf_eye",
+      "chance": 0.1
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

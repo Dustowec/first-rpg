@@ -1,0 +1,41 @@
+{
+  "id": "restoration",
+  "category": "skill",
+  "name": {
+    "en": "Restoration",
+    "ru": "Восстановление"
+  },
+  "description": {
+    "en": "The art of healing and protective magic. Restores HP, cures ailments, and shields allies.",
+    "ru": "Искусство исцеления и защитной магии. Восстанавливает HP, лечит болезни и защищает союзников."
+  },
+  "milestones": {
+    "3": {
+      "id": "swift_healing",
+      "en": "Swift Healing",
+      "ru": "Быстрое исцеление",
+      "description": {
+        "en": "Healing spells restore +30% HP",
+        "ru": "Заклинания исцеления восстанавливают +30% HP"
+      }
+    },
+    "6": {
+      "id": "cleansing_light",
+      "en": "Cleansing Light",
+      "ru": "Очищающий свет",
+      "description": {
+        "en": "Cure spells also remove burn effects",
+        "ru": "Заклинания очищения также снимают эффекты поджога"
+      }
+    },
+    "10": {
+      "id": "resurrection",
+      "en": "Resurrection",
+      "ru": "Воскрешение",
+      "description": {
+        "en": "Once per combat, revive with 30% HP when reduced to 0",
+        "ru": "Раз в бой: воскреснуть с 30% HP при снижении до 0"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "food_dried_fish",
+  "category": "food",
+  "subCategory": "preserved",
+  "name": {
+    "en": "Dried Fish",
+    "ru": "Вяленая рыба"
+  },
+  "description": {
+    "en": "Salted and sun-dried fish. Tough to chew, long-lasting, and surprisingly nourishing.",
+    "ru": "Соленая и высушенная на солнце рыба. Трудно жевать, долго хранится и удивительно питательна."
+  },
+  "economy": {
+    "buyPrice": 3,
+    "sellPrice": 1,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 3,
+      "hidden": true
+    }
+  }
+}

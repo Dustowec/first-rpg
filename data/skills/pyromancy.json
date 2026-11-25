@@ -1,0 +1,41 @@
+{
+  "id": "pyromancy",
+  "category": "skill",
+  "name": {
+    "en": "Pyromancy",
+    "ru": "Пиромантия"
+  },
+  "description": {
+    "en": "The art of fire and ice magic. Direct damage, burns, and freezing effects.",
+    "ru": "Искусство огня и льда. Прямой урон, поджоги и эффекты заморозки."
+  },
+  "milestones": {
+    "3": {
+      "id": "flame_aura",
+      "en": "Flame Aura",
+      "ru": "Огненная аура",
+      "description": {
+        "en": "Fire spells deal +20% damage",
+        "ru": "Огненные заклинания наносят +20% урона"
+      }
+    },
+    "6": {
+      "id": "frost_bite",
+      "en": "Frost Bite",
+      "ru": "Морозный укус",
+      "description": {
+        "en": "Ice spells have 15% chance to slow (reduce evasion by 5)",
+        "ru": "Ледяные заклинания имеют 15% шанс замедлить (снижение уклонения на 5)"
+      }
+    },
+    "10": {
+      "id": "cataclysm",
+      "en": "Cataclysm",
+      "ru": "Катаклизм",
+      "description": {
+        "en": "Fire spells ignore 50% additional enemy resistance",
+        "ru": "Огненные заклинания игнорируют 50% дополнительного сопротивления врага"
+      }
+    }
+  }
+}

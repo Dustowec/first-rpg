@@ -1,0 +1,61 @@
+{
+  "id": "biome_forest_edge",
+  "category": "biome",
+  "biomeType": "forest_edge",
+  "name": {
+    "en": "Forest Edge",
+    "ru": "Край леса"
+  },
+  "description": {
+    "en": "Where the open land meets the dense woodland, shadows lengthen.",
+    "ru": "Где открытая земля встречается с густым лесом, тени удлиняются."
+  },
+  "pSpawn": 0.22,
+  "canSearch": true,
+  "searchWeightShifts": {
+    "material": 5,
+    "nothing": -5
+  },
+  "preferredItems": [
+    "mat_bone",
+    "mat_wolf_eye"
+  ],
+  "monsterPool": [
+    "mob_wolf_forest",
+    "mob_wolf_alpha",
+    "mob_boar_wild"
+  ],
+  "services": [],
+  "namePool": {
+    "adjectives": {
+      "en": [
+        "Dense",
+        "Shadowed",
+        "Ancient",
+        "Thick",
+        "Dark"
+      ],
+      "ru": [
+        "Густой",
+        "Затенённый",
+        "Древний",
+        "Плотный",
+        "Тёмный"
+      ]
+    },
+    "nouns": {
+      "en": [
+        "Edge",
+        "Border",
+        "Threshold",
+        "Linde"
+      ],
+      "ru": [
+        "Край",
+        "Граница",
+        "Порог",
+        "Оканье"
+      ]
+    }
+  }
+}

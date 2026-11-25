@@ -1,0 +1,33 @@
+{
+  "id": "arm_leather_poor",
+  "category": "armor",
+  "subCategory": "leather",
+  "name": {
+    "en": "Worn Leather",
+    "ru": "Потёртая кожанка"
+  },
+  "description": {
+    "en": "A cracked leather vest, softened by years of wear. No elegance, but it works.",
+    "ru": "Потрескавшийся кожаный жилет, размягчённый годами носки. Без изящества, но работает."
+  },
+  "economy": {
+    "buyPrice": 18,
+    "sellPrice": 4,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "defense": {
+      "value": 2,
+      "hidden": false
+    },
+    "evasion": {
+      "value": 0,
+      "hidden": false
+    },
+    "durability": {
+      "max": 20,
+      "hidden": false
+    }
+  }
+}

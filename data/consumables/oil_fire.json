@@ -1,0 +1,27 @@
+{
+  "id": "oil_fire",
+  "category": "consumable",
+  "subCategory": "coating",
+  "name": {
+    "en": "Flammable Oil",
+    "ru": "Горючее масло"
+  },
+  "description": {
+    "en": "A sticky, resinous oil that ignites on contact with air. Devastating against beasts and undead.",
+    "ru": "Липкое, смолистое масло, воспламеняющееся на воздухе. Разрушительно против зверей и нежити."
+  },
+  "economy": {
+    "buyPrice": 32,
+    "sellPrice": 8,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "coatingEffect": {
+      "bonusDamage": 2,
+      "damageType": "fire",
+      "charges": 4,
+      "hidden": false
+    }
+  }
+}

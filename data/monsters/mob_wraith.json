@@ -1,0 +1,38 @@
+{
+  "id": "mob_wraith",
+  "category": "monster",
+  "tier": 4,
+  "type": "undead",
+  "name": {
+    "en": "Wraith",
+    "ru": "Призрак"
+  },
+  "description": {
+    "en": "A spectral horror drifting through the mist, its touch saps the living warmth.",
+    "ru": "Спектральный ужас, бредущий сквозь туман, его прикосновение высасывает жизненное тепло."
+  },
+  "hp": 28,
+  "dmg": {
+    "min": 5,
+    "max": 8,
+    "type": "arcane"
+  },
+  "def": 3,
+  "acc": 68,
+  "eva": 12,
+  "xp": 200,
+  "gold": {
+    "min": 10,
+    "max": 25
+  },
+  "lootTable": [],
+  "affinities": {
+    "slashing": 0.5,
+    "piercing": 0.5
+  },
+  "specialTraits": {
+    "ignoreArmorRatio": 0.5
+  },
+  "isElite": false,
+  "isBoss": false
+}

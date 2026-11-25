@@ -1,0 +1,61 @@
+{
+  "id": "biome_meadow",
+  "category": "biome",
+  "biomeType": "meadow",
+  "name": {
+    "en": "Open Meadow",
+    "ru": "Открытый луг"
+  },
+  "description": {
+    "en": "A wide grassy meadow dotted with wildflowers and herbs.",
+    "ru": "Широкий травяной луг, усеянный дикими цветами и травами."
+  },
+  "pSpawn": 0.2,
+  "canSearch": true,
+  "searchWeightShifts": {
+    "food": 10,
+    "nothing": -10
+  },
+  "preferredItems": [
+    "food_berries",
+    "food_mushrooms",
+    "food_cabbage"
+  ],
+  "monsterPool": [
+    "mob_boar_wild",
+    "mob_bandit_scout"
+  ],
+  "services": [],
+  "namePool": {
+    "adjectives": {
+      "en": [
+        "Green",
+        "Golden",
+        "Flowering",
+        "Windy",
+        "Sunny"
+      ],
+      "ru": [
+        "Зелёный",
+        "Золотой",
+        "Цветущий",
+        "Ветреный",
+        "Солнечный"
+      ]
+    },
+    "nouns": {
+      "en": [
+        "Meadow",
+        "Field",
+        "Pasture",
+        "Glade"
+      ],
+      "ru": [
+        "Луг",
+        "Поле",
+        "Пастбище",
+        "Поляна"
+      ]
+    }
+  }
+}

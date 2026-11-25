@@ -1,0 +1,61 @@
+{
+  "id": "biome_road",
+  "category": "biome",
+  "biomeType": "road",
+  "name": {
+    "en": "Dirt Road",
+    "ru": "Грунтовая дорога"
+  },
+  "description": {
+    "en": "A worn dirt road cutting through the wilderness, littered with discarded items.",
+    "ru": "Протоптанная грунтовая дорога, рассекающая дикую местность, усеянная отбросами."
+  },
+  "pSpawn": 0.25,
+  "canSearch": true,
+  "searchWeightShifts": {
+    "junk": 10,
+    "nothing": -10
+  },
+  "preferredItems": [
+    "junk_rags",
+    "junk_broken_hilt"
+  ],
+  "monsterPool": [
+    "mob_bandit_scout",
+    "mob_bandit_rogue",
+    "mob_bandit_chief"
+  ],
+  "services": [],
+  "namePool": {
+    "adjectives": {
+      "en": [
+        "Old",
+        "Worn",
+        "Dusty",
+        "Overgrown",
+        "Ancient"
+      ],
+      "ru": [
+        "Старая",
+        "Протоптанная",
+        "Пыльная",
+        "Заросшая",
+        "Древняя"
+      ]
+    },
+    "nouns": {
+      "en": [
+        "Road",
+        "Path",
+        "Trail",
+        "Highway"
+      ],
+      "ru": [
+        "Дорога",
+        "Тропа",
+        "Путь",
+        "Шоссе"
+      ]
+    }
+  }
+}

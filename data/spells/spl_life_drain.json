@@ -1,0 +1,31 @@
+{
+  "id": "spl_life_drain",
+  "category": "spell",
+  "subCategory": "drain",
+  "school": "hexes",
+  "name": {
+    "en": "Life Drain",
+    "ru": "Отжира жизни"
+  },
+  "description": {
+    "en": "A vile spell that siphons life force from the target to heal the caster. Dark and effective.",
+    "ru": "Гнусное заклинание, высасывающее жизненную силу из цели для исцеления заклинателя. Тёмное и эффективное."
+  },
+  "requiredSkill": {
+    "id": "hexes",
+    "level": 7
+  },
+  "stats": {
+    "mpCost": 4,
+    "damage": {
+      "min": 3,
+      "max": 5,
+      "type": "arcane",
+      "hidden": false
+    },
+    "lifeSteal": {
+      "value": 2,
+      "hidden": false
+    }
+  }
+}

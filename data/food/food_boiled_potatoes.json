@@ -1,0 +1,25 @@
+{
+  "id": "food_boiled_potatoes",
+  "category": "food",
+  "subCategory": "cooked",
+  "name": {
+    "en": "Boiled Potatoes",
+    "ru": "Варёная картошка"
+  },
+  "description": {
+    "en": "Soft, warm potatoes boiled in a pot. Peasant comfort food at its finest.",
+    "ru": "Мягкий, тёплый картофель, сваренный в горшке. крестьянская комфортная еда в лучшем виде."
+  },
+  "economy": {
+    "buyPrice": 10,
+    "sellPrice": 5,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 5,
+      "hidden": true
+    }
+  }
+}

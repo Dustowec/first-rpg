@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+state_session.json
+.vscode/
+.gigacode/
+.gigaide/
+.idea/
+.pytest_cache/

@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "seed": 42,
+    "region": 1,
+    "difficulty": "normal",
+    "difficultyMultiplier": 1.0,
+    "xpRate": 1.0,
+    "llm": {
+      "enabled": true,
+      "endpoint": "http://127.0.0.1:8080/v1/chat/completions",
+      "model": "Qwen3-4B-Instruct-Q4_K_M",
+      "timeoutSec": 15
+    }
+  },
+  "player": {
+    "id": "player_default",
+    "level": 1,
+    "xp": 0,
+    "gold": 15,
+    "unspentPoints": {
+      "attributes": 3,
+      "skills": 0
+    },
+    "resources": {
+      "hp": {
+        "current": 10,
+        "max": 10
+      },
+      "mp": {
+        "current": 2,
+        "max": 2
+      }
+    },
+    "attributes": {
+      "strength": 1,
+      "agility": 1,
+      "constitution": 1,
+      "intelligence": 1,
+      "wisdom": 1
+    },
+    "skills": {
+      "melee_heavy": 0,
+      "melee_light": 0,
+      "armor_mastery": 0,
+      "pyromancy": 0,
+      "restoration": 0,
+      "hexes": 0,
+      "alchemy": 0,
+      "crafting": 0,
+      "scavenging": 0
+    },
+    "equipment": {
+      "weapon": {
+        "itemId": "wpn_club_simple",
+        "durability": {
+          "current": 15,
+          "max": 15
+        }
+      },
+      "armor": {
+        "itemId": "arm_cloth_poor",
+        "durability": {
+          "current": 15,
+          "max": 15
+        }
+      }
+    },
+    "inventory": [
+      {
+        "itemId": "food_berries",
+        "count": 2
+      },
+      {
+        "itemId": "food_bread",
+        "count": 1
+      },
+      {
+        "itemId": "pot_heal_minor",
+        "count": 1
+      }
+    ]
+  },
+  "world": {
+    "day": 1,
+    "stepOfDay": 1,
+    "fedMorning": false,
+    "fedEvening": false,
+    "inCombat": false,
+    "activeEffects": [],
+    "killsTotal": 0,
+    "locationsVisited": 1
+  },
+  "map": {
+    "currentNodeId": "node_00",
+    "nodes": [
+      {
+        "id": "node_00",
+        "type": "village",
+        "name": "Приграничная деревня",
+        "danger": 0,
+        "depth": 0,
+        "connections": [],
+        "state": {
+          "visited": true,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 0,
+          "searchDepleted": true,
+          "spawnRolled": true,
+          "monster": null,
+          "daysSinceCleared": 0
+        }
+      }
+    ]
+  },
+  "npcs": {
+    "npc_elder_miroslav": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    },
+    "npc_merchant_ganna": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    },
+    "npc_blacksmith_kolm": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    },
+    "npc_innkeeper_boris": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    },
+    "npc_herbalist_vela": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    }
+  },
+  "flags": {
+    "introShown": false,
+    "isDead": false,
+    "deathReason": null
+  }
+}

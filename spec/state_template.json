@@ -1,0 +1,631 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "seed": 20260101,
+    "region": 1,
+    "template": "state_template.json",
+    "llm": {
+      "enabled": true,
+      "endpoint": "http://127.0.0.1:8080/v1/chat/completions",
+      "model": "Qwen3-4B-Instruct-Q4_K_M",
+      "timeoutSec": 15
+    }
+  },
+  "player": {
+    "id": "player_default",
+    "level": 1,
+    "xp": 0,
+    "gold": 15,
+    "unspentPoints": {
+      "attributes": 3,
+      "skills": 0
+    },
+    "resources": {
+      "hp": {
+        "current": 10,
+        "max": 10
+      },
+      "mp": {
+        "current": 2,
+        "max": 2
+      }
+    },
+    "attributes": {
+      "strength": 1,
+      "agility": 1,
+      "constitution": 1,
+      "intelligence": 1,
+      "wisdom": 1
+    },
+    "skills": {
+      "melee_heavy": 0,
+      "melee_light": 0,
+      "armor_mastery": 0,
+      "pyromancy": 0,
+      "restoration": 0,
+      "hexes": 0,
+      "alchemy": 0,
+      "crafting": 0,
+      "scavenging": 0
+    },
+    "equipment": {
+      "weapon": {
+        "itemId": "wpn_club_simple",
+        "durability": {
+          "current": 15,
+          "max": 15
+        }
+      },
+      "armor": {
+        "itemId": "arm_cloth_poor",
+        "durability": {
+          "current": 15,
+          "max": 15
+        }
+      }
+    },
+    "inventory": [
+      {
+        "itemId": "food_berries",
+        "count": 2
+      },
+      {
+        "itemId": "food_bread",
+        "count": 1
+      },
+      {
+        "itemId": "pot_heal_minor",
+        "count": 1
+      }
+    ]
+  },
+  "world": {
+    "day": 1,
+    "stepOfDay": 1,
+    "fedMorning": false,
+    "fedEvening": false,
+    "inCombat": false,
+    "activeEffects": [],
+    "killsTotal": 0,
+    "locationsVisited": 1
+  },
+  "map": {
+    "currentNodeId": "node_00",
+    "nodes": [
+      {
+        "id": "node_00",
+        "type": "village",
+        "name": "Приграничная деревня",
+        "danger": 0,
+        "depth": 0,
+        "connections": [
+          "node_01",
+          "node_02",
+          "node_03"
+        ],
+        "state": {
+          "visited": true,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 3,
+          "searchDepleted": false,
+          "spawnRolled": true,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_01",
+        "type": "road",
+        "name": "Сухой тракт",
+        "danger": 1,
+        "depth": 1,
+        "connections": [
+          "node_00",
+          "node_06",
+          "node_07"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_02",
+        "type": "meadow",
+        "name": "Тихий луг",
+        "danger": 1,
+        "depth": 1,
+        "connections": [
+          "node_00",
+          "node_05",
+          "node_08"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_03",
+        "type": "road",
+        "name": "Старый шлях",
+        "danger": 1,
+        "depth": 1,
+        "connections": [
+          "node_00",
+          "node_04"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_04",
+        "type": "meadow",
+        "name": "Заячья пустошь",
+        "danger": 1,
+        "depth": 2,
+        "connections": [
+          "node_03",
+          "node_11"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_05",
+        "type": "forest_edge",
+        "name": "Волчья опушка",
+        "danger": 1,
+        "depth": 2,
+        "connections": [
+          "node_02",
+          "node_12"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_06",
+        "type": "road",
+        "name": "Контрабандистская тропа",
+        "danger": 1,
+        "depth": 2,
+        "connections": [
+          "node_01",
+          "node_13"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_07",
+        "type": "forest_edge",
+        "name": "Курганская опушка",
+        "danger": 1,
+        "depth": 2,
+        "connections": [
+          "node_01",
+          "node_09"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_08",
+        "type": "meadow",
+        "name": "Пестрящее поле",
+        "danger": 1,
+        "depth": 2,
+        "connections": [
+          "node_02",
+          "node_10"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_09",
+        "type": "forest_edge",
+        "name": "Ольховый край",
+        "danger": 2,
+        "depth": 3,
+        "connections": [
+          "node_07",
+          "node_17"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_10",
+        "type": "ruins",
+        "name": "Гнилые руины",
+        "danger": 2,
+        "depth": 3,
+        "connections": [
+          "node_08",
+          "node_18"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_11",
+        "type": "camp",
+        "name": "Лагерь добытчиков",
+        "danger": 2,
+        "depth": 3,
+        "connections": [
+          "node_04",
+          "node_15"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_12",
+        "type": "forest_edge",
+        "name": "Солнечный край леса",
+        "danger": 2,
+        "depth": 3,
+        "connections": [
+          "node_05",
+          "node_16"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_13",
+        "type": "swamp",
+        "name": "Туманная трясина",
+        "danger": 2,
+        "depth": 3,
+        "connections": [
+          "node_06",
+          "node_14"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_14",
+        "type": "ruins",
+        "name": "Руины мельницы",
+        "danger": 2,
+        "depth": 4,
+        "connections": [
+          "node_13",
+          "node_17"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_15",
+        "type": "deep_forest",
+        "name": "Чёрная чаща",
+        "danger": 2,
+        "depth": 4,
+        "connections": [
+          "node_11",
+          "node_21"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_16",
+        "type": "swamp",
+        "name": "Квакающее болото",
+        "danger": 2,
+        "depth": 4,
+        "connections": [
+          "node_12",
+          "node_20"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_17",
+        "type": "deep_forest",
+        "name": "Дремучий бор",
+        "danger": 2,
+        "depth": 4,
+        "connections": [
+          "node_09",
+          "node_14",
+          "node_22"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_18",
+        "type": "ruins",
+        "name": "Обгорелые выселки",
+        "danger": 2,
+        "depth": 4,
+        "connections": [
+          "node_10",
+          "node_19"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_19",
+        "type": "deep_forest",
+        "name": "Медвежий овраг",
+        "danger": 3,
+        "depth": 5,
+        "connections": [
+          "node_18",
+          "node_24"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_20",
+        "type": "swamp",
+        "name": "Утопь",
+        "danger": 3,
+        "depth": 5,
+        "connections": [
+          "node_16",
+          "node_21"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_21",
+        "type": "deep_forest",
+        "name": "Гнилой ельник",
+        "danger": 3,
+        "depth": 5,
+        "connections": [
+          "node_15",
+          "node_20"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_22",
+        "type": "ruins",
+        "name": "Старая часовня",
+        "danger": 3,
+        "depth": 5,
+        "connections": [
+          "node_17",
+          "node_23"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_23",
+        "type": "lair",
+        "name": "Троллья берлога",
+        "danger": 3,
+        "depth": 6,
+        "connections": [
+          "node_22",
+          "node_24"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      },
+      {
+        "id": "node_24",
+        "type": "deep_forest",
+        "name": "Звериная чаща",
+        "danger": 3,
+        "depth": 6,
+        "connections": [
+          "node_19",
+          "node_23"
+        ],
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null
+        }
+      }
+    ]
+  },
+  "npcs": {
+    "npc_elder_miroslav": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    },
+    "npc_merchant_ganna": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    },
+    "npc_blacksmith_kolm": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    },
+    "npc_innkeeper_boris": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    },
+    "npc_hunter_rask": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    }
+  },
+  "flags": {
+    "introShown": false
+  }
+}

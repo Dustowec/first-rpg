@@ -1,0 +1,36 @@
+{
+  "id": "rec_food_stew",
+  "category": "recipe",
+  "subCategory": "cooking",
+  "station": "campfire",
+  "requiredSkill": {
+    "id": "alchemy",
+    "level": 0
+  },
+  "name": {
+    "en": "Boiled Potatoes Recipe",
+    "ru": "Рецепт: Варёная картошка"
+  },
+  "ingredients": [
+    {
+      "itemId": "food_cabbage",
+      "count": 1
+    },
+    {
+      "itemId": "food_mushrooms",
+      "count": 1
+    },
+    {
+      "itemId": "food_roots",
+      "count": 1
+    }
+  ],
+  "output": {
+    "itemId": "food_boiled_potatoes",
+    "count": 1
+  },
+  "description": {
+    "en": "Recipe for a hearty stew.",
+    "ru": "Рецепт сытного рагу."
+  }
+}

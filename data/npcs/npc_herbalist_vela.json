@@ -1,0 +1,61 @@
+{
+  "id": "npc_herbalist_vela",
+  "category": "npc",
+  "role": "herbalist",
+  "locationType": "village",
+  "name": {
+    "en": "Vela",
+    "ru": "Вела"
+  },
+  "description": {
+    "en": "A quiet herbalist with knowing eyes and hands stained by herbs.",
+    "ru": "Тихая травница с проницательными глазами и руками, испачканными травами."
+  },
+  "initialReputation": "neutral",
+  "actionWhitelist": [
+    "open_trade",
+    "give_hint",
+    "none"
+  ],
+  "services": [
+    "campfire"
+  ],
+  "tradeStock": [
+    "pot_heal_minor",
+    "pot_heal_regular",
+    "pot_heal_greater",
+    "pot_mana_minor",
+    "pot_mana_regular",
+    "pot_antidote"
+  ],
+  "restCost": null,
+  "personality": {
+    "ru": "Мудрая, спокойная, знает свойства всех трав."
+  },
+  "fallbackReplies": {
+    "neutral": {
+      "en": "The earth provides. What do you need?",
+      "ru": "Земля даёт. Что тебе нужно?"
+    },
+    "friendly": {
+      "en": "You have a kind spirit. Here, take this healing brew.",
+      "ru": "У тебя добрый дух. Держи, вот целебный отвар."
+    },
+    "sympathetic": {
+      "en": "I've seen many wounds. This salve will help.",
+      "ru": "Я видела много ран. Этот мазь поможет."
+    },
+    "irritated": {
+      "en": "I'm busy grinding herbs. Come back later.",
+      "ru": "Я занята толчением трав. Вернись позже."
+    },
+    "hostile": {
+      "en": "Your presence disturbs my herbs. Leave!",
+      "ru": "Твоё присутствие тревожит мои травы. Уходи!"
+    },
+    "fearful": {
+      "en": "Please, don't destroy my garden! I'll give you anything.",
+      "ru": "Пожалуйста, не ломай мой сад! Дам тебе всё что хочешь."
+    }
+  }
+}

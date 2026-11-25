@@ -1,0 +1,25 @@
+{
+  "id": "food_mushrooms",
+  "category": "food",
+  "subCategory": "foraged",
+  "name": {
+    "en": "Mushrooms",
+    "ru": "Грибы"
+  },
+  "description": {
+    "en": "A basket of edible forest mushrooms. Safe ones, hopefully.",
+    "ru": "Корзина съедобных лесных грибов. Надеемся, безопасных."
+  },
+  "economy": {
+    "buyPrice": 2,
+    "sellPrice": 1,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 2,
+      "hidden": true
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arm_plate_regular",
+  "category": "armor",
+  "subCategory": "plate",
+  "name": {
+    "en": "Steel Plate",
+    "ru": "Стальные латы"
+  },
+  "description": {
+    "en": "Full plate armor of polished steel. A wall of metal that turns aside most blades.",
+    "ru": "Полные стальные латы отполированной стали. Стена металла, отбивающая большинство клинков."
+  },
+  "economy": {
+    "buyPrice": 240,
+    "sellPrice": 60,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "defense": {
+      "value": 8,
+      "hidden": false
+    },
+    "evasion": {
+      "value": -6,
+      "hidden": false
+    },
+    "durability": {
+      "max": 45,
+      "hidden": false
+    }
+  }
+}

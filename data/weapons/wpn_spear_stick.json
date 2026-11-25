@@ -1,0 +1,35 @@
+{
+  "id": "wpn_spear_stick",
+  "category": "weapon",
+  "subCategory": "spear",
+  "name": {
+    "en": "Stick Spear",
+    "ru": "Копьё-палка"
+  },
+  "description": {
+    "en": "A sharpened branch with a stone tip lashed on. Desperate times call for desperate measures.",
+    "ru": "Заострённая палка с каменным наконечником, примотанным верёвкой. Время отчаянных мер."
+  },
+  "economy": {
+    "buyPrice": 5,
+    "sellPrice": 1,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "damage": {
+      "min": 0,
+      "max": 2,
+      "type": "piercing",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_light",
+      "hidden": false
+    },
+    "durability": {
+      "max": 15,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "biome_swamp",
+  "category": "biome",
+  "biomeType": "swamp",
+  "name": {
+    "en": "Swamp",
+    "ru": "Болото"
+  },
+  "description": {
+    "en": "A murky, fog-shrouded swamp with treacherous mud and toxic fumes.",
+    "ru": "Мутное, окутанное туманом болото с коварной грязью и ядовитыми испарениями."
+  },
+  "pSpawn": 0.1,
+  "canSearch": true,
+  "searchWeightShifts": {
+    "food": 5,
+    "nothing": -5
+  },
+  "preferredItems": [
+    "food_red_mushroom",
+    "food_moss"
+  ],
+  "monsterPool": [
+    "mob_spider_giant",
+    "mob_swamp_hag",
+    "mob_ghoul"
+  ],
+  "services": [],
+  "namePool": {
+    "adjectives": {
+      "en": [
+        "Murky",
+        "Toxic",
+        "Foul",
+        "Boggy",
+        "Misty"
+      ],
+      "ru": [
+        "Мутный",
+        "Токсичный",
+        "Гнусный",
+        "Болотный",
+        "Туманный"
+      ]
+    },
+    "nouns": {
+      "en": [
+        "Swamp",
+        "Marsh",
+        "Bog",
+        "Fen"
+      ],
+      "ru": [
+        "Болото",
+        "Топь",
+        "Грязь",
+        "Мочажина"
+      ]
+    }
+  }
+}

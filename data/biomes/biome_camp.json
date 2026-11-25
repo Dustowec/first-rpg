@@ -1,0 +1,64 @@
+{
+  "id": "biome_camp",
+  "category": "biome",
+  "biomeType": "camp",
+  "name": {
+    "en": "Traveler's Camp",
+    "ru": "Лагерь путников"
+  },
+  "description": {
+    "en": "A temporary campfire in the wilderness, with scavenged supplies and worn tents.",
+    "ru": "Временный костер в дикой местности с добытыми припасами и изношенными палатками."
+  },
+  "pSpawn": 0.15,
+  "canSearch": true,
+  "searchWeightShifts": {
+    "food": 5,
+    "consumable": 5,
+    "nothing": -10
+  },
+  "preferredItems": [
+    "food_dried_fish",
+    "food_bread"
+  ],
+  "monsterPool": [
+    "mob_bandit_scout",
+    "mob_bandit_rogue"
+  ],
+  "services": [
+    "npc_hunter_rask",
+    "npc_wanderer_kit"
+  ],
+  "namePool": {
+    "adjectives": {
+      "en": [
+        "Abandoned",
+        "Forsaken",
+        "Wanderer's",
+        "Hidden",
+        "Forgotten"
+      ],
+      "ru": [
+        "Покинутый",
+        "Забытый",
+        "Странника",
+        "Скрытый",
+        "Заброшенный"
+      ]
+    },
+    "nouns": {
+      "en": [
+        "Camp",
+        "Encampment",
+        "Outpost",
+        "Shelter"
+      ],
+      "ru": [
+        "Лагерь",
+        "Стан",
+        "Застава",
+        "Убежище"
+      ]
+    }
+  }
+}

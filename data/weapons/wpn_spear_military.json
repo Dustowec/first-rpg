@@ -1,0 +1,35 @@
+{
+  "id": "wpn_spear_military",
+  "category": "weapon",
+  "subCategory": "spear",
+  "name": {
+    "en": "Military Spear",
+    "ru": "Армейское копьё"
+  },
+  "description": {
+    "en": "A disciplined soldier's weapon. Forged steel, ash shaft, battle-proven.",
+    "ru": "Оружие дисциплинированного солдата. Закалённая сталь, ясеновое древко, проверенное в бою."
+  },
+  "economy": {
+    "buyPrice": 100,
+    "sellPrice": 20,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "damage": {
+      "min": 3,
+      "max": 4,
+      "type": "piercing",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_light",
+      "hidden": false
+    },
+    "durability": {
+      "max": 40,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "crafting",
+  "category": "skill",
+  "name": {
+    "en": "Crafting",
+    "ru": "Кузнечное дело"
+  },
+  "description": {
+    "en": "The art of forging and repairing equipment. Creates tools, weapons, and armor.",
+    "ru": "Искусство ковки и ремонта снаряжения. Создаёт инструменты, оружие и броню."
+  },
+  "milestones": {
+    "3": {
+      "id": "field_sharpening",
+      "en": "Field Sharpening",
+      "ru": "Полевая заточка",
+      "description": {
+        "en": "Free weapon sharpening anywhere (no kit needed)",
+        "ru": "Бесплатная заточка оружия в любом месте (без набора)"
+      }
+    },
+    "6": {
+      "id": "reinforced_repair",
+      "en": "Reinforced Repair",
+      "ru": "Усиленный ремонт",
+      "description": {
+        "en": "Repair kits restore +50% durability",
+        "ru": "Ремнаборы восстанавливают +50% прочности"
+      }
+    },
+    "10": {
+      "id": "master_crafter",
+      "en": "Master Crafter",
+      "ru": "Мастер-ремесленник",
+      "description": {
+        "en": "Can craft tier 3+ weapons and armor from scrap",
+        "ru": "Может крафтить оружие и броню 3+ тира из металлолома"
+      }
+    }
+  }
+}

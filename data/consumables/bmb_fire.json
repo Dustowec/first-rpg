@@ -1,0 +1,28 @@
+{
+  "id": "bmb_fire",
+  "category": "consumable",
+  "subCategory": "bomb",
+  "name": {
+    "en": "Alchemical Fire",
+    "ru": "Алхимический огонь"
+  },
+  "description": {
+    "en": "A glass vial of volatile alchemical compound. Shatters on impact in a burst of flame.",
+    "ru": "Стеклянный флакон с летучим алхимическим составом. Разбивается при ударе вспышкой пламени."
+  },
+  "economy": {
+    "buyPrice": 40,
+    "sellPrice": 10,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "damage": {
+      "min": 5,
+      "max": 7,
+      "type": "fire",
+      "hitChance": 80,
+      "hidden": false
+    }
+  }
+}

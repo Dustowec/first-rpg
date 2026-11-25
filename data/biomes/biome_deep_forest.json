@@ -1,0 +1,64 @@
+{
+  "id": "biome_deep_forest",
+  "category": "biome",
+  "biomeType": "deep_forest",
+  "name": {
+    "en": "Deep Forest",
+    "ru": "Глубокий лес"
+  },
+  "description": {
+    "en": "A dense, ancient forest where sunlight barely reaches the forest floor.",
+    "ru": "Густой, древний лес, где солнечный свет едва достигает лесной почвы."
+  },
+  "pSpawn": 0.18,
+  "canSearch": true,
+  "searchWeightShifts": {
+    "food": 5,
+    "material": 5,
+    "nothing": -10
+  },
+  "preferredItems": [
+    "food_mushrooms",
+    "food_berries",
+    "mat_wolf_eye"
+  ],
+  "monsterPool": [
+    "mob_wolf_forest",
+    "mob_wolf_alpha",
+    "mob_griffin_forest",
+    "mob_bear_black"
+  ],
+  "services": [],
+  "namePool": {
+    "adjectives": {
+      "en": [
+        "Deep",
+        "Ancient",
+        "Dark",
+        "Silent",
+        "Misty"
+      ],
+      "ru": [
+        "Глубокий",
+        "Древний",
+        "Тёмный",
+        "Тихий",
+        "Туманный"
+      ]
+    },
+    "nouns": {
+      "en": [
+        "Forest",
+        "Wood",
+        "Grove",
+        "Thicket"
+      ],
+      "ru": [
+        "Лес",
+        "Деревня",
+        "Роща",
+        "Заросль"
+      ]
+    }
+  }
+}

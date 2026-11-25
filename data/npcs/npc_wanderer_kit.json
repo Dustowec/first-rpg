@@ -1,0 +1,58 @@
+{
+  "id": "npc_wanderer_kit",
+  "category": "npc",
+  "role": "wanderer",
+  "locationType": "camp",
+  "name": {
+    "en": "Kit",
+    "ru": "Кит"
+  },
+  "description": {
+    "en": "A mysterious wanderer with a cloak full of curiosities and a knowing smile.",
+    "ru": "Таинственный странник с плащом, полным диковинок, и проницательной улыбкой."
+  },
+  "initialReputation": "neutral",
+  "actionWhitelist": [
+    "barter_offer",
+    "give_hint",
+    "none"
+  ],
+  "services": [],
+  "tradeStock": [
+    "bmb_fire",
+    "elx_berserk",
+    "elx_ironskin",
+    "rep_whetstone",
+    "rep_patch_kit"
+  ],
+  "restCost": null,
+  "personality": {
+    "ru": "Загадочный, общительный, знает секреты со всех дорог."
+  },
+  "fallbackReplies": {
+    "neutral": {
+      "en": "The road brings strange encounters. What do you seek?",
+      "ru": "Дорога приносит странные встречи. Что ищешь?"
+    },
+    "friendly": {
+      "en": "You remind me of someone I once knew. Here, take this.",
+      "ru": "Ты напоминаешь мне кого-то, кого я знал. Держи, вот."
+    },
+    "sympathetic": {
+      "en": "I've walked many roads. You're not alone.",
+      "ru": "Я ходил по многим дорогам. Ты не один."
+    },
+    "irritated": {
+      "en": "I'm resting. Come back when I'm not tired.",
+      "ru": "Я отдыхаю. Вернись, когда я не устану."
+    },
+    "hostile": {
+      "en": "My knives are sharper than your words!",
+      "ru": "Мои ножи острее твоих слов!"
+    },
+    "fearful": {
+      "en": "Take everything! Just don't kill me!",
+      "ru": "Бери всё! Только не убивай меня!"
+    }
+  }
+}

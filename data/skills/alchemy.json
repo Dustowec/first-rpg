@@ -1,0 +1,50 @@
+{
+  "id": "alchemy",
+  "category": "skill",
+  "name": {
+    "en": "Alchemy",
+    "ru": "Алхимия"
+  },
+  "description": {
+    "en": "The art of transmuting base materials into potent elixirs and oils. Mastery reveals the hidden properties of the natural world.",
+    "ru": "Искусство превращения базовых материалов в мощные эликсиры и масла. Мастерство раскрывает скрытые свойства природного мира."
+  },
+  "milestones": {
+    "0": {
+      "id": "skl_alchemy_0",
+      "en": "Apprentice Alchemist",
+      "ru": "Ученик алхимика",
+      "description": {
+        "en": "Basic understanding of alchemical principles.",
+        "ru": "Базовое понимание алхимических принципов."
+      }
+    },
+    "1": {
+      "id": "skl_alchemy_1",
+      "en": "Adept Alchemist",
+      "ru": "Опытный алхимик",
+      "description": {
+        "en": "Can craft minor potions and basic oils.",
+        "ru": "Может создавать малые зелья и базовые масла."
+      }
+    },
+    "2": {
+      "id": "skl_alchemy_2",
+      "en": "Skilled Alchemist",
+      "ru": "Опытный алхимик",
+      "description": {
+        "en": "Advanced elixirs and coatings become available.",
+        "ru": "Доступны продвинутые эликсиры и покрытия."
+      }
+    },
+    "3": {
+      "id": "skl_alchemy_3",
+      "en": "Master Alchemist",
+      "ru": "Мастер-алхимик",
+      "description": {
+        "en": "Unlocks the deepest secrets of alchemy.",
+        "ru": "Открывает глубочайшие тайны алхимии."
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "food_berries",
+  "category": "food",
+  "subCategory": "foraged",
+  "name": {
+    "en": "Berries",
+    "ru": "Ягоды"
+  },
+  "description": {
+    "en": "A small handful of wild berries. Sweet, tart, and just enough to keep hunger at bay.",
+    "ru": "Небольшая горсть диких ягод. Сладкие, терпкие, и достаточно, чтобы прогнать голод."
+  },
+  "economy": {
+    "buyPrice": 1,
+    "sellPrice": 0,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 1,
+      "hidden": true
+    }
+  }
+}

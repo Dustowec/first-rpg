@@ -1,0 +1,42 @@
+{
+  "id": "mob_boar_wild",
+  "category": "monster",
+  "tier": 1,
+  "type": "beast",
+  "name": {
+    "en": "Wild Boar",
+    "ru": "Дикий кабан"
+  },
+  "description": {
+    "en": "A massive boar with tusks like curved daggers, rooting through the undergrowth.",
+    "ru": "Огромный кабан с клыками-кинжалами, рыщущий в подлеске."
+  },
+  "hp": 9,
+  "dmg": {
+    "min": 2,
+    "max": 3,
+    "type": "piercing"
+  },
+  "def": 1,
+  "acc": 42,
+  "eva": 0,
+  "xp": 18,
+  "gold": {
+    "min": 0,
+    "max": 1
+  },
+  "lootTable": [
+    {
+      "itemId": "mat_bone",
+      "chance": 0.4
+    },
+    {
+      "itemId": "food_cured-fatback",
+      "chance": 0.2
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

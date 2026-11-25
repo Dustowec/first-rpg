@@ -1,0 +1,35 @@
+{
+  "id": "wpn_sword_fine",
+  "category": "weapon",
+  "subCategory": "sword",
+  "name": {
+    "en": "Fine Sword",
+    "ru": "Качественный меч"
+  },
+  "description": {
+    "en": "A masterfully forged blade with a balanced edge. Cuts through leather like parchment.",
+    "ru": "Мастерски выкованный клинок с сбалансированным лезвием. Режет кожу, как пергамент."
+  },
+  "economy": {
+    "buyPrice": 120,
+    "sellPrice": 30,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "damage": {
+      "min": 3,
+      "max": 5,
+      "type": "slashing",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_heavy",
+      "hidden": false
+    },
+    "durability": {
+      "max": 55,
+      "hidden": false
+    }
+  }
+}

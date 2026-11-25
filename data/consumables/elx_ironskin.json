@@ -1,0 +1,27 @@
+{
+  "id": "elx_ironskin",
+  "category": "consumable",
+  "subCategory": "elixir",
+  "name": {
+    "en": "Ironskin Decoction",
+    "ru": "Отвар каменной кожи"
+  },
+  "description": {
+    "en": "A thick, metallic-tasting brew that hardens the skin against blades and claws.",
+    "ru": "Густое варево с металлическим привкусом, делающее кожу твёрдой словно камень."
+  },
+  "economy": {
+    "buyPrice": 30,
+    "sellPrice": 7,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "buffEffect": {
+      "stat": "defense",
+      "value": 3,
+      "durationCombatTurns": 5,
+      "hidden": false
+    }
+  }
+}

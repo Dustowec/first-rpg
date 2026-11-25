@@ -1,0 +1,25 @@
+{
+  "id": "food_cured-fatback",
+  "category": "food",
+  "subCategory": "preserved",
+  "name": {
+    "en": "Cured Fatback",
+    "ru": "Сало"
+  },
+  "description": {
+    "en": "Thick slab of salt-cured pork fat. Dense with calories, rich in flavor.",
+    "ru": "Толстый кусок солёного свиного сала. Плотный с калориями, богатый на вкус."
+  },
+  "economy": {
+    "buyPrice": 5,
+    "sellPrice": 2,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 4,
+      "hidden": true
+    }
+  }
+}

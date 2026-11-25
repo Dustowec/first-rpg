@@ -1,0 +1,32 @@
+{
+  "id": "rec_rep_smith_kit",
+  "category": "recipe",
+  "subCategory": "crafting",
+  "station": "workbench",
+  "requiredSkill": {
+    "id": "crafting",
+    "level": 3
+  },
+  "name": {
+    "en": "Field Smithing Kit Recipe",
+    "ru": "Рецепт: Походный набор кузнеца"
+  },
+  "ingredients": [
+    {
+      "itemId": "junk_broken_hilt",
+      "count": 2
+    },
+    {
+      "itemId": "junk_scrap_metal",
+      "count": 1
+    }
+  ],
+  "output": {
+    "itemId": "rep_smith_kit",
+    "count": 1
+  },
+  "description": {
+    "en": "Recipe for smith kit.",
+    "ru": "Рецепт походного набора кузнеца."
+  }
+}

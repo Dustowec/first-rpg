@@ -1,0 +1,25 @@
+{
+  "id": "food_bread",
+  "category": "food",
+  "subCategory": "baked",
+  "name": {
+    "en": "Bread",
+    "ru": "Хлеб"
+  },
+  "description": {
+    "en": "A fresh loaf of coarse bread. Hearty, warming, and the staple of every village table.",
+    "ru": "Свежий каравай грубого хлеба. Сытный, согревающий, основа каждого деревенского стола."
+  },
+  "economy": {
+    "buyPrice": 3,
+    "sellPrice": 1,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 3,
+      "hidden": true
+    }
+  }
+}

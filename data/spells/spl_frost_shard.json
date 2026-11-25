@@ -1,0 +1,27 @@
+{
+  "id": "spl_frost_shard",
+  "category": "spell",
+  "subCategory": "damage",
+  "school": "pyromancy",
+  "name": {
+    "en": "Frost Shard",
+    "ru": "Ледяной осколок"
+  },
+  "description": {
+    "en": "A jagged shard of ice hurled with arcane force. Cuts deep and lingers cold.",
+    "ru": "Острый ледяной осколок, брошенный арканной силой. Режет глубоко и оставляет холод."
+  },
+  "requiredSkill": {
+    "id": "pyromancy",
+    "level": 2
+  },
+  "stats": {
+    "mpCost": 2,
+    "damage": {
+      "min": 3,
+      "max": 5,
+      "type": "ice",
+      "hidden": false
+    }
+  }
+}

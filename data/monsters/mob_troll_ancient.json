@@ -1,0 +1,36 @@
+{
+  "id": "mob_troll_ancient",
+  "category": "monster",
+  "tier": 5,
+  "type": "beast",
+  "name": {
+    "en": "Ancient Troll",
+    "ru": "Древний тролль"
+  },
+  "description": {
+    "en": "A primordial troll with regenerative powers beyond mortal comprehension.",
+    "ru": "Первобытный тролль с регенеративными силами, непостижимыми для смертных."
+  },
+  "hp": 55,
+  "dmg": {
+    "min": 8,
+    "max": 12,
+    "type": "blunt"
+  },
+  "def": 8,
+  "acc": 70,
+  "eva": 0,
+  "xp": 330,
+  "gold": {
+    "min": 20,
+    "max": 60
+  },
+  "lootTable": [],
+  "affinities": {},
+  "specialTraits": {
+    "regenHp": 2,
+    "regenIntervalRounds": 1
+  },
+  "isElite": false,
+  "isBoss": true
+}

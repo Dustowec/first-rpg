@@ -1,0 +1,25 @@
+{
+  "id": "pot_heal_greater",
+  "category": "consumable",
+  "subCategory": "potion",
+  "name": {
+    "en": "Greater Healing Potion",
+    "ru": "Большое зелье лечения"
+  },
+  "description": {
+    "en": "A brilliant golden potion brewed by master alchemists. Heals even the gravest wounds.",
+    "ru": "Ослепительное золотое зелье, сваренное мастерами-алхимиками. Лечит даже самые тяжёлые раны."
+  },
+  "economy": {
+    "buyPrice": 75,
+    "sellPrice": 18,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 28,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "mob_rat_giant",
+  "category": "monster",
+  "tier": 1,
+  "type": "beast",
+  "name": {
+    "en": "Giant Rat",
+    "ru": "Гигантская крыса"
+  },
+  "description": {
+    "en": "A rat swollen to the size of a hound, its yellow teeth bared in hunger.",
+    "ru": "Крыса, раздувшаяся до размера борзой, с голодным блеском в глазях и жёлтыми зубами."
+  },
+  "hp": 4,
+  "dmg": {
+    "min": 1,
+    "max": 1,
+    "type": "piercing"
+  },
+  "def": 0,
+  "acc": 40,
+  "eva": 3,
+  "xp": 12,
+  "gold": {
+    "min": 0,
+    "max": 1
+  },
+  "lootTable": [
+    {
+      "itemId": "mat_bone",
+      "chance": 0.15
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

@@ -1,0 +1,61 @@
+{
+  "id": "npc_merchant_ganna",
+  "category": "npc",
+  "role": "merchant",
+  "locationType": "village",
+  "name": {
+    "en": "Ganna",
+    "ru": "Ганна"
+  },
+  "description": {
+    "en": "A shrewd merchant with a cart full of goods and a sharp tongue.",
+    "ru": "Проницательная торговка с телегой полон товаров и острым языком."
+  },
+  "initialReputation": "neutral",
+  "actionWhitelist": [
+    "open_trade",
+    "none"
+  ],
+  "services": [],
+  "tradeStock": [
+    "food_berries",
+    "food_cabbage",
+    "food_bread",
+    "food_dried_fish",
+    "food_cured-fatback",
+    "pot_heal_minor",
+    "pot_antidote",
+    "pot_mana_minor"
+  ],
+  "restCost": null,
+  "buysAll": true,
+  "personality": {
+    "ru": "Хитрая, но справедливая; любит торг."
+  },
+  "fallbackReplies": {
+    "neutral": {
+      "en": "Got what you need? Make it quick, I've got other customers.",
+      "ru": "Есть что нужно? Делаем быстро, у меня другие клиенты."
+    },
+    "friendly": {
+      "en": "You're a good customer. I'll give you a fair price.",
+      "ru": "Ты хороший покупатель. Дам тебе честную цену."
+    },
+    "sympathetic": {
+      "en": "I've been through hard times too. Here, take this discount.",
+      "ru": "Я тоже через трудное время проходила. Держи скидку."
+    },
+    "irritated": {
+      "en": "Stop wasting my time. Either buy or leave.",
+      "ru": "Перестань тратить моё время. Покупаешь или уходи."
+    },
+    "hostile": {
+      "en": "Get out before I call the guards!",
+      "ru": "Убирайся, пока не вызвала стражу!"
+    },
+    "fearful": {
+      "en": "Take the goods, just don't hurt me!",
+      "ru": "Бери товары, только не бей!"
+    }
+  }
+}

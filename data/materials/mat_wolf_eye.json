@@ -1,0 +1,20 @@
+{
+  "id": "mat_wolf_eye",
+  "category": "material",
+  "subCategory": "trophy",
+  "name": {
+    "en": "Wolf Eye",
+    "ru": "Волчий глаз"
+  },
+  "description": {
+    "en": "A preserved wolf's eye, cloudy but still piercing. A trophy of the hunt.",
+    "ru": "Сохранённый волчий глаз, мутный, но всё ещё пронзительный. Трофей охоты."
+  },
+  "economy": {
+    "buyPrice": 3,
+    "sellPrice": 1,
+    "canBuy": false,
+    "canFind": false
+  },
+  "stats": {}
+}

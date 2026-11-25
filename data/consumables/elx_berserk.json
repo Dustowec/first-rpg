@@ -1,0 +1,28 @@
+{
+  "id": "elx_berserk",
+  "category": "consumable",
+  "subCategory": "elixir",
+  "name": {
+    "en": "Berserker's Tincture",
+    "ru": "Настойка ярости"
+  },
+  "description": {
+    "en": "A fiery, blood-warming draught that fills the drinker with rage — and recklessness.",
+    "ru": "Огненный, согревающий кровь напиток, наполняющий drinkers яростью — и безрассудством."
+  },
+  "economy": {
+    "buyPrice": 35,
+    "sellPrice": 8,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "buffEffect": {
+      "stat": "strength",
+      "value": 2,
+      "evasionPenalty": -5,
+      "durationCombatTurns": 4,
+      "hidden": false
+    }
+  }
+}

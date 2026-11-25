@@ -1,0 +1,26 @@
+{
+  "id": "spl_minor_mend",
+  "category": "spell",
+  "subCategory": "healing",
+  "school": "restoration",
+  "name": {
+    "en": "Minor Mend",
+    "ru": "Малое исцеление"
+  },
+  "description": {
+    "en": "A gentle warmth that knits minor wounds. The first step on the path of restoration.",
+    "ru": "Нежное тепло, сращивающее мелкие раны. Первый шаг на пути восстановления."
+  },
+  "requiredSkill": {
+    "id": "restoration",
+    "level": 0
+  },
+  "stats": {
+    "mpCost": 1,
+    "heal": {
+      "min": 4,
+      "max": 6,
+      "hidden": false
+    }
+  }
+}

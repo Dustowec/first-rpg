@@ -1,0 +1,35 @@
+{
+  "id": "wpn_sword_steel",
+  "category": "weapon",
+  "subCategory": "sword",
+  "name": {
+    "en": "Steel Sword",
+    "ru": "Стальной меч"
+  },
+  "description": {
+    "en": "A premium blade of folded steel, tempered to a bluish sheen. Worthy of a seasoned warrior.",
+    "ru": "Элитный клинок из слоистой стали, закалённый до синеватого отблеска. Достоин опытного воина."
+  },
+  "economy": {
+    "buyPrice": 260,
+    "sellPrice": 65,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "damage": {
+      "min": 4,
+      "max": 6,
+      "type": "slashing",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_heavy",
+      "hidden": false
+    },
+    "durability": {
+      "max": 55,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "food_roots",
+  "category": "food",
+  "subCategory": "foraged",
+  "name": {
+    "en": "Roots",
+    "ru": "Коренья"
+  },
+  "description": {
+    "en": "Dug-up wild roots, chewy and earthy. Not gourmet, but survivable.",
+    "ru": "Выкопанные дикие корни, жёсткие и земляные. Не гастрономия, но выжить можно."
+  },
+  "economy": {
+    "buyPrice": 1,
+    "sellPrice": 0,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 1,
+      "hidden": true
+    }
+  }
+}

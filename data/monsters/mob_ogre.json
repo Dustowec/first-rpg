@@ -1,0 +1,33 @@
+{
+  "id": "mob_ogre",
+  "category": "monster",
+  "tier": 4,
+  "type": "humanoid",
+  "name": {
+    "en": "Ogre",
+    "ru": "Огр"
+  },
+  "description": {
+    "en": "A towering ogre with a club like a tree trunk, stomping through the earth.",
+    "ru": "Гигантский огр с дубиной-стволом, топчущий землю."
+  },
+  "hp": 38,
+  "dmg": {
+    "min": 6,
+    "max": 9,
+    "type": "blunt"
+  },
+  "def": 6,
+  "acc": 62,
+  "eva": 0,
+  "xp": 230,
+  "gold": {
+    "min": 10,
+    "max": 30
+  },
+  "lootTable": [],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": true
+}

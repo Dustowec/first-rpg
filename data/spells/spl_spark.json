@@ -1,0 +1,27 @@
+{
+  "id": "spl_spark",
+  "category": "spell",
+  "subCategory": "damage",
+  "school": "pyromancy",
+  "name": {
+    "en": "Spark",
+    "ru": "Искра"
+  },
+  "description": {
+    "en": "A tiny spark of flame flicked from the fingertips. Weak but reliable.",
+    "ru": "Маленькая искра пламени, щёлкнутая из пальцев. Слаба, но надёжна."
+  },
+  "requiredSkill": {
+    "id": "pyromancy",
+    "level": 0
+  },
+  "stats": {
+    "mpCost": 1,
+    "damage": {
+      "min": 2,
+      "max": 3,
+      "type": "fire",
+      "hidden": false
+    }
+  }
+}

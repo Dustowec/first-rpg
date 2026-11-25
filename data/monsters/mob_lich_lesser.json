@@ -1,0 +1,35 @@
+{
+  "id": "mob_lich_lesser",
+  "category": "monster",
+  "tier": 5,
+  "type": "undead",
+  "name": {
+    "en": "Lesser Lich",
+    "ru": "Младший лич"
+  },
+  "description": {
+    "en": "An undead sorcerer draped in tattered robes, channeling arcane energies.",
+    "ru": "Нежить-чародей в лохмотьях, управляющий арканной энергией."
+  },
+  "hp": 45,
+  "dmg": {
+    "min": 7,
+    "max": 11,
+    "type": "arcane"
+  },
+  "def": 6,
+  "acc": 75,
+  "eva": 8,
+  "xp": 300,
+  "gold": {
+    "min": 30,
+    "max": 80
+  },
+  "lootTable": [],
+  "affinities": {},
+  "specialTraits": {
+    "ignoreArmorRatio": 0.5
+  },
+  "isElite": false,
+  "isBoss": false
+}

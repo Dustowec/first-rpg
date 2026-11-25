@@ -1,0 +1,35 @@
+{
+  "id": "wpn_club_heavy",
+  "category": "weapon",
+  "subCategory": "blunt",
+  "name": {
+    "en": "Heavy Club",
+    "ru": "Тяжёлая дубина"
+  },
+  "description": {
+    "en": "A thick burl capped with iron bands. Each swing carries the weight of a falling tree.",
+    "ru": "Толстая дубина, опоясанная железными кольцами. Каждый удар несёт тяжесть падающего дерева."
+  },
+  "economy": {
+    "buyPrice": 80,
+    "sellPrice": 18,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "damage": {
+      "min": 3,
+      "max": 4,
+      "type": "blunt",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_heavy",
+      "hidden": false
+    },
+    "durability": {
+      "max": 35,
+      "hidden": false
+    }
+  }
+}

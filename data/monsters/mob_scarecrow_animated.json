@@ -1,0 +1,44 @@
+{
+  "id": "mob_scarecrow_animated",
+  "category": "monster",
+  "tier": 2,
+  "type": "construct",
+  "name": {
+    "en": "Animated Scarecrow",
+    "ru": "Ожившее пугало"
+  },
+  "description": {
+    "en": "A rotting scarecrow animated by dark magic, its straw limbs flailing.",
+    "ru": "Гнилое пугало, оживлённое тёмной магией, с размахивающими соломенными конечностями."
+  },
+  "hp": 12,
+  "dmg": {
+    "min": 2,
+    "max": 3,
+    "type": "slashing"
+  },
+  "def": 4,
+  "acc": 45,
+  "eva": -2,
+  "xp": 45,
+  "gold": {
+    "min": 0,
+    "max": 2
+  },
+  "lootTable": [
+    {
+      "itemId": "junk_rags",
+      "chance": 0.6
+    },
+    {
+      "itemId": "junk_stone",
+      "chance": 0.2
+    }
+  ],
+  "affinities": {
+    "fire": 1.5
+  },
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

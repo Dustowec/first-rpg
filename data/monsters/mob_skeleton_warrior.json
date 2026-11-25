@@ -1,0 +1,42 @@
+{
+  "id": "mob_skeleton_warrior",
+  "category": "monster",
+  "tier": 3,
+  "type": "undead",
+  "name": {
+    "en": "Skeleton Warrior",
+    "ru": "Скелет-воин"
+  },
+  "description": {
+    "en": "An armored skeleton wielding a rusted sword, rattling with ancient malice.",
+    "ru": "Доспеховый скелет с ржавым мечом, трещащий от древней злобы."
+  },
+  "hp": 20,
+  "dmg": {
+    "min": 3,
+    "max": 5,
+    "type": "slashing"
+  },
+  "def": 4,
+  "acc": 58,
+  "eva": 5,
+  "xp": 95,
+  "gold": {
+    "min": 3,
+    "max": 12
+  },
+  "lootTable": [
+    {
+      "itemId": "junk_scrap_metal",
+      "chance": 0.3
+    },
+    {
+      "itemId": "junk_broken_hilt",
+      "chance": 0.3
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

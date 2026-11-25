@@ -1,0 +1,26 @@
+{
+  "id": "spl_venom_touch",
+  "category": "spell",
+  "subCategory": "damage_dot",
+  "school": "hexes",
+  "name": {
+    "en": "Venom Touch",
+    "ru": "Ядовитое прикосновение"
+  },
+  "description": {
+    "en": "A dark energy that infects the target with creeping venom. Damage ticks over time.",
+    "ru": "Тёмная энергия, заражающая цель ползучим ядом. Урон тикает со временем."
+  },
+  "requiredSkill": {
+    "id": "hexes",
+    "level": 4
+  },
+  "stats": {
+    "mpCost": 3,
+    "dotEffect": {
+      "type": "poison",
+      "hpDeltaPerTurn": -2,
+      "ticks": 3
+    }
+  }
+}

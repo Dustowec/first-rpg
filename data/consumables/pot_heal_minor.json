@@ -1,0 +1,25 @@
+{
+  "id": "pot_heal_minor",
+  "category": "consumable",
+  "subCategory": "potion",
+  "name": {
+    "en": "Minor Healing Potion",
+    "ru": "Малое зелье лечения"
+  },
+  "description": {
+    "en": "A murky red liquid tasting of bitter herbs. Quickly knits minor wounds in the heat of battle.",
+    "ru": "Мутная красная жидкость со вкусом горьких трав. Быстро затягивает неглубокие раны в разгар боя."
+  },
+  "economy": {
+    "buyPrice": 15,
+    "sellPrice": 4,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 6,
+      "hidden": false
+    }
+  }
+}

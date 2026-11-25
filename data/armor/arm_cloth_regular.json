@@ -1,0 +1,33 @@
+{
+  "id": "arm_cloth_regular",
+  "category": "armor",
+  "subCategory": "cloth",
+  "name": {
+    "en": "Quilted Jacket",
+    "ru": "Стёганая куртка"
+  },
+  "description": {
+    "en": "Layers of padded cloth stitched tight. Stops knife slashes and softens blunt blows.",
+    "ru": "Слои плотной простёганной ткани. Останавливает удары ножа и смягчают blunt-удары."
+  },
+  "economy": {
+    "buyPrice": 22,
+    "sellPrice": 5,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "defense": {
+      "value": 2,
+      "hidden": false
+    },
+    "evasion": {
+      "value": 6,
+      "hidden": false
+    },
+    "durability": {
+      "max": 20,
+      "hidden": false
+    }
+  }
+}

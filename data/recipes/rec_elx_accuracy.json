@@ -1,0 +1,36 @@
+{
+  "id": "rec_elx_accuracy",
+  "category": "recipe",
+  "subCategory": "alchemy",
+  "station": "any",
+  "requiredSkill": {
+    "id": "alchemy",
+    "level": 5
+  },
+  "name": {
+    "en": "Tincture of Keenness Recipe",
+    "ru": "Рецепт: Настойка зоркости"
+  },
+  "description": {
+    "en": "Recipe for brewing a tincture that sharpens the senses.",
+    "ru": "Рецепт настоя, обостряющего чувства."
+  },
+  "ingredients": [
+    {
+      "itemId": "food_berries",
+      "count": 2
+    },
+    {
+      "itemId": "food_dried_fish",
+      "count": 1
+    },
+    {
+      "itemId": "mat_wolf_eye",
+      "count": 1
+    }
+  ],
+  "output": {
+    "itemId": "elx_accuracy",
+    "count": 1
+  }
+}

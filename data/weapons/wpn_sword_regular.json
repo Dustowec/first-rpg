@@ -1,0 +1,35 @@
+{
+  "id": "wpn_sword_regular",
+  "category": "weapon",
+  "subCategory": "sword",
+  "name": {
+    "en": "Regular Sword",
+    "ru": "Обычный меч"
+  },
+  "description": {
+    "en": "A standard-issue blade, well-kept and sharp. The backbone of any village militia.",
+    "ru": "Стандартный клинок, ухоженный и острый. Основа любой деревенской милиции."
+  },
+  "economy": {
+    "buyPrice": 25,
+    "sellPrice": 7,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "damage": {
+      "min": 2,
+      "max": 4,
+      "type": "slashing",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_heavy",
+      "hidden": false
+    },
+    "durability": {
+      "max": 35,
+      "hidden": false
+    }
+  }
+}

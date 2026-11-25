@@ -1,0 +1,63 @@
+{
+  "id": "biome_village",
+  "category": "biome",
+  "biomeType": "village",
+  "name": {
+    "en": "Village",
+    "ru": "Деревня"
+  },
+  "description": {
+    "en": "A small farming village with wooden houses and a central square.",
+    "ru": "Небольшая деревня с деревянными домами и центральной площадью."
+  },
+  "pSpawn": 0.3,
+  "canSearch": true,
+  "searchWeightShifts": {
+    "junk": -5,
+    "nothing": 5
+  },
+  "preferredItems": [],
+  "monsterPool": [
+    "mob_bandit_scout",
+    "mob_bandit_rogue"
+  ],
+  "services": [
+    "npc_elder_miroslav",
+    "npc_merchant_ganna",
+    "npc_blacksmith_kolm",
+    "npc_innkeeper_boris",
+    "npc_herbalist_vela"
+  ],
+  "namePool": {
+    "adjectives": {
+      "en": [
+        "Old",
+        "New",
+        "Great",
+        "Little",
+        "Holy"
+      ],
+      "ru": [
+        "Старая",
+        "Новая",
+        "Великая",
+        "Малая",
+        "Святая"
+      ]
+    },
+    "nouns": {
+      "en": [
+        "Village",
+        "Hamlet",
+        "Settlement",
+        "Township"
+      ],
+      "ru": [
+        "Деревня",
+        "Село",
+        "Посёлок",
+        "Городок"
+      ]
+    }
+  }
+}

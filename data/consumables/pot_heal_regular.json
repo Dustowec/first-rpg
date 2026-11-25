@@ -1,0 +1,25 @@
+{
+  "id": "pot_heal_regular",
+  "category": "consumable",
+  "subCategory": "potion",
+  "name": {
+    "en": "Healing Potion",
+    "ru": "Зелье лечения"
+  },
+  "description": {
+    "en": "A deep crimson elixir that knits flesh and restores vitality. A veteran's best friend.",
+    "ru": "Тёмно-алый эликсир, сращивающий плоть и восстанавливающий жизненные силы. Лучший друг ветерана."
+  },
+  "economy": {
+    "buyPrice": 35,
+    "sellPrice": 9,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 14,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "junk_stone",
+  "category": "junk",
+  "subCategory": "scrap",
+  "name": {
+    "en": "Cobblestone",
+    "ru": "Булыжник"
+  },
+  "description": {
+    "en": "A rough cobblestone. Heavy, useless for food, but useful for sharpening or crafting.",
+    "ru": "Грубый булыжник. Тяжёлый, бесполезный для еды, но полезный для заточки или крафта."
+  },
+  "economy": {
+    "buyPrice": 1,
+    "sellPrice": 0,
+    "canBuy": false,
+    "canFind": true
+  },
+  "stats": {}
+}

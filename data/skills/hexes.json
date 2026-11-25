@@ -1,0 +1,41 @@
+{
+  "id": "hexes",
+  "category": "skill",
+  "name": {
+    "en": "Hexes",
+    "ru": "Проклятия"
+  },
+  "description": {
+    "en": "The art of dark magic. Weakens enemies, inflicts damage over time, and siphons life.",
+    "ru": "Искусство тёмной магии. Ослабляет врагов, наносит урон со временем и высасывает жизнь."
+  },
+  "milestones": {
+    "3": {
+      "id": "dark_touch",
+      "en": "Dark Touch",
+      "ru": "Тёмное прикосновение",
+      "description": {
+        "en": "Hex spells deal +20% damage",
+        "ru": "Проклятия наносят +20% урона"
+      }
+    },
+    "6": {
+      "id": "siphon",
+      "en": "Siphon",
+      "ru": "Вампиризм",
+      "description": {
+        "en": "DoT hexes heal caster for 50% of damage dealt",
+        "ru": "Проклятия с уроном со временем лечат заклинателя на 50% от нанесённого урона"
+      }
+    },
+    "10": {
+      "id": "plague",
+      "en": "Plague",
+      "ru": "Чума",
+      "description": {
+        "en": "DoT effects stack indefinitely and cannot be cured",
+        "ru": "Эффекты урона со временем стакаются бесконечно и не могут быть вылечены"
+      }
+    }
+  }
+}

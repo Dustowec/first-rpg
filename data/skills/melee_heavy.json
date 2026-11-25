@@ -1,0 +1,41 @@
+{
+  "id": "melee_heavy",
+  "category": "skill",
+  "name": {
+    "en": "Heavy Melee",
+    "ru": "Тяжёлый ближний бой"
+  },
+  "description": {
+    "en": "Mastery of heavy weapons — clubs and swords. Power strikes that crush through armor.",
+    "ru": "Мастерство тяжёлого оружия — дубин и мечей. Мощные удары, пробивающие броню."
+  },
+  "milestones": {
+    "3": {
+      "id": "crushing_blows",
+      "en": "Crushing Blows",
+      "ru": "Сокрушительные удары",
+      "description": {
+        "en": "+10% damage with heavy weapons",
+        "ru": "+10% урона тяжёлым оружием"
+      }
+    },
+    "6": {
+      "id": "arm_breaker",
+      "en": "Arm Breaker",
+      "ru": "Сломщик рук",
+      "description": {
+        "en": "20% chance to reduce target evasion by 3 for 2 turns",
+        "ru": "20% шанс снизить уклонение цели на 3 на 2 хода"
+      }
+    },
+    "10": {
+      "id": "devastating_strike",
+      "en": "Devastating Strike",
+      "ru": "Разрушительный удар",
+      "description": {
+        "en": "Once per combat, deal 3x damage ignoring armor",
+        "ru": "Раз в бой: нанести 3x урон, игнорируя броню"
+      }
+    }
+  }
+}

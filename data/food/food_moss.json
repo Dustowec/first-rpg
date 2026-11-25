@@ -1,0 +1,22 @@
+{
+  "id": "food_moss",
+  "category": "food",
+  "subCategory": "foraged",
+  "name": {
+    "en": "Moss",
+    "ru": "Мох"
+  },
+  "description": {
+    "en": "A handful of damp forest moss. No nutritional value beyond filling the stomach.",
+    "ru": "Пригоршня влажного лесного мха. Питательной ценности меньше, чем просто заполняет желудок."
+  },
+  "economy": {
+    "buyPrice": 0,
+    "sellPrice": 0,
+    "canBuy": false,
+    "canFind": true
+  },
+  "stats": {
+    "satietyOnly": true
+  }
+}

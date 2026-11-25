@@ -1,0 +1,20 @@
+{
+  "id": "junk_broken_hilt",
+  "category": "junk",
+  "subCategory": "scrap",
+  "name": {
+    "en": "Broken Sword Hilt",
+    "ru": "Сломанная рукоять меча"
+  },
+  "description": {
+    "en": "A rusted crossguard wrapped in rotting leather. Worth a couple of coppers to a village blacksmith.",
+    "ru": "Ржавая гарда, обмотанная истлевшей кожей. Деревенский кузнец даст за неё пару медяков."
+  },
+  "economy": {
+    "buyPrice": 2,
+    "sellPrice": 1,
+    "canBuy": false,
+    "canFind": true
+  },
+  "stats": {}
+}

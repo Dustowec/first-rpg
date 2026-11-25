@@ -1,0 +1,20 @@
+{
+  "id": "junk_scrap_metal",
+  "category": "junk",
+  "subCategory": "scrap",
+  "name": {
+    "en": "Scrap Metal",
+    "ru": "Металлолом"
+  },
+  "description": {
+    "en": "Twisted pieces of scrap metal. A blacksmith might pay a coin or two for this.",
+    "ru": "Искrivлённые куски металлолома. Кузнец может дать за это монету-две."
+  },
+  "economy": {
+    "buyPrice": 2,
+    "sellPrice": 1,
+    "canBuy": false,
+    "canFind": true
+  },
+  "stats": {}
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arm_leather_fine",
+  "category": "armor",
+  "subCategory": "leather",
+  "name": {
+    "en": "Reinforced Leather",
+    "ru": "Усиленная кожа"
+  },
+  "description": {
+    "en": "Layered and riveted leather, reinforced with iron studs. A hunter's pride.",
+    "ru": "Слоистая и заклёпленная кожа, усиленная железными шипами. Гордость охотника."
+  },
+  "economy": {
+    "buyPrice": 140,
+    "sellPrice": 35,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "defense": {
+      "value": 6,
+      "hidden": false
+    },
+    "evasion": {
+      "value": 2,
+      "hidden": false
+    },
+    "durability": {
+      "max": 55,
+      "hidden": false
+    }
+  }
+}

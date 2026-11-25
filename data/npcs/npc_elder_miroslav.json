@@ -1,0 +1,51 @@
+{
+  "id": "npc_elder_miroslav",
+  "category": "npc",
+  "role": "elder",
+  "locationType": "village",
+  "name": {
+    "en": "Miroslav",
+    "ru": "Мирон"
+  },
+  "description": {
+    "en": "The village elder, an old man with a wise gaze and a weathered face.",
+    "ru": "Староста деревни, старый человек с мудрым взглядом и изъеденным лицом."
+  },
+  "initialReputation": "neutral",
+  "actionWhitelist": [
+    "give_hint",
+    "none"
+  ],
+  "services": [],
+  "tradeStock": [],
+  "restCost": null,
+  "personality": {
+    "ru": "Мудрый, терпеливый, заботится о деревне как о семье."
+  },
+  "fallbackReplies": {
+    "neutral": {
+      "en": "The roads are dangerous these days. Watch your step.",
+      "ru": "Дороги теперь опасны. Смотри под ноги."
+    },
+    "friendly": {
+      "en": "You seem like a good soul. The village is safe here.",
+      "ru": "Вы, кажется, хороший человек. Деревня здесь в безопасности."
+    },
+    "sympathetic": {
+      "en": "I've seen many travelers come and go. You'll be alright.",
+      "ru": "Я видел многих странников. У вас всё будет хорошо."
+    },
+    "irritated": {
+      "en": "I'm busy. Come back when you have something useful to say.",
+      "ru": "Я занят. Возвращайся, когда будет что-то полезное."
+    },
+    "hostile": {
+      "en": "Leave my village at once, or I'll call the guards.",
+      "ru": "Покинь мою деревню сейчас же, или вызову стражу."
+    },
+    "fearful": {
+      "en": "Please, don't hurt me. Take whatever you want.",
+      "ru": "Пожалуйста, не бей меня. Возьми что хочешь."
+    }
+  }
+}

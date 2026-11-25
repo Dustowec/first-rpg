@@ -1,0 +1,38 @@
+{
+  "id": "mob_statue_guard",
+  "category": "monster",
+  "tier": 3,
+  "type": "construct",
+  "name": {
+    "en": "Stone Guardian",
+    "ru": "Каменный страж"
+  },
+  "description": {
+    "en": "A massive stone statue animated by ancient runes, its fists heavy as boulders.",
+    "ru": "Огромный каменный изваяние, оживлённое древними рунами, с кулаками-валунами."
+  },
+  "hp": 30,
+  "dmg": {
+    "min": 4,
+    "max": 6,
+    "type": "blunt"
+  },
+  "def": 7,
+  "acc": 55,
+  "eva": -5,
+  "xp": 150,
+  "gold": {
+    "min": 0,
+    "max": 0
+  },
+  "lootTable": [
+    {
+      "itemId": "junk_stone",
+      "chance": 0.7
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

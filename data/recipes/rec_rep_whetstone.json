@@ -1,0 +1,32 @@
+{
+  "id": "rec_rep_whetstone",
+  "category": "recipe",
+  "subCategory": "crafting",
+  "station": "workbench",
+  "requiredSkill": {
+    "id": "crafting",
+    "level": 0
+  },
+  "name": {
+    "en": "Whetstone Recipe",
+    "ru": "Рецепт: Точильный камень"
+  },
+  "ingredients": [
+    {
+      "itemId": "junk_stone",
+      "count": 1
+    },
+    {
+      "itemId": "food_cured-fatback",
+      "count": 1
+    }
+  ],
+  "output": {
+    "itemId": "rep_whetstone",
+    "count": 1
+  },
+  "description": {
+    "en": "Recipe for whetstone.",
+    "ru": "Рецепт точильного камня."
+  }
+}

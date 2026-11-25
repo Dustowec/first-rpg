@@ -1,0 +1,58 @@
+{
+  "id": "npc_innkeeper_boris",
+  "category": "npc",
+  "role": "innkeeper",
+  "locationType": "village",
+  "name": {
+    "en": "Boris",
+    "ru": "Борис"
+  },
+  "description": {
+    "en": "A portly innkeeper with a booming laugh and a warm hearth.",
+    "ru": "Толстый трактирщик с раскатистым смехом и тёплым очагом."
+  },
+  "initialReputation": "neutral",
+  "actionWhitelist": [
+    "barter_offer",
+    "give_hint",
+    "none"
+  ],
+  "services": [
+    "rest"
+  ],
+  "tradeStock": [
+    "food_bread",
+    "food_boiled_potatoes",
+    "food_cured-fatback"
+  ],
+  "restCost": 5,
+  "personality": {
+    "ru": "Гостеприимный, щедрый, любит рассказывать истории."
+  },
+  "fallbackReplies": {
+    "neutral": {
+      "en": "Welcome to my inn! Rest costs 5 coins.",
+      "ru": "Добро пожаловать в мою харчевню! Ночлег стоит 5 монет."
+    },
+    "friendly": {
+      "en": "You're always welcome here, friend. The bed is warm tonight.",
+      "ru": "Ты всегда здесь желанны гость, друг. tonight кровать тёплая."
+    },
+    "sympathetic": {
+      "en": "You look worn out. Get some rest, on the house.",
+      "ru": "Ты выглядишь уставшим. Отдохни, за счёт заведения."
+    },
+    "irritated": {
+      "en": "I'm not a charity. Pay or leave.",
+      "ru": "Я не благотворительность. Плати или уходи."
+    },
+    "hostile": {
+      "en": "Get out before I throw you out!",
+      "ru": "Убирайся, пока не выкинул тебя!"
+    },
+    "fearful": {
+      "en": "Take the food, just don't burn my inn down!",
+      "ru": "Бери еду, только не сжигай мою харчевню!"
+    }
+  }
+}

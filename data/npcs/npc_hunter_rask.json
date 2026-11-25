@@ -1,0 +1,56 @@
+{
+  "id": "npc_hunter_rask",
+  "category": "npc",
+  "role": "hunter",
+  "locationType": "camp",
+  "name": {
+    "en": "Rask",
+    "ru": "Раск"
+  },
+  "description": {
+    "en": "A weathered hunter with a bow slung over his shoulder and eyes that miss nothing.",
+    "ru": "Изъеденный охотник с луком за плечом и глазами, которые не пропускают ничего."
+  },
+  "initialReputation": "neutral",
+  "actionWhitelist": [
+    "give_hint",
+    "barter_offer",
+    "none"
+  ],
+  "services": [],
+  "tradeStock": [
+    "oil_poison",
+    "oil_fire",
+    "elx_accuracy"
+  ],
+  "restCost": null,
+  "personality": {
+    "ru": "Сдержанный, наблюдательный, знает каждый куст в лесу."
+  },
+  "fallbackReplies": {
+    "neutral": {
+      "en": "Hunting's quiet today. Need supplies?",
+      "ru": "Охота сегодня тихая. Нужны припасы?"
+    },
+    "friendly": {
+      "en": "You've got the eye of a hunter. Here, take this oil.",
+      "ru": "У тебя глаз охотника. Держи, вот масло."
+    },
+    "sympathetic": {
+      "en": "The forest can be cruel. Here, take this for the road.",
+      "ru": "Лес может быть жестоким. Держи, вот на дорогу."
+    },
+    "irritated": {
+      "en": "I'm tracking game. Leave.",
+      "ru": "Я слежу за зверем. Уходи."
+    },
+    "hostile": {
+      "en": "One more step and my arrow finds your throat!",
+      "ru": "Ещё шаг — и моя стрела найдёт твоё горло!"
+    },
+    "fearful": {
+      "en": "Take the supplies and go! Don't hurt me!",
+      "ru": "Бери припасы и вон! Не бей меня!"
+    }
+  }
+}

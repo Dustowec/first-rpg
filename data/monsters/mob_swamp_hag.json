@@ -1,0 +1,44 @@
+{
+  "id": "mob_swamp_hag",
+  "category": "monster",
+  "tier": 3,
+  "type": "humanoid",
+  "name": {
+    "en": "Swamp Hag",
+    "ru": "Болотная карга"
+  },
+  "description": {
+    "en": "A withered crone lurking in the swamp, her fingers dripping with poisonous brew.",
+    "ru": "Изсохшая колдунья, бродящая по болоту, с пальцами, покрытыми ядовитым зельем."
+  },
+  "hp": 18,
+  "dmg": {
+    "min": 3,
+    "max": 6,
+    "type": "poison"
+  },
+  "def": 2,
+  "acc": 62,
+  "eva": 8,
+  "xp": 120,
+  "gold": {
+    "min": 8,
+    "max": 20
+  },
+  "lootTable": [
+    {
+      "itemId": "food_red_mushroom",
+      "chance": 0.4
+    },
+    {
+      "itemId": "pot_antidote",
+      "chance": 0.1
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {
+    "ignoreArmorRatio": 0.5
+  },
+  "isElite": false,
+  "isBoss": false
+}

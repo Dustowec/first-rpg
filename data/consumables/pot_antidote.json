@@ -1,0 +1,25 @@
+{
+  "id": "pot_antidote",
+  "category": "consumable",
+  "subCategory": "potion",
+  "name": {
+    "en": "Antidote",
+    "ru": "Противоядие"
+  },
+  "description": {
+    "en": "A bitter green brew that purges toxins from the blood. Lifesaving in the wild.",
+    "ru": "Горькое зелёное варево, выводящее токсины из крови. Спасительное в дикой природе."
+  },
+  "economy": {
+    "buyPrice": 12,
+    "sellPrice": 3,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "cureEffects": [
+      "poison",
+      "bleeding"
+    ]
+  }
+}

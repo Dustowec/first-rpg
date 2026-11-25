@@ -1,0 +1,20 @@
+{
+  "id": "mat_bone",
+  "category": "material",
+  "subCategory": "trophy",
+  "name": {
+    "en": "Beast Bone",
+    "ru": "Звериная кость"
+  },
+  "description": {
+    "en": "A thick, dense bone from a large beast. Valuable for crafting and alchemy.",
+    "ru": "Толстая, плотная кость от крупной зверюги. Ценна для крафта и алхимии."
+  },
+  "economy": {
+    "buyPrice": 2,
+    "sellPrice": 1,
+    "canBuy": false,
+    "canFind": false
+  },
+  "stats": {}
+}

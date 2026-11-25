@@ -1,0 +1,32 @@
+{
+  "id": "rec_oil_fire",
+  "category": "recipe",
+  "subCategory": "alchemy",
+  "station": "any",
+  "requiredSkill": {
+    "id": "alchemy",
+    "level": 1
+  },
+  "name": {
+    "en": "Flammable Oil Recipe",
+    "ru": "Рецепт: Горючее масло"
+  },
+  "ingredients": [
+    {
+      "itemId": "food_cured-fatback",
+      "count": 1
+    },
+    {
+      "itemId": "junk_rags",
+      "count": 1
+    }
+  ],
+  "output": {
+    "itemId": "oil_fire",
+    "count": 1
+  },
+  "description": {
+    "en": "Recipe for fire oil coating.",
+    "ru": "Рецепт горючего масла."
+  }
+}

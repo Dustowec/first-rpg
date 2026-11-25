@@ -1,0 +1,38 @@
+{
+  "id": "mob_ataman",
+  "category": "monster",
+  "tier": 4,
+  "type": "humanoid",
+  "name": {
+    "en": "Ataman 'Kosoy'",
+    "ru": "Атаман «Косой»"
+  },
+  "description": {
+    "en": "A legendary bandit chief with a scarred face and a cruel steel blade.",
+    "ru": "Легендарный атаман с рубцоватым лицом и жестоким стальным клинком."
+  },
+  "hp": 34,
+  "dmg": {
+    "min": 5,
+    "max": 8,
+    "type": "slashing"
+  },
+  "def": 7,
+  "acc": 65,
+  "eva": 5,
+  "xp": 260,
+  "gold": {
+    "min": 40,
+    "max": 70
+  },
+  "lootTable": [
+    {
+      "itemId": "wpn_sword_fine",
+      "chance": 0.15
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": true,
+  "isBoss": false
+}

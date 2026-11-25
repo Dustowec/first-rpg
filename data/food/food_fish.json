@@ -1,0 +1,25 @@
+{
+  "id": "food_fish",
+  "category": "food",
+  "subCategory": "raw",
+  "name": {
+    "en": "Raw Fish",
+    "ru": "Сырая рыба"
+  },
+  "description": {
+    "en": "A freshly caught fish, eaten raw. Risky, but it fills the belly.",
+    "ru": "Свежепойманная рыба, съеденная сырой. Рискованно, но заполняет желудок."
+  },
+  "economy": {
+    "buyPrice": 1,
+    "sellPrice": 0,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 1,
+      "hidden": true
+    }
+  }
+}

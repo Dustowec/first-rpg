@@ -1,0 +1,35 @@
+{
+  "id": "wpn_club_warhammer",
+  "category": "weapon",
+  "subCategory": "blunt",
+  "name": {
+    "en": "Warhammer",
+    "ru": "Боевой молот"
+  },
+  "description": {
+    "en": "A heavy warhammer with a spiked head. Crushes armor as easily as it crushes bone.",
+    "ru": "Тяжёлый боевой молот с шипованной головой. Размётает броню так же легко, как кости."
+  },
+  "economy": {
+    "buyPrice": 220,
+    "sellPrice": 55,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "damage": {
+      "min": 4,
+      "max": 5,
+      "type": "blunt",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_heavy",
+      "hidden": false
+    },
+    "durability": {
+      "max": 55,
+      "hidden": false
+    }
+  }
+}

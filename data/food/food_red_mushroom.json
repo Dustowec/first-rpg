@@ -1,0 +1,26 @@
+{
+  "id": "food_red_mushroom",
+  "category": "food",
+  "subCategory": "foraged",
+  "name": {
+    "en": "Red Mushroom",
+    "ru": "Красный гриб"
+  },
+  "description": {
+    "en": "A bright crimson mushroom growing in the damp undergrowth. Beautiful and slightly poisonous.",
+    "ru": "Ярко-алый гриб, растущий во влажном подлеске. Красив и слегка ядовит."
+  },
+  "economy": {
+    "buyPrice": 0,
+    "sellPrice": 0,
+    "canBuy": false,
+    "canFind": true
+  },
+  "stats": {
+    "dotEffect": {
+      "type": "poison",
+      "hpDeltaPerTurn": -1,
+      "ticks": 3
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "spl_stone_ward",
+  "category": "spell",
+  "subCategory": "buff",
+  "school": "restoration",
+  "name": {
+    "en": "Stone Ward",
+    "ru": "Каменный щит"
+  },
+  "description": {
+    "en": "A shimmering barrier of hardened light. Grants temporary defense against physical blows.",
+    "ru": "Сияющий барьер из застывшего света. Даёт временную защиту от физических ударов."
+  },
+  "requiredSkill": {
+    "id": "restoration",
+    "level": 3
+  },
+  "stats": {
+    "mpCost": 2,
+    "buffEffect": {
+      "stat": "defense",
+      "value": 2,
+      "durationCombatTurns": 3,
+      "hidden": false
+    }
+  }
+}

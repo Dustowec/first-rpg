@@ -1,0 +1,33 @@
+{
+  "id": "arm_leather_regular",
+  "category": "armor",
+  "subCategory": "leather",
+  "name": {
+    "en": "Tanned Leather",
+    "ru": "Дублёная кожа"
+  },
+  "description": {
+    "en": "Thick, properly tanned leather armor. Stands up to claws and fangs with ease.",
+    "ru": "Толстая, правильно дублёная кожаная броня. Легко выдерживает когти и клыки."
+  },
+  "economy": {
+    "buyPrice": 55,
+    "sellPrice": 12,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "defense": {
+      "value": 4,
+      "hidden": false
+    },
+    "evasion": {
+      "value": 0,
+      "hidden": false
+    },
+    "durability": {
+      "max": 35,
+      "hidden": false
+    }
+  }
+}

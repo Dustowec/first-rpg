@@ -1,0 +1,42 @@
+{
+  "id": "mob_bear_black",
+  "category": "monster",
+  "tier": 2,
+  "type": "beast",
+  "name": {
+    "en": "Black Bear",
+    "ru": "Чёрный медведь"
+  },
+  "description": {
+    "en": "A massive black bear, scarred from countless battles, standing on its hind legs.",
+    "ru": "Огромный чёрный медведь, рубцовый от бесчисленных битв, стоящий на задних лапах."
+  },
+  "hp": 18,
+  "dmg": {
+    "min": 3,
+    "max": 5,
+    "type": "blunt"
+  },
+  "def": 3,
+  "acc": 50,
+  "eva": 0,
+  "xp": 70,
+  "gold": {
+    "min": 0,
+    "max": 2
+  },
+  "lootTable": [
+    {
+      "itemId": "mat_bone",
+      "chance": 0.6
+    },
+    {
+      "itemId": "food_cured-fatback",
+      "chance": 0.3
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": true,
+  "isBoss": false
+}

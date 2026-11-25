@@ -1,0 +1,63 @@
+{
+  "id": "biome_ruins",
+  "category": "biome",
+  "biomeType": "ruins",
+  "name": {
+    "en": "Ancient Ruins",
+    "ru": "Древние руины"
+  },
+  "description": {
+    "en": "Crumbling stone walls and overgrown pathways of a forgotten civilization.",
+    "ru": "Разрушающиеся каменные стены и заросшие тропы забытой цивилизации."
+  },
+  "pSpawn": 0.12,
+  "canSearch": true,
+  "searchWeightShifts": {
+    "junk": 10,
+    "material": 5,
+    "nothing": -15
+  },
+  "preferredItems": [
+    "junk_scrap_metal",
+    "junk_stone",
+    "junk_broken_hilt"
+  ],
+  "monsterPool": [
+    "mob_skeleton_warrior",
+    "mob_statue_guard",
+    "mob_ghoul"
+  ],
+  "services": [],
+  "namePool": {
+    "adjectives": {
+      "en": [
+        "Ancient",
+        "Cursed",
+        "Fallen",
+        "Ruined",
+        "Lost"
+      ],
+      "ru": [
+        "Древние",
+        "Проклятые",
+        "Павшие",
+        "Разрушенные",
+        "Утерянные"
+      ]
+    },
+    "nouns": {
+      "en": [
+        "Ruins",
+        "Remnants",
+        "Wreckage",
+        "Crumbs"
+      ],
+      "ru": [
+        "Руины",
+        "Остатки",
+        "Обломки",
+        "Остатки"
+      ]
+    }
+  }
+}

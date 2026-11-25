@@ -1,0 +1,35 @@
+{
+  "id": "wpn_spear_partisan",
+  "category": "weapon",
+  "subCategory": "spear",
+  "name": {
+    "en": "Military Partisan",
+    "ru": "Боевой протазан"
+  },
+  "description": {
+    "en": "A long-hafted partisan with a broad steel head. Designed to unhorse cavalry and pierce plate.",
+    "ru": "Длинный протазан с широким стальным наконечником. Создан, чтобы сбивать всадников и пробивать латы."
+  },
+  "economy": {
+    "buyPrice": 240,
+    "sellPrice": 60,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "damage": {
+      "min": 3,
+      "max": 6,
+      "type": "piercing",
+      "hidden": false
+    },
+    "skill": {
+      "id": "melee_light",
+      "hidden": false
+    },
+    "durability": {
+      "max": 50,
+      "hidden": false
+    }
+  }
+}

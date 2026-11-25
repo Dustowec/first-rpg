@@ -1,0 +1,26 @@
+{
+  "id": "rep_patch_kit",
+  "category": "repair_kit",
+  "subCategory": "armor",
+  "name": {
+    "en": "Patch Kit",
+    "ru": "Набор для заплат"
+  },
+  "description": {
+    "en": "A small kit of thread, needle, and leather scraps. Repairs cloth and leather armor.",
+    "ru": "Небольшой набор ниток, иглы и кожаных лоскутов. Чинит тканевую и кожаную броню."
+  },
+  "economy": {
+    "buyPrice": 12,
+    "sellPrice": 3,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "durabilityRestore": 10,
+    "targetSubCategories": [
+      "cloth",
+      "leather"
+    ]
+  }
+}

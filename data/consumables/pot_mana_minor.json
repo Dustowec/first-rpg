@@ -1,0 +1,25 @@
+{
+  "id": "pot_mana_minor",
+  "category": "consumable",
+  "subCategory": "potion",
+  "name": {
+    "en": "Minor Mana Potion",
+    "ru": "Малое зелье маны"
+  },
+  "description": {
+    "en": "A shimmering blue draught that restores the mind's wellspring. Cool and refreshing.",
+    "ru": "Сияющий голубой напиток, восстанавливающий источник разума. Прохладный и освежающий."
+  },
+  "economy": {
+    "buyPrice": 18,
+    "sellPrice": 4,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "mpRestore": {
+      "value": 4,
+      "hidden": false
+    }
+  }
+}

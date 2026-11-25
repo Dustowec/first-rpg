@@ -1,0 +1,20 @@
+{
+  "id": "junk_rags",
+  "category": "junk",
+  "subCategory": "scrap",
+  "name": {
+    "en": "Rags",
+    "ru": "Тряпьё"
+  },
+  "description": {
+    "en": "A bundle of torn, dirty cloth scraps. Useful for cleaning wounds or wrapping wounds.",
+    "ru": "Пучок рваных грязных тряпок. Полезны для очистки ран или перевязки."
+  },
+  "economy": {
+    "buyPrice": 1,
+    "sellPrice": 0,
+    "canBuy": false,
+    "canFind": true
+  },
+  "stats": {}
+}

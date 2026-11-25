@@ -1,0 +1,45 @@
+{
+  "id": "mob_spider_giant",
+  "category": "monster",
+  "tier": 2,
+  "type": "insect",
+  "name": {
+    "en": "Giant Spider",
+    "ru": "Гигантский паук"
+  },
+  "description": {
+    "en": "A spider the size of a shield, its fangs dripping with venom.",
+    "ru": "Паук размером с щит, его клыки капляют ядом."
+  },
+  "hp": 12,
+  "dmg": {
+    "min": 2,
+    "max": 4,
+    "type": "piercing"
+  },
+  "def": 1,
+  "acc": 50,
+  "eva": 10,
+  "xp": 50,
+  "gold": {
+    "min": 0,
+    "max": 3
+  },
+  "lootTable": [
+    {
+      "itemId": "junk_rags",
+      "chance": 0.4
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {
+    "onHitDot": {
+      "type": "poison",
+      "chance": 0.25,
+      "hpDeltaPerTurn": -1,
+      "ticks": 3
+    }
+  },
+  "isElite": false,
+  "isBoss": false
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arm_plate_poor",
+  "category": "armor",
+  "subCategory": "plate",
+  "name": {
+    "en": "Rusty Plate",
+    "ru": "Ржавые латы"
+  },
+  "description": {
+    "en": "A suit of once-great armor, now eaten with rust. Heavy, clunky, but still deflects blows.",
+    "ru": "Доспех былой славы, теперь изъеденный ржавчиной. Тяжёлый, неуклюжий, но всё ещё отбивает удары."
+  },
+  "economy": {
+    "buyPrice": 110,
+    "sellPrice": 25,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "defense": {
+      "value": 5,
+      "hidden": false
+    },
+    "evasion": {
+      "value": -4,
+      "hidden": false
+    },
+    "durability": {
+      "max": 25,
+      "hidden": false
+    }
+  }
+}

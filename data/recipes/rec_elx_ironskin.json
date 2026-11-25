@@ -1,0 +1,36 @@
+{
+  "id": "rec_elx_ironskin",
+  "category": "recipe",
+  "subCategory": "alchemy",
+  "station": "any",
+  "requiredSkill": {
+    "id": "alchemy",
+    "level": 6
+  },
+  "name": {
+    "en": "Ironskin Decoction Recipe",
+    "ru": "Рецепт: Отвар каменной кожи"
+  },
+  "ingredients": [
+    {
+      "itemId": "food_moss",
+      "count": 2
+    },
+    {
+      "itemId": "mat_bone",
+      "count": 1
+    },
+    {
+      "itemId": "food_cured-fatback",
+      "count": 1
+    }
+  ],
+  "output": {
+    "itemId": "elx_ironskin",
+    "count": 1
+  },
+  "description": {
+    "en": "Recipe for brewing an iron-skin elixir.",
+    "ru": "Рецепт отвара каменной кожи."
+  }
+}

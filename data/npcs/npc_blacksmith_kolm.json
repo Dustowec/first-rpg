@@ -1,0 +1,75 @@
+{
+  "id": "npc_blacksmith_kolm",
+  "category": "npc",
+  "role": "blacksmith",
+  "locationType": "village",
+  "name": {
+    "en": "Kolm",
+    "ru": "Колм"
+  },
+  "description": {
+    "en": "A burly blacksmith with soot-stained arms and a hammer that never stops striking.",
+    "ru": "Коренастый кузнец с испачканными сажей руками и молотом, который никогда не перестаёт бить."
+  },
+  "initialReputation": "neutral",
+  "actionWhitelist": [
+    "open_trade",
+    "none"
+  ],
+  "services": [
+    "repair",
+    "workbench"
+  ],
+  "tradeStock": [
+    "wpn_club_simple",
+    "wpn_club_regular",
+    "wpn_sword_rusty",
+    "wpn_sword_regular",
+    "wpn_spear_stick",
+    "wpn_spear_regular",
+    "arm_cloth_regular",
+    "arm_leather_regular",
+    "arm_plate_regular",
+    "wpn_club_warhammer",
+    "wpn_sword_fine",
+    "wpn_spear_military",
+    "arm_cloth_fine",
+    "arm_leather_fine",
+    "wpn_club_heavy",
+    "wpn_sword_steel",
+    "arm_plate_fine",
+    "wpn_spear_partisan",
+    "arm_leather_fine",
+    "rep_smith_kit"
+  ],
+  "restCost": null,
+  "personality": {
+    "ru": "Молчаливый, трудолюбивый, гордится своим ремеслом."
+  },
+  "fallbackReplies": {
+    "neutral": {
+      "en": "Need something forged? Or repaired?",
+      "ru": "Нужно что-то выковать? Или починить?"
+    },
+    "friendly": {
+      "en": "Good steel for good people. That's my motto.",
+      "ru": "Хорошая сталь для хороших людей. Мой девиз."
+    },
+    "sympathetic": {
+      "en": "I've seen warriors break their blades. Here, take this one.",
+      "ru": "Я видел, как воины ломали мечи. Держи, возьми этот."
+    },
+    "irritated": {
+      "en": "Can't you see I'm working? Make it quick.",
+      "ru": "Не видишь, я работаю? Делаем быстро."
+    },
+    "hostile": {
+      "en": "Get out, or I'll hit you with this hammer!",
+      "ru": "Вон отсюда, или ударю тебя молотом!"
+    },
+    "fearful": {
+      "en": "Please, don't break my forge! I'll do whatever you say.",
+      "ru": "Пожалуйста, не ломай мою кузницу! Сделаю всё, что скажешь."
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "spl_weakness",
+  "category": "spell",
+  "subCategory": "debuff",
+  "school": "hexes",
+  "name": {
+    "en": "Weakness",
+    "ru": "Ослабление"
+  },
+  "description": {
+    "en": "A cursed touch that saps the target's strength. Makes enemies easier to dispatch.",
+    "ru": "Проклятое прикосновение, отнимающее силы цели. Делает врагов лёгкой добычей."
+  },
+  "requiredSkill": {
+    "id": "hexes",
+    "level": 1
+  },
+  "stats": {
+    "mpCost": 2,
+    "debuffEffect": {
+      "stat": "defense",
+      "value": -2,
+      "durationCombatTurns": 3,
+      "hidden": false
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "melee_light",
+  "category": "skill",
+  "name": {
+    "en": "Light Melee",
+    "ru": "Лёгкий ближний бой"
+  },
+  "description": {
+    "en": "Mastery of light weapons — spears and polearms. Speed and precision over brute force.",
+    "ru": "Мастерство лёгкого оружия — копий и дротиков. Скорость и точность вместо грубой силы."
+  },
+  "milestones": {
+    "3": {
+      "id": "thrust",
+      "en": "Thrust",
+      "ru": "Выпад",
+      "description": {
+        "en": "+5% critical hit chance",
+        "ru": "+5% шанс критического удара"
+      }
+    },
+    "6": {
+      "id": "long_distance",
+      "en": "Long Distance",
+      "ru": "Длинная дистанция",
+      "description": {
+        "en": "Guarantees first strike in combat",
+        "ru": "Гарантирует первый удар в бою"
+      }
+    },
+    "10": {
+      "id": "second_wind",
+      "en": "Second Wind",
+      "ru": "Второе дыхание",
+      "description": {
+        "en": "Once per combat, regain 5 HP and get a free turn",
+        "ru": "Раз в бой: восстановить 5 HP и получить свободный ход"
+      }
+    }
+  }
+}

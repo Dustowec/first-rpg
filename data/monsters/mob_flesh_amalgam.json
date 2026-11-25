@@ -1,0 +1,33 @@
+{
+  "id": "mob_flesh_amalgam",
+  "category": "monster",
+  "tier": 4,
+  "type": "undead",
+  "name": {
+    "en": "Flesh Amalgam",
+    "ru": "Голдом из плоти"
+  },
+  "description": {
+    "en": "A writhing mass of fused flesh and bone, groaning with insatiable hunger.",
+    "ru": "Мерцающая масса сросшейся плоти и костей, стонущая от ненасытного голода."
+  },
+  "hp": 40,
+  "dmg": {
+    "min": 6,
+    "max": 8,
+    "type": "blunt"
+  },
+  "def": 6,
+  "acc": 60,
+  "eva": -3,
+  "xp": 240,
+  "gold": {
+    "min": 0,
+    "max": 0
+  },
+  "lootTable": [],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

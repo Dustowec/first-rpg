@@ -1,0 +1,28 @@
+{
+  "id": "oil_poison",
+  "category": "consumable",
+  "subCategory": "coating",
+  "name": {
+    "en": "Swamp Venom",
+    "ru": "Болотный яд"
+  },
+  "description": {
+    "en": "A noxious green oil extracted from bog fungi. Coats a blade with lingering death.",
+    "ru": "Смрадная зелёная масляная вытяжка из болотных грибов. Покрывает клинок медленно действующей смертью."
+  },
+  "economy": {
+    "buyPrice": 28,
+    "sellPrice": 7,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "coatingEffect": {
+      "dotType": "poison",
+      "hpDeltaPerTurn": -2,
+      "dotTurns": 3,
+      "charges": 3,
+      "hidden": false
+    }
+  }
+}

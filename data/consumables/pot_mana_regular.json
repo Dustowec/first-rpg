@@ -1,0 +1,25 @@
+{
+  "id": "pot_mana_regular",
+  "category": "consumable",
+  "subCategory": "potion",
+  "name": {
+    "en": "Mana Potion",
+    "ru": "Зелье маны"
+  },
+  "description": {
+    "en": "A deep azure elixir that surges with arcane energy. For the serious spellcaster.",
+    "ru": "Глубокий лазурный эликсир, бурлящий арканной энергией. Для серьёзного заклинателя."
+  },
+  "economy": {
+    "buyPrice": 40,
+    "sellPrice": 10,
+    "canBuy": true,
+    "canFind": false
+  },
+  "stats": {
+    "mpRestore": {
+      "value": 10,
+      "hidden": false
+    }
+  }
+}

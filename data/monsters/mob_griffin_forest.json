@@ -1,0 +1,38 @@
+{
+  "id": "mob_griffin_forest",
+  "category": "monster",
+  "tier": 4,
+  "type": "beast",
+  "name": {
+    "en": "Forest Griffin",
+    "ru": "Лесной грифон"
+  },
+  "description": {
+    "en": "A majestic griffin with feathers like forest canopy, diving with razor talons.",
+    "ru": "Величественный грифон с перьями-кронами леса, пикирующий с когтями-лезвиями."
+  },
+  "hp": 32,
+  "dmg": {
+    "min": 5,
+    "max": 8,
+    "type": "slashing"
+  },
+  "def": 4,
+  "acc": 66,
+  "eva": 10,
+  "xp": 210,
+  "gold": {
+    "min": 0,
+    "max": 5
+  },
+  "lootTable": [
+    {
+      "itemId": "mat_bone",
+      "chance": 0.7
+    }
+  ],
+  "affinities": {},
+  "specialTraits": {},
+  "isElite": false,
+  "isBoss": false
+}

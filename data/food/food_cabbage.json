@@ -1,0 +1,25 @@
+{
+  "id": "food_cabbage",
+  "category": "food",
+  "subCategory": "vegetable",
+  "name": {
+    "en": "Cabbage",
+    "ru": "Капуста"
+  },
+  "description": {
+    "en": "A crisp, tightly layered head of green cabbage. Simple peasant fare, refreshing and filling.",
+    "ru": "Хрустящий, тугой кочан зелёной капусты. Простая крестьянская еда — освежает и хорошо насыщает."
+  },
+  "economy": {
+    "buyPrice": 2,
+    "sellPrice": 1,
+    "canBuy": true,
+    "canFind": true
+  },
+  "stats": {
+    "hpRestore": {
+      "value": 2,
+      "hidden": true
+    }
+  }
+}
