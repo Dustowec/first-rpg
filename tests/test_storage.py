@@ -113,9 +113,21 @@ class TestCreateDefaultPlayer:
 
 class TestCreateInitialState:
     def test_template_created(self, tmp_dir: Path):
+        """Явный путь override — снимок состояния пишется; конструкция валидна."""
         path = str(tmp_dir / "state_template.json")
         state = create_initial_state(template_path_override=path)
         assert os.path.exists(path)
+        with open(path, "r", encoding="utf-8") as f:
+            written = json.load(f)
+        assert written["map"]["currentNodeId"] == state["map"]["currentNodeId"]
+        validate_state(state)
+
+    def test_no_side_effect_without_override(self, tmp_dir: Path, monkeypatch):
+        """KI-5: без override функция не трогает state_template.json в корне репо."""
+        monkeypatch.chdir(tmp_dir)
+        state = create_initial_state()
+        assert not os.path.exists(tmp_dir / "state_template.json")
+        assert state["schemaVersion"] == SCHEMA_VERSION
 
     def test_state_structure(self):
         state = create_initial_state()
@@ -286,9 +298,9 @@ class TestCorruptedBackup:
 
 
 class TestPermadeath:
-    def test_handle_player_death(self, valid_state: dict, session_path: str):
+    def test_handle_player_death(self, valid_state: dict, session_path: str, template_path: str):
         state, events = handle_player_death(
-            valid_state, reason="голод", session_path=session_path
+            valid_state, reason="голод", session_path=session_path, template_path=template_path
         )
 
         # События

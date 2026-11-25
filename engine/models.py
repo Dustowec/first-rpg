@@ -87,15 +87,21 @@ def create_initial_state(
     difficulty: str = DEFAULT_DIFFICULTY,
     template_path_override: str | None = None,
 ) -> dict[str, Any]:
-    """Создаёт начальное состояние игры и сохраняет его в state_template.json.
+    """Создаёт и возвращает начальное состояние игры.
+
+    Функция чистая: только собирает состояние, ничего не пишет на диск
+    (KI-5: раньше без override она перезаписывала state_template.json в корне
+    репо — эталон новой игры — и делала это из тестов). Единственный писатель
+    шаблона — scripts/generate_template.py.
 
     Args:
         seed: Seed для генерации мира.
         difficulty: Уровень сложности.
-        template_path_override: Путь для сохранения шаблона (для тестов).
+        template_path_override: Необязательный путь для записи снимка состояния
+            (совместимость с прежним контрактом: вызывающие тесты ждут файл).
+            Без него функция файлов не создаёт.
     """
     multiplier = DIFFICULTY_MULTIPLIERS.get(difficulty, 1.0)
-    target_path = template_path_override or DEFAULT_TEMPLATE_PATH
 
     state: dict[str, Any] = {
         "schemaVersion": SCHEMA_VERSION,
@@ -141,9 +147,10 @@ def create_initial_state(
         },
     }
 
-    # Сохраняем в state_template.json
-    with open(target_path, "w", encoding="utf-8") as f:
-        json.dump(state, f, ensure_ascii=False, indent=2)
+    # Снимок состояния — только по явному пути (тесты); без него — ничего на диск
+    if template_path_override:
+        with open(template_path_override, "w", encoding="utf-8") as f:
+            json.dump(state, f, ensure_ascii=False, indent=2)
 
     return state
 
