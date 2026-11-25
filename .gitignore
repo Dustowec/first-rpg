@@ -1,4 +1,4 @@
-venv/
+.venv/
 __pycache__/
 state_session.json
 .vscode/
