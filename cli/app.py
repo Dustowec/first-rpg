@@ -539,6 +539,8 @@ def render_dialogue_screen(state: dict, npc_id: str, game_data: GameData) -> str
     entry = state.get("npcs", {}).get(npc_id, {})
     lines = [render_status_line(state, game_data),
              f"{npc_name(game_data, npc_id)} · настроение: {entry.get('mood', 'neutral')}"]
+    if entry.get("lastReply"):
+        lines.append(f"«{entry['lastReply']}»")
     offer = entry.get("pendingBarter")
     if offer:
         lines.append(f"Предложение: {item_name(game_data, offer.get('giveItemId', ''))} "
@@ -671,6 +673,11 @@ def run_cli(
                 state, events = dispatch_command(state, {"type": "open_dialogue", "npcId": next_npc}, game_data,
                                                  rng, session_path, template_path, llm_transport_fn)
                 journal.extend(events)
+                for event in events:
+                    if event.get("id") == "npc_spoke":
+                        entry = state.setdefault("npcs", {}).setdefault(next_npc, {})
+                        entry["lastSuggestedReplies"] = event.get("suggestedReplies", [])
+                        entry["lastReply"] = event.get("npcReply", "")
             stack.append((screen, npc_id))
             screen, npc_id = next_screen, next_npc
             continue
@@ -691,7 +698,9 @@ def run_cli(
 
         for event in events:
             if event.get("id") == "npc_spoke" and npc_id:
-                state.setdefault("npcs", {}).setdefault(npc_id, {})["lastSuggestedReplies"] = event.get("suggestedReplies", [])
+                entry = state.setdefault("npcs", {}).setdefault(npc_id, {})
+                entry["lastSuggestedReplies"] = event.get("suggestedReplies", [])
+                entry["lastReply"] = event.get("npcReply", "")
 
         if any(e.get("id") == "player_died" for e in events):
             output_fn(render_death_screen(state, game_data))

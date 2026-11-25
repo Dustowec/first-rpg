@@ -3,9 +3,6 @@
   "meta": {
     "seed": 20260101,
     "region": 1,
-    "difficulty": "normal",
-    "difficultyMultiplier": 1.0,
-    "xpRate": 1.0,
     "llm": {
       "enabled": true,
       "endpoint": "http://127.0.0.1:8080/v1/chat/completions",
@@ -66,20 +63,7 @@
         }
       }
     },
-    "inventory": [
-      {
-        "itemId": "food_berries",
-        "count": 2
-      },
-      {
-        "itemId": "food_bread",
-        "count": 1
-      },
-      {
-        "itemId": "pot_heal_minor",
-        "count": 1
-      }
-    ]
+    "inventory": []
   },
   "world": {
     "day": 1,
@@ -92,24 +76,664 @@
     "locationsVisited": 1
   },
   "map": {
+    "region": 1,
+    "seedUsed": 20260101,
     "currentNodeId": "node_00",
     "nodes": [
       {
         "id": "node_00",
+        "depth": 0,
+        "connections": [
+          "node_01",
+          "node_02",
+          "node_03"
+        ],
         "type": "village",
         "name": "Приграничная деревня",
         "danger": 0,
-        "depth": 0,
-        "connections": [],
+        "searchMax": 0,
+        "visited": true,
+        "spawnRolled": true,
+        "npcId": null,
         "state": {
           "visited": true,
           "lookUsed": false,
           "searchCount": 0,
           "searchMax": 0,
-          "searchDepleted": true,
+          "searchDepleted": false,
           "spawnRolled": true,
           "monster": null,
-          "daysSinceCleared": 0
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_01",
+        "depth": 1,
+        "connections": [
+          "node_00",
+          "node_04",
+          "node_07"
+        ],
+        "type": "deep_forest",
+        "danger": 1,
+        "searchMax": 4,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Гнилой овраг",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_02",
+        "depth": 1,
+        "connections": [
+          "node_00",
+          "node_05",
+          "node_08"
+        ],
+        "type": "road",
+        "danger": 1,
+        "searchMax": 4,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Старый тракт",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_03",
+        "depth": 1,
+        "connections": [
+          "node_00",
+          "node_06"
+        ],
+        "type": "meadow",
+        "danger": 1,
+        "searchMax": 4,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Пестрящий пустошь",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_04",
+        "depth": 2,
+        "connections": [
+          "node_01",
+          "node_09"
+        ],
+        "type": "road",
+        "danger": 1,
+        "searchMax": 4,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Старый шлях",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_05",
+        "depth": 2,
+        "connections": [
+          "node_02",
+          "node_12"
+        ],
+        "type": "ruins",
+        "danger": 1,
+        "searchMax": 4,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Гнилые выселки",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_06",
+        "depth": 2,
+        "connections": [
+          "node_03",
+          "node_13"
+        ],
+        "type": "forest_edge",
+        "danger": 1,
+        "searchMax": 4,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Ольховый опушка",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_07",
+        "depth": 2,
+        "connections": [
+          "node_01",
+          "node_11"
+        ],
+        "type": "forest_edge",
+        "danger": 1,
+        "searchMax": 4,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Волчья край леса",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_08",
+        "depth": 2,
+        "connections": [
+          "node_02",
+          "node_10"
+        ],
+        "type": "road",
+        "danger": 1,
+        "searchMax": 4,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Сухой тропа",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 4,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_09",
+        "depth": 3,
+        "connections": [
+          "node_04",
+          "node_15"
+        ],
+        "type": "meadow",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Пестрящий поле",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_10",
+        "depth": 3,
+        "connections": [
+          "node_08",
+          "node_16"
+        ],
+        "type": "forest_edge",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Волчья край леса №2",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_11",
+        "depth": 3,
+        "connections": [
+          "node_07",
+          "node_18"
+        ],
+        "type": "road",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Старый тропа",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_12",
+        "depth": 3,
+        "connections": [
+          "node_05",
+          "node_17"
+        ],
+        "type": "swamp",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Квакающее трясина",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_13",
+        "depth": 3,
+        "connections": [
+          "node_06",
+          "node_14",
+          "node_16"
+        ],
+        "type": "forest_edge",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Ольховый опушка №2",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_14",
+        "depth": 4,
+        "connections": [
+          "node_13",
+          "node_15"
+        ],
+        "type": "deep_forest",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Медвежий ельник",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_15",
+        "depth": 4,
+        "connections": [
+          "node_09",
+          "node_20",
+          "node_14"
+        ],
+        "type": "meadow",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Пестрящий луг",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_16",
+        "depth": 4,
+        "connections": [
+          "node_10",
+          "node_21",
+          "node_13"
+        ],
+        "type": "forest_edge",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Курганная опушка",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_17",
+        "depth": 4,
+        "connections": [
+          "node_12",
+          "node_22"
+        ],
+        "type": "ruins",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Обгорелые мельница",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_18",
+        "depth": 4,
+        "connections": [
+          "node_11",
+          "node_19"
+        ],
+        "type": "forest_edge",
+        "danger": 2,
+        "searchMax": 5,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Солнечный край леса",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 5,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_19",
+        "depth": 5,
+        "connections": [
+          "node_18",
+          "node_24"
+        ],
+        "type": "deep_forest",
+        "danger": 3,
+        "searchMax": 6,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Чёрная ельник",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_20",
+        "depth": 5,
+        "connections": [
+          "node_15",
+          "node_22"
+        ],
+        "type": "meadow",
+        "danger": 3,
+        "searchMax": 6,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Заброшенный пустошь",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_21",
+        "depth": 5,
+        "connections": [
+          "node_16",
+          "node_23"
+        ],
+        "type": "forest_edge",
+        "danger": 3,
+        "searchMax": 6,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Солнечный опушка",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_22",
+        "depth": 5,
+        "connections": [
+          "node_17",
+          "node_20"
+        ],
+        "type": "forest_edge",
+        "danger": 3,
+        "searchMax": 6,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Волчья край леса №3",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_23",
+        "depth": 6,
+        "connections": [
+          "node_21",
+          "node_24"
+        ],
+        "type": "lair",
+        "name": "Грифонья берлога",
+        "danger": 3,
+        "searchMax": 6,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
+        }
+      },
+      {
+        "id": "node_24",
+        "depth": 6,
+        "connections": [
+          "node_19",
+          "node_23"
+        ],
+        "type": "deep_forest",
+        "danger": 3,
+        "searchMax": 6,
+        "visited": false,
+        "spawnRolled": false,
+        "npcId": null,
+        "name": "Медвежий овраг",
+        "state": {
+          "visited": false,
+          "lookUsed": false,
+          "searchCount": 0,
+          "searchMax": 6,
+          "searchDepleted": false,
+          "spawnRolled": false,
+          "monster": null,
+          "lairQueue": null,
+          "daysSinceCleared": null
         }
       }
     ]
@@ -139,11 +763,19 @@
       "mood": "neutral",
       "reputation": "neutral",
       "met": false
+    },
+    "npc_hunter_rask": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
+    },
+    "npc_wanderer_kit": {
+      "mood": "neutral",
+      "reputation": "neutral",
+      "met": false
     }
   },
   "flags": {
-    "introShown": false,
-    "isDead": false,
-    "deathReason": null
+    "introShown": false
   }
 }

@@ -12,7 +12,7 @@ import random
 from typing import Any, Callable
 
 from . import combat, consumables, crafting, dialogue, exploration, inventory
-from . import llm_client, progression, trade, world_time, worldgen
+from . import llm_client, offline_npc, progression, trade, world_time, worldgen
 from .constants import DEFAULT_SESSION_PATH, DEFAULT_TEMPLATE_PATH
 from .data_loader import GameData
 from .storage import handle_player_death, save_state
@@ -139,8 +139,6 @@ def _route(state, command, game_data, rng, session_path, template_path, llm_tran
         return trade.sell_item(state, command.get("npcId", ""), command.get("itemId", ""), int(command.get("count", 1)), game_data)
 
     # --- Диалоги LLM-NPC (Блоки 5.1–5.2) ---
-    if ctype == "open_dialogue":
-        return dialogue.reset_dialogue_session(state, command.get("npcId", ""))
     if ctype == "close_dialogue":
         npc_id = command.get("npcId", "")
         new_state, _ = dialogue.reset_dialogue_session(state, npc_id)
@@ -149,10 +147,22 @@ def _route(state, command, game_data, rng, session_path, template_path, llm_tran
             new_state, decline_events = dialogue.decline_barter_offer(new_state, npc_id)
             events.extend(decline_events)
         return new_state, events
+    if ctype == "open_dialogue":
+        # Приветствие при входе в диалог: реплика + варианты ответов (§ 33.2)
+        npc_id = command.get("npcId", "")
+        new_state, events = dialogue.reset_dialogue_session(state, npc_id)
+        greeting = offline_npc.get_greeting(npc_id, game_data)
+        new_state, spoke = dialogue.process_npc_dialogue(
+            new_state, npc_id, "", greeting, game_data, rng=rng
+        )
+        return new_state, spoke
     if ctype == "talk_npc":
         npc_id = command.get("npcId", "")
         player_input = command.get("playerInput", "")
         response, meta = llm_client.query_npc_llm(state, npc_id, player_input, game_data, transport_fn=llm_transport_fn)
+        if meta.get("usedFallback") and offline_npc.has_offline_dialogue(npc_id):
+            # Офлайн-сценарий вместо статичной заглушки: бартер/скидка/подсказки живут и без LLM
+            response = offline_npc.get_offline_response(state, npc_id, player_input, game_data)
         new_state, events = dialogue.process_npc_dialogue(state, npc_id, player_input, response, game_data, rng=rng)
         if meta.get("usedFallback"):
             events = events + [{"id": "llm_fallback_used", "reason": meta.get("reason")}]
