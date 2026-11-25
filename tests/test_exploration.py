@@ -173,9 +173,10 @@ class TestAmbush:
                 break
 
         assert len(ambush_events) > 0, f"Засада не сработала ни за 100 seed"
-        combat_events = [e for e in events if e["id"] == "combat_start"]
+        combat_events = [e for e in events if e["id"] == "combat_started"]
         assert len(combat_events) > 0
         assert combat_events[0]["isAmbush"] is True
+        assert new_st["world"]["activeCombat"] is not None   # главное — бой настоящий
 
     def test_high_scavenging_reduces_ambush(self):
         """При scavenging==10 шанс засады ≤ 5%."""

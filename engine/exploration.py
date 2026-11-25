@@ -304,39 +304,76 @@ def _kill_player(state: dict, cause: str) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Вспомогательная: start_combat (заглушка, вызывается из exploration)
+# Адаптер: плоский dict-view → GameData-интерфейс
 # ---------------------------------------------------------------------------
 
-def _start_combat(state: dict, game_data: dict, is_ambush: bool = False,
+
+class _CombatGameDataView:
+    """Адаптер плоского dict-view (бакеты monsters/armor/weapons/...) под
+    интерфейс GameData, которого ждёт engine.combat: exploration работает
+    с dict-view, а боевка — с GameData-объектом."""
+
+    def __init__(self, view: dict) -> None:
+        self._view = view or {}
+
+    def get_monster(self, monster_id: str) -> dict:
+        m = _find_monster(self._view, monster_id)
+        if m is None:
+            raise KeyError(f"Монстр не найден: '{monster_id}'")
+        return m
+
+    def get_item(self, item_id: str) -> dict:
+        it = _find_item(self._view, item_id)
+        if it is None:
+            raise KeyError(f"Предмет не найден: '{item_id}'")
+        return it
+
+    def get_biome(self, biome_id_or_type: str) -> dict:
+        for b in self._view.get("biomes", []):
+            if b.get("id") == biome_id_or_type or b.get("biomeType") == biome_id_or_type:
+                return b
+        raise KeyError(f"Биом не найден: '{biome_id_or_type}'")
+
+    def get_spell(self, spell_id: str) -> dict:
+        for s in self._view.get("spells", []):
+            if s.get("id") == spell_id:
+                return s
+        raise KeyError(f"Заклинание не найдено: '{spell_id}'")
+
+    def get_skill(self, skill_id: str) -> dict:
+        for s in self._view.get("skills", []):
+            if s.get("id") == skill_id:
+                return s
+        raise KeyError(f"Навык не найден: '{skill_id}'")
+
+
+def _start_combat(state: dict, game_data: dict | None, is_ambush: bool = False,
                   rng: random.Random | None = None,
                   session_path: str = DEFAULT_SESSION_PATH,
                   template_path: str = DEFAULT_TEMPLATE_PATH) -> tuple[dict, list[dict]]:
+    """Запускает бой через реальный движок engine/combat.py.
+
+    combat.start_combat создаёт world["activeCombat"] (без него CLI-команды
+    combat_attack/combat_retreat упираются в err_not_in_combat), масштабирует
+    монстра по difficultyMultiplier и при is_ambush сразу делает ход монстра.
     """
-    Запускает бой. Заглушка — возвращает событие start_combat.
-    Реальная боевая логика будет в engine/combat.py.
-    """
-    st = copy.deepcopy(state)
-    st["world"]["inCombat"] = True
-    map_data = st["map"]
-    current_node = None
-    for nd in map_data["nodes"]:
-        if nd["id"] == map_data["currentNodeId"]:
-            current_node = nd
-            break
+    # Локальный импорт — как с world_time выше: без кольцевых импортов engine.
+    from engine import combat
 
-    monster = current_node["state"]["monster"] if current_node else None
-    if not monster:
-        return st, [{"id": "err_no_monster_for_combat"}]
+    if game_data is None:
+        game_data = _load_game_data()
 
-    # Если засада — монстр ходит первым
-    monster_first = is_ambush
+    # exploration кормит нас плоским dict-view, а combat ждёт GameData-объект.
+    if not hasattr(game_data, "get_monster"):
+        game_data = _CombatGameDataView(game_data)
 
-    return st, [{
-        "id": "combat_start",
-        "mobId": monster["mobId"],
-        "isAmbush": is_ambush,
-        "monsterFirst": monster_first,
-    }]
+    if rng is None:
+        rng = random.Random()
+
+    return combat.start_combat(
+        state, game_data, is_ambush=is_ambush, rng=rng,
+        session_path=session_path, template_path=template_path,
+    )
 
 
 # ---------------------------------------------------------------------------

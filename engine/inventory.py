@@ -437,7 +437,7 @@ def register_armor_hit(
     player = new_state["player"]
     events: list[dict] = []
 
-    equipped = player["equipment"].get("armor")
+    equipped = player.get("equipment", {}).get("armor")
     if equipped is None:
         return new_state, events
 
