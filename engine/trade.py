@@ -379,7 +379,7 @@ def sell_item(
     # --- Исполнение сделки ---
 
     # Удаляем предмет из инвентаря
-    remove_item(new_state, item_id, count)
+    new_state, _ = remove_item(new_state, item_id, count)
     player = new_state["player"]
 
     # Начисляем золото
