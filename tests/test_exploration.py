@@ -348,6 +348,90 @@ class TestScavenge:
 
 
 # ---------------------------------------------------------------------------
+# 3. Перк «Чутьё кладоискателя» (KI-6)
+# ---------------------------------------------------------------------------
+
+class TestTreasureSense:
+
+    def _road_state(self, scavenging: int = 10):
+        """Состояние на тракте (там junk-вес = 30, первые роллы дают junk)."""
+        gd = _load_game_data()
+        map_data = generate_region(_SEED + 900, 1, gd)
+        road = next((nd for nd in map_data["nodes"] if nd["type"] == "road"), None)
+        assert road is not None, "Узел road не найден"
+        road["state"]["searchMax"] = 99
+        road["state"]["searchCount"] = 0
+        road["state"]["searchDepleted"] = False
+        st = _make_state(scavenging=scavenging)
+        st["map"] = map_data
+        st["map"]["currentNodeId"] = road["id"]
+        return st, road
+
+    def test_perk_finds_instead_of_nothing(self):
+        """Перк сработал (2%-й ролл) — предмет найден, а не scavenge_nothing."""
+        st, road = self._road_state()
+        for seed in range(200):
+            trial = copy.deepcopy(st)
+            trial["meta"]["seed"] = seed
+            new_st, events = scavenge_node(trial)
+            ids = [e["id"] for e in events]
+            if "scavenge_found" in ids:
+                found = [e for e in events if e["id"] == "scavenge_found"][0]
+                assert found["category"] in ("junk", "weapon", "armor", "food")
+                return
+        raise AssertionError("перк кладоискателя ни разу не нашёл предмет")
+
+    def test_weapon_bucket_not_empty_without_perk(self):
+        """Категория weapon ищет в бакете weapons (не в сыром ключе)."""
+        gd = _load_game_data()
+        st, road = self._road_state(scavenging=0)
+        count = 0
+        for seed in range(400):
+            trial = copy.deepcopy(st)
+            trial["meta"]["seed"] = seed
+            new_st, events = scavenge_node(trial)
+            for e in events:
+                if e["id"] == "scavenge_found" and e["category"] in ("weapon", "armor", "junk"):
+                    count += 1
+                    break
+        assert count > 0, "ни weapon/armor/junk-находок за 400 поисков"
+
+    def test_perk_reads_bucket_key(self):
+        """Регресс: перк и fallback читают бакет (materials/weapons), а не сырую категорию.
+
+        Сценарий: в бакете junk лежат только предметы с canFind=False — обычный
+        поиск пуст, а сработавший перк обязан их видеть (game_data.get(chosen_cat)
+        вернул бы None -> пустой список -> scavenge_nothing).
+        """
+        gd = _load_game_data()
+        st, road = self._road_state(scavenging=10)
+        road_id = road["id"]
+
+        custom_view = {
+            "materials": [
+                {"id": "junk_hidden_relic", "tier": 1, "economy": {"canFind": False}},
+            ],
+            "food": [],
+            "weapons": [],
+            "armor": [],
+            "consumables": [],
+        }
+
+        found_with_perk = False
+        for seed in range(400):
+            trial = copy.deepcopy(st)
+            trial["meta"]["seed"] = seed
+            new_st, events = scavenge_node(trial, custom_view)
+            ids = [e["id"] for e in events]
+            if "scavenge_found" in ids:
+                item = [e for e in events if e["id"] == "scavenge_found"][0]
+                if item["itemId"] == "junk_hidden_relic":
+                    found_with_perk = True
+                    break
+        assert found_with_perk, "перк не прочитал бакет materials: ролл потрачен впустую"
+
+
+# ---------------------------------------------------------------------------
 # 5. Биомные сдвиги и перки
 # ---------------------------------------------------------------------------
 

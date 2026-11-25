@@ -649,7 +649,7 @@ def scavenge_node(state: dict, game_data: dict | None = None,
     if scav_skill >= 10 and rng.random() <= 0.02:
         include_rare = True
         # Добавляем все предметы категории (включая canFind=False)
-        all_items = game_data.get(chosen_cat, [])
+        all_items = game_data.get(_CAT_MAP.get(chosen_cat, chosen_cat), [])
         candidates = all_items
 
     if not candidates:
@@ -660,8 +660,9 @@ def scavenge_node(state: dict, game_data: dict | None = None,
     if chosen_cat in ("weapon", "armor"):
         candidates = [it for it in candidates if it.get("tier", 1) <= target_tier]
         if not candidates:
-            # Fallback — любой предмет
-            candidates = [it for it in game_data.get(chosen_cat, []) if it.get("economy", {}).get("canFind", True)]
+            # Fallback — любой предмет (ключ бакета, а не сырая категория)
+            bucket = _CAT_MAP.get(chosen_cat, chosen_cat)
+            candidates = [it for it in game_data.get(bucket, []) if it.get("economy", {}).get("canFind", True)]
 
     # Для deep_forest/swamp — повышенный вес грибов/мха
     if chosen_cat == "food" and ntype in ("deep_forest", "swamp"):
