@@ -241,9 +241,8 @@ def _apply_bomb(
     )
     final_dmg = max(0, round(raw * mult))
 
-    # Урон монстру
-    monster_hp = target_monster["resources"]["hp"]["current"]
-    target_monster["resources"]["hp"]["current"] = max(0, monster_hp - final_dmg)
+    # Урон монстру (формат-агностично — R-4)
+    apply_damage_to_monster(target_monster, final_dmg)
 
     events.append({
         "id": "bomb_hit",
@@ -293,8 +292,8 @@ def process_weapon_coating_on_hit(
         )
         extra_dmg = max(0, round(bonus_dmg * mult))
 
-        monster_hp = target_monster["resources"]["hp"]["current"]
-        target_monster["resources"]["hp"]["current"] = max(0, monster_hp - extra_dmg)
+        # Урон от покрытия (формат-агностично — R-4)
+        apply_damage_to_monster(target_monster, extra_dmg)
 
         events.append({
             "id": "coating_damage",
@@ -361,6 +360,25 @@ def _monster_hp(monster: dict) -> tuple[dict | None, str]:
     if isinstance(resources, dict) and isinstance(resources.get("hp"), dict):
         return resources["hp"], "current"
     return monster, "hp"
+
+
+def apply_damage_to_monster(monster: dict[str, Any], damage: int | float) -> int:
+    """Наносит урон монстру в любом формате HP (R-4).
+
+    Реальный боевой монстр хранит hp/maxHp плоско, фикстуры тестов — в
+    resources.hp.current; прямой доступ к resources роняет реальный бой
+    с KeyError. Возвращает новое текущее HP.
+    """
+    container, key = _monster_hp(monster)
+    new_hp = max(0, container[key] - damage)
+    container[key] = new_hp
+    return new_hp
+
+
+def monster_hp_value(monster: dict[str, Any]) -> int:
+    """Текущий HP монстра в любом формате (плоский или resources)."""
+    container, key = _monster_hp(monster)
+    return container[key]
 
 
 def tick_combat_round_effects(

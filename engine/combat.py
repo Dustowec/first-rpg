@@ -42,6 +42,7 @@ def _get_player_attr(player: dict, attr: str) -> int:
     return player.get("resources", {}).get("attributes", {}).get(attr, 1)
 from engine.consumables import (
     clear_combat_effects,
+    monster_hp_value,
     process_weapon_coating_on_hit,
     tick_combat_round_effects,
     use_consumable,
@@ -231,6 +232,25 @@ def start_combat(
 # ---------------------------------------------------------------------------
 
 
+def _sync_combat_monster(state: dict, target_monster: dict | None) -> dict:
+    """Переносит актуального монстра (внешняя ссылка) в activeCombat по mobId.
+
+    cast_spell/use_consumable/process_weapon_coating_on_hit/
+    register_weapon_hit/register_armor_hit возвращают новые deepcopy
+    состояния, а урон и эффекты пишут в переданный target_monster (ссылку в
+    состоянии ДО копирования) — без переноса записи теряются (R-4).
+    """
+    if target_monster is None:
+        return state
+    world = state.get("world", {})
+    active_combat = world.get("activeCombat")
+    if not active_combat or active_combat.get("monster") is None:
+        return state
+    if target_monster.get("mobId") == active_combat["monster"].get("mobId"):
+        active_combat["monster"] = target_monster
+    return state
+
+
 def combat_step(
     state: dict,
     command: dict,
@@ -313,12 +333,30 @@ def combat_step(
         if any(e["id"].startswith("err_") for e in events):
             return state, events
 
-        # Проверка смерти монстра
-        if combat_mob["hp"] <= 0:
-            return _on_monster_defeated(state, game_data, rng, session_path, template_path)
+        # R-4: cast_spell пишет урон/эффекты в переданную цель (внутри свой
+        # deepcopy) — переносим монстра в возвращённое состояние
+        state = _sync_combat_monster(state, combat_mob)
+
+        # Проверка смерти монстра (формат-агностично — R-4); события каста
+        # (spell_cast/spell_missed) не выбрасываем — журнал должен видеть удар
+        if monster_hp_value(combat_mob) <= 0:
+            state, kill_events = _on_monster_defeated(state, game_data, rng, session_path, template_path)
+            events.extend(kill_events)
+            return state, events
 
         # Ход монстра
-        return _execute_monster_turn(state, game_data, rng, session_path, template_path)
+        state, monster_events = _execute_monster_turn(state, game_data, rng, session_path, template_path)
+        events.extend(monster_events)
+        if any(e.get("id") == "player_died" for e in monster_events):
+            return state, events
+        if state["world"].get("activeCombat") is None:
+            # permadeath-сброс: боя больше нет
+            return state, events
+
+        # Раунд доигран: тики эффектов, кулдауны, реген (R-2)
+        state, round_events = _end_round(state, game_data, rng, session_path, template_path)
+        events.extend(round_events)
+        return state, events
 
     # ------------------------------------------------------------------
     # Use item
@@ -341,12 +379,29 @@ def combat_step(
         if any(e["id"].startswith("err_") for e in events):
             return state, events
 
-        # Проверка смерти монстра
-        if combat_mob["hp"] <= 0:
-            return _on_monster_defeated(state, game_data, rng, session_path, template_path)
+        # R-4: use_consumable пишет урон во внешнюю цель — переносим в состояние
+        state = _sync_combat_monster(state, combat_mob)
+
+        # Проверка смерти монстра (формат-агностично — R-4); событие бомбы
+        # (bomb_hit/bomb_missed) не выбрасываем — журнал должен видеть удар
+        if monster_hp_value(combat_mob) <= 0:
+            state, kill_events = _on_monster_defeated(state, game_data, rng, session_path, template_path)
+            events.extend(kill_events)
+            return state, events
 
         # Ход монстра
-        return _execute_monster_turn(state, game_data, rng, session_path, template_path)
+        state, monster_events = _execute_monster_turn(state, game_data, rng, session_path, template_path)
+        events.extend(monster_events)
+        if any(e.get("id") == "player_died" for e in monster_events):
+            return state, events
+        if state["world"].get("activeCombat") is None:
+            # permadeath-сброс: боя больше нет
+            return state, events
+
+        # Раунд доигран: тики эффектов, кулдауны, реген (R-2)
+        state, round_events = _end_round(state, game_data, rng, session_path, template_path)
+        events.extend(round_events)
+        return state, events
 
     return state, [{"id": "err_unknown_command", "type": command_type}]
 
@@ -363,7 +418,11 @@ def _execute_monster_turn(
     session_path: str = DEFAULT_SESSION_PATH,
     template_path: str = DEFAULT_TEMPLATE_PATH,
 ) -> tuple[dict, list[dict]]:
-    """Ход монстра: реген, атака, onHitDot, second_wind."""
+    """Ход монстра: атака, onHitDot, second_wind.
+
+    Реген монстра здесь НЕ применяется: единственное место — _end_round,
+    иначе на «попадающих» раундах реген срабатывает дважды (R-1).
+    """
     if rng is None:
         rng = random.Random()
 
@@ -372,30 +431,12 @@ def _execute_monster_turn(
     player = state["player"]
     active_combat = world["activeCombat"]
     combat_mob = active_combat["monster"]
-    # Реген идёт по прожитым раундам: если монстр ходит первым (засада),
-    # его ход в раунде 1 — это первый прожитый раунд (KI-1).
-    round_num = active_combat["round"] + (1 if active_combat.get("isAmbush") else 0)
     events: list[dict] = []
 
     # Получаем данные монстра для specialTraits
     mob_id = combat_mob["mobId"]
     monster_data = game_data.get_monster(mob_id)
     special_traits = monster_data.get("specialTraits", {}) if monster_data else {}
-
-    # Регенерация
-    if "regenHp" in special_traits:
-        regen_hp = special_traits["regenHp"]
-        regen_interval = special_traits.get("regenIntervalRounds", 1)
-        if round_num % regen_interval == 0:
-            max_hp = combat_mob["maxHp"]
-            hp_before = combat_mob["hp"]
-            combat_mob["hp"] = min(max_hp, combat_mob["hp"] + regen_hp)
-            if combat_mob["hp"] > hp_before:
-                events.append({
-                    "id": "monster_regen",
-                    "enemy": monster_data.get("name", {}).get("ru", mob_id) if monster_data else mob_id,
-                    "amount": combat_mob["hp"] - hp_before,
-                })
 
     # Атака монстра
     player_evasion = 0  # будет рассчитана в roll_monster_attack
@@ -417,8 +458,6 @@ def _execute_monster_turn(
         ignore_armor_ratio=ignore_armor_ratio,
     )
 
-    events = []
-
     if result["hit"]:
         # Урон игроку
         player["resources"]["hp"]["current"] = max(0, player["resources"]["hp"]["current"] - result["damage"])
@@ -435,6 +474,13 @@ def _execute_monster_turn(
         # Износ брони
         state, armor_events = register_armor_hit(state)
         events.extend(armor_events)
+
+        # register_armor_hit возвращает новое состояние (deepcopy) — обновляем
+        # ссылки: иначе запись onHitDot уйдёт в отброшенный объект (R-3)
+        world = state["world"]
+        player = state["player"]
+        active_combat = world["activeCombat"]
+        combat_mob = active_combat["monster"]
 
         # On-hit DOT (например, отравляющий укус паука)
         if "onHitDot" in special_traits:
@@ -504,8 +550,16 @@ def _end_round(
     state, tick_events = tick_combat_round_effects(state, combat_mob)
     events.extend(tick_events)
 
-    # 2. Уменьшение кулдауна «Сокрушения»
+    # Обновляем ссылки на пост-тик состояние: tick_combat_round_effects делает
+    # deepcopy и возвращает новый объект (R-1/R-4 — реген и проверки смерти
+    # должны читать/писать актуального монстра, а не отброшенную копию)
     world = state["world"]
+    active_combat = world.get("activeCombat")
+    if not active_combat:
+        return state, events
+    combat_mob = active_combat["monster"]
+
+    # 2. Уменьшение кулдауна «Сокрушения»
     combat_flags = world.get("combatFlags", {})
     combat_flags["crushingCooldown"] = max(0, combat_flags.get("crushingCooldown", 0) - 1)
 
@@ -526,15 +580,16 @@ def _end_round(
                     "amount": combat_mob["hp"] - hp_before,
                 })
 
-    # 4. Смерть монстра от DoT — сразу обычная победа (лут/XP/combat_victory)
+    # 4. Смерть монстра от DoT — сразу обычная победа (лут/XP/combat_victory);
+    # тиковые события (monster_dot_tick) не выбрасываем
     if combat_mob["hp"] <= 0:
-        world["activeCombat"]["monster"] = combat_mob
-        return _on_monster_defeated(state, game_data, rng, session_path, template_path)
+        state, kill_events = _on_monster_defeated(state, game_data, rng, session_path, template_path)
+        events.extend(kill_events)
+        return state, events
 
     # 5. Смерть игрока от DoT
     player = state["player"]
     if player["resources"]["hp"]["current"] <= 0:
-        world["activeCombat"]["monster"] = combat_mob
         state, death_events = handle_player_death(
             state, reason="dot_damage", session_path=session_path, template_path=template_path
         )
@@ -787,6 +842,11 @@ def _handle_player_attack(
         perk_events = apply_on_weapon_hit_perks(state, combat_mob, rng)
         events.extend(perk_events)
 
+        # R-4: покрытие и перки пишут урон/эффекты во внешнюю ссылку combat_mob
+        # (register_weapon_hit и process_weapon_coating_on_hit вернули новые
+        # копии состояния) — переносим монстра в текущее состояние
+        state = _sync_combat_monster(state, combat_mob)
+
         events.append({
             "id": "attack_hit",
             "mobId": combat_mob["mobId"],
@@ -797,9 +857,12 @@ def _handle_player_attack(
     else:
         events.append({"id": "attack_miss", "mobId": combat_mob["mobId"]})
 
-    # Проверка смерти монстра
-    if combat_mob["hp"] <= 0:
-        return _on_monster_defeated(state, game_data, rng, session_path, template_path)
+    # Проверка смерти монстра (формат-агностично — R-4); событие удара
+    # (attack_hit/attack_miss) не выбрасываем — журнал должен видеть удар
+    if monster_hp_value(combat_mob) <= 0:
+        state, kill_events = _on_monster_defeated(state, game_data, rng, session_path, template_path)
+        events.extend(kill_events)
+        return state, events
 
     # Ход монстра
     state, monster_events = _execute_monster_turn(state, game_data, rng, session_path, template_path)

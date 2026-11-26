@@ -156,6 +156,18 @@ def event_text(event: dict, game_data: GameData) -> str:
         enemy = event.get("enemy") or monster_name(game_data, event.get("mobId", ""))
         return t(game_data, "battle_enemy_regen", "{enemy} восстанавливает {amount} HP.",
                  enemy=enemy, amount=event.get("amount", 0))
+    if eid == "monster_onhit_dot":
+        # R-6: раньше печатался сырой id события
+        return t(game_data, "journal_onhit_dot", "Вас отравили!")
+    if eid == "effect_expired":
+        # R-6: раньше печатался сырой id события
+        return t(game_data, "journal_effect_expired", "Действие эффекта истекло.")
+    if eid == "monster_effect_expired":
+        # R-6: раньше печатался сырой id события
+        return t(game_data, "journal_monster_effect_expired", "Эффект на враге закончился.")
+    if eid == "sys_permadeath_reset":
+        # R-6: раньше печатался сырой id события (session_reset_permadeath — соседний id)
+        return t(game_data, "journal_permadeath", "Сессия сброшена. Новая игра.")
     if eid == "combat_started":
         enemy = event.get("enemy") or monster_name(game_data, event.get("mobId", ""))
         return t(game_data, "battle_start", "Бой начинается! {enemy} появляется!", enemy=enemy)

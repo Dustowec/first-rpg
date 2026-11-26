@@ -12,6 +12,7 @@ import random
 from typing import Any
 
 from engine.constants import SKILLS
+from engine.consumables import apply_damage_to_monster
 from engine.progression import (
     has_caustic_toxins,
     has_concentration,
@@ -230,11 +231,8 @@ def _cast_fire_spell(
     final_damage = apply_armor_absorption(typed_damage, target_monster.get("defense", 0), ignore_armor_ratio=0.5)
     final_damage = round(final_damage)
 
-    # Применяем урон
-    target_monster["resources"]["hp"]["current"] = max(
-        0,
-        target_monster["resources"]["hp"]["current"] - final_damage,
-    )
+    # Применяем урон (формат-агностично: плоский hp или resources — R-4)
+    apply_damage_to_monster(target_monster, final_damage)
 
     # Накладываем burn
     events = []
@@ -310,10 +308,8 @@ def _cast_ice_spell(
     final_damage = apply_armor_absorption(typed_damage, target_monster.get("defense", 0), ignore_armor_ratio=0.5)
     final_damage = round(final_damage)
 
-    target_monster["resources"]["hp"]["current"] = max(
-        0,
-        target_monster["resources"]["hp"]["current"] - final_damage,
-    )
+    # Урон (формат-агностично — R-4)
+    apply_damage_to_monster(target_monster, final_damage)
 
     # Дебафф evasionDelta: -10 на 3 хода
     _add_monster_effect(
@@ -524,10 +520,8 @@ def _cast_dot_spell(
     final_damage = apply_armor_absorption(typed_damage, target_monster.get("defense", 0), ignore_armor_ratio=0.5)
     final_damage = round(final_damage)
 
-    target_monster["resources"]["hp"]["current"] = max(
-        0,
-        target_monster["resources"]["hp"]["current"] - final_damage,
-    )
+    # Урон ядом (формат-агностично — R-4)
+    apply_damage_to_monster(target_monster, final_damage)
 
     # Накладываем poison
     dot_hp_delta = -2
@@ -594,10 +588,8 @@ def _cast_drain_spell(
     final_damage = apply_armor_absorption(typed_damage, target_monster.get("defense", 0), ignore_armor_ratio=0.5)
     final_damage = round(final_damage)
 
-    target_monster["resources"]["hp"]["current"] = max(
-        0,
-        target_monster["resources"]["hp"]["current"] - final_damage,
-    )
+    # Урон вампиризмом (формат-агностично — R-4)
+    apply_damage_to_monster(target_monster, final_damage)
 
     # Вампиризм: 50% от урона
     heal_amount = math.floor(final_damage * 0.5)
