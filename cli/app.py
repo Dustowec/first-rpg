@@ -164,7 +164,8 @@ def event_text(event: dict, game_data: GameData) -> str:
     if eid == "combat_fled_failed":
         return t(game_data, "combat_fled_failed", "Отступить не вышло — противник бьёт!")
     if eid == "combat_victory":
-        return t(game_data, "journal_victory", "Победа! Локация зачищена.")
+        # KI-11: battle_victory симметрична battle_enemy_attack (награды — отдельными событиями)
+        return t(game_data, "battle_victory", "Победа! Локация зачищена.")
     if eid == "lair_next_monster":
         return t(game_data, "journal_lair_next", "Из логова выходит {enemy}!", enemy=monster_name(game_data, event.get("mobId", "")))
     if eid == "xp_gained":
@@ -176,6 +177,12 @@ def event_text(event: dict, game_data: GameData) -> str:
     if eid == "item_added":
         return t(game_data, "journal_item_added", "Получено: {item} ({count})",
                  item=item_name(game_data, event.get("itemId", "")), count=event.get("count", 1))
+    if eid == "item_equipped":
+        return t(game_data, "inventory_equipped", "Экипировано: {item}.",
+                 item=item_name(game_data, event.get("itemId", "")))
+    if eid == "item_unequipped":
+        return t(game_data, "inventory_unequipped", "Снято: {item}.",
+                 item=item_name(game_data, event.get("itemId", "")))
     if eid == "item_removed":
         return t(game_data, "journal_item_removed", "Потрачено: {item} ({count})",
                  item=item_name(game_data, event.get("itemId", "")), count=event.get("count", 1))

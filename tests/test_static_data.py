@@ -300,3 +300,35 @@ class TestEconomyBlock:
             item = gd.get_item(mat_id)
             actual = item.get("economy", {}).get("buyPrice")
             assert actual == expected_price, f"{mat_id}: buyPrice={actual}, ожидалось {expected_price}"
+
+
+# ---------------------------------------------------------------------------
+# 8. Локализация: нет мёртвых ключей (KI-11)
+# ---------------------------------------------------------------------------
+
+
+class TestStringsAreUsed:
+    def test_no_dead_string_keys(self):
+        """Каждый ключ strings_ru.json отрендерен через event_text/t() либо это err_*."""
+        import re
+
+        strings = _load_json(DATA_DIR / "strings_ru.json")
+        sources = (list((PROJECT_ROOT / "engine").glob("*.py"))
+                   + list((PROJECT_ROOT / "cli").glob("*.py")))
+        code = "\n".join(p.read_text(encoding="utf-8") for p in sources)
+
+        direct = set(re.findall(r"\bt\(\s*[^,]+,\s*[\"']([A-Za-z0-9_]+)[\"']", code))
+        dynamic_prefixes = set(re.findall(r"t\(\s*[^,]+,\s*[\"']([A-Za-z0-9_]+_)[\"']\s*\+", code))
+
+        dead = []
+        for key in strings:
+            if key in direct or key.startswith("err_"):
+                continue
+            if any(key.startswith(prefix) for prefix in dynamic_prefixes):
+                continue
+            if re.search(rf"[\"']{re.escape(key)}[\"']", code):
+                continue
+            dead.append(key)
+
+        assert dead == [], f"мёртвые ключи локализации: {dead}"
+

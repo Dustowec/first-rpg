@@ -150,7 +150,7 @@ class TestGetterMethods:
         assert npc["role"] == "elder"
 
     def test_t_function(self, gd: GameData):
-        text = gd.t("system_load_complete")
+        text = gd.t("system_death_message")
         assert isinstance(text, str)
         assert len(text) > 0
 
