@@ -112,7 +112,7 @@ def create_initial_state(
             "difficultyMultiplier": multiplier,
             "xpRate": 1.0,
             "llm": {
-                "enabled": True,
+                "enabled": False,  # KI-12: из коробки LLM выключен (эндпоинт недоступен, 15 с таймаута)
                 "endpoint": "http://127.0.0.1:8080/v1/chat/completions",
                 "model": "Qwen3-4B-Instruct-Q4_K_M",
                 "timeoutSec": 15,

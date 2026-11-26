@@ -378,3 +378,29 @@ class TestDifficultyMultipliers:
         )
 
         assert state["meta"]["seed"] == 12345
+
+
+# ---------------------------------------------------------------------------
+# KI-12: LLM выключен по умолчанию в шаблоне новой игры
+# ---------------------------------------------------------------------------
+
+
+class TestLlmOffByDefault:
+    def test_initial_state_llm_disabled(self):
+        assert create_initial_state()["meta"]["llm"]["enabled"] is False
+
+    def test_generated_template_llm_disabled(self, tmp_path: Path):
+        from scripts.generate_template import generate_template
+
+        path = tmp_path / "state_template.json"
+        generate_template(path)
+        with open(path, "r", encoding="utf-8") as f:
+            template = json.load(f)
+        assert template["meta"]["llm"]["enabled"] is False
+
+    def test_repo_template_llm_disabled(self):
+        template_path = Path(__file__).resolve().parent.parent / "state_template.json"
+        with open(template_path, "r", encoding="utf-8") as f:
+            template = json.load(f)
+        assert template["meta"]["llm"]["enabled"] is False
+

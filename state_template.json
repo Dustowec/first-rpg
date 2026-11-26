@@ -4,7 +4,7 @@
     "seed": 20260101,
     "region": 1,
     "llm": {
-      "enabled": true,
+      "enabled": false,
       "endpoint": "http://127.0.0.1:8080/v1/chat/completions",
       "model": "Qwen3-4B-Instruct-Q4_K_M",
       "timeoutSec": 15

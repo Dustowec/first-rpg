@@ -121,7 +121,7 @@ def generate_template(output_path: str | Path) -> None:
             "seed": seed,
             "region": region,
             "llm": {
-                "enabled": True,
+                "enabled": False,  # KI-12: из коробки LLM выключен (эндпоинт недоступен, 15 с таймаута)
                 "endpoint": "http://127.0.0.1:8080/v1/chat/completions",
                 "model": "Qwen3-4B-Instruct-Q4_K_M",
                 "timeoutSec": 15,
