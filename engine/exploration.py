@@ -205,102 +205,54 @@ def _roll_node_spawn(state: dict, node: dict, gd: dict, rng: random.Random) -> N
 # Вспомогательная: advance_time
 # ---------------------------------------------------------------------------
 
+class _CoerceGameData:
+    """Совместимость интерфейсов данных для world_time.
+
+    exploration работает с плоским dict-view (бакеты monsters/biomes/...),
+    controller — с GameData; world_time для респавна нужны get_monster/get_biome.
+    """
+
+    def __init__(self, view: dict | Any) -> None:
+        self._view = view
+
+    def get_monster(self, monster_id: str) -> dict:
+        found = _find_monster(self._view, monster_id)
+        if found is None:
+            raise KeyError(f"Монстр не найден: '{monster_id}'")
+        return found
+
+    def get_biome(self, biome_key: str) -> dict | None:
+        for biome in self._view.get("biomes", []):
+            if biome.get("id") == biome_key or biome.get("biomeType") == biome_key:
+                return biome
+        return None
+
+
 def advance_time(state: dict, steps: int = 1,
                  gd: dict | None = None,
                  rng: random.Random | None = None,
                  session_path: str = DEFAULT_SESSION_PATH,
                  template_path: str = DEFAULT_TEMPLATE_PATH) -> tuple[dict, list[dict]]:
     """
-    Продвигает время на steps шагов. Тикает регенерацию, DoT, проверяет голод.
-    Возвращает (new_state, events). Если игрок погиб — events содержит death.
+    Продвигает время на steps шагов (KI-7: единая точка истины).
 
-    Канон голода (§ 7.2) берётся из world_time.get_hunger_deadlines: перк
-    «Тугий пояс» (scavenging >= 6) сдвигает дедлайны 7/17 -> 9/19. На новом дне
-    флаги сытости обнуляются, счётчик дней с зачистки тикает (§ 28.2).
+    Раньше у исследования была своя копия механики времени с расходящимися
+    правилами (смерть, голод/MP-реген, effect_expired, клампинг DoT). Теперь
+    делегируем в world_time.advance_time: смерть — permadeath-сброс с
+    player_died, дедлайны 7/17 (9/19 с перком «Тугий пояс»), тики эффектов и
+    респавн монстров (§ 28.2) происходят одинаково при любом действии.
+
+    gd может быть плоским dict-view (exploration) или объектом GameData
+    (controller): для респавна достаточно get_monster/get_biome.
     """
     # Локальный импорт — чтобы не завязывать модуль на порядок импортов engine.
-    from engine.world_time import get_hunger_deadlines
+    from engine.world_time import advance_time as world_advance_time
 
-    st = copy.deepcopy(state)
-    world = st["world"]
-    player = st["player"]
-    level = player.get("level", 1)
-
-    try:
-        morning_deadline, evening_deadline = get_hunger_deadlines(player)
-    except (KeyError, AttributeError, TypeError):
-        morning_deadline, evening_deadline = 7, 17
-
-    for _ in range(steps):
-        # Шаг суток
-        world["stepOfDay"] += 1
-        if world["stepOfDay"] > 20:
-            world["stepOfDay"] = 1
-            world["day"] += 1
-            # Новый день (§ 7.2): два приёма пищи нужно закрыть заново
-            world["fedMorning"] = False
-            world["fedEvening"] = False
-            # Счётчик дней с зачистки для респавна (§ 28.2, канон #1)
-            for nd in st.get("map", {}).get("nodes", []):
-                nd_state = nd.get("state", {})
-                if isinstance(nd_state.get("daysSinceCleared"), int):
-                    nd_state["daysSinceCleared"] += 1
-
-        step = world["stepOfDay"]
-
-        # --- Проверка голода (§7.2), дедлайны с учётом перка ---
-        if step == morning_deadline and not world.get("fedMorning"):
-            _kill_player(st, "starvation_morning")
-            return st, [{"id": "player_death", "cause": "starvation_morning"}]
-        if step == evening_deadline and not world.get("fedEvening"):
-            _kill_player(st, "starvation_evening")
-            return st, [{"id": "player_death", "cause": "starvation_evening"}]
-
-        # --- Блокировка регенерации в фазе голода (окна от дедлайнов) ---
-        hunger_blocked = False
-        if step < morning_deadline and not world.get("fedMorning"):
-            hunger_blocked = True
-        if 10 <= step < evening_deadline and not world.get("fedEvening"):
-            hunger_blocked = True
-
-        # --- Естественная регенерация (§7.3) ---
-        if not world.get("inCombat") and not hunger_blocked:
-            # Проверяем нет ли активных DoT
-            has_dot = any(ef.get("type") in ("poison", "bleeding") for ef in world.get("activeEffects", []))
-            if not has_dot:
-                # HP: +level каждые 3 хода
-                if step % 3 == 0:
-                    res = player["resources"]
-                    cur = min(res["hp"]["max"], res["hp"]["current"] + level)
-                    res["hp"]["current"] = cur
-                # MP: +level каждые 5 ходов
-                if step % 5 == 0:
-                    res = player["resources"]
-                    cur = min(res["mp"]["max"], res["mp"]["current"] + level)
-                    res["mp"]["current"] = cur
-
-        # --- Тик активных эффектов ---
-        effects = world.get("activeEffects", [])
-        for ef in effects:
-            ticks = ef.get("ticksLeft", 0)
-            delta = ef.get("hpDeltaPerTurn", 0)
-            if delta != 0:
-                res = player["resources"]
-                res["hp"]["current"] = max(0, res["hp"]["current"] + delta)
-                if res["hp"]["current"] <= 0:
-                    _kill_player(st, "dot_damage")
-                    return st, [{"id": "player_death", "cause": "dot_damage"}]
-            ef["ticksLeft"] = ticks - 1
-        world["activeEffects"] = [ef for ef in effects if ef.get("ticksLeft", 0) > 0]
-
-    return st, []
-
-
-def _kill_player(state: dict, cause: str) -> None:
-    """Помечает игрока как мёртвого."""
-    state["world"]["inCombat"] = False
-    state["world"]["playerDead"] = True
-    state["world"]["deathCause"] = cause
+    game_data = _CoerceGameData(gd) if gd is not None else None
+    return world_advance_time(
+        state, steps=steps, game_data=game_data, rng=rng,
+        session_path=session_path, template_path=template_path,
+    )
 
 
 # ---------------------------------------------------------------------------

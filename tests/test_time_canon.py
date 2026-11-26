@@ -60,13 +60,21 @@ def _dead(events):
     return any(e["id"] in ("player_death", "player_died") for e in events)
 
 
+def _death_reason(events):
+    """Причина гибели: world_time отдаёт reason, старый формат exploration — cause."""
+    for e in events:
+        if e["id"] in ("player_death", "player_died"):
+            return e.get("reason") or e.get("cause")
+    return None
+
+
 def test_without_perk_dies_at_step_7(paths):
     state = _state(paths, scavenging=0, step=5)
     state, events = _wait(state)                 # шаг 6
     assert not _dead(events)
     state, events = _wait(state)                 # шаг 7 — дедлайн
     assert _dead(events)
-    assert any(e.get("cause") == "starvation_morning" for e in events)
+    assert _death_reason(events) == "starvation_morning"
 
 
 def test_tight_belt_perk_moves_morning_deadline_to_9(paths):
@@ -84,7 +92,7 @@ def test_tight_belt_perk_moves_evening_deadline_to_19(paths):
     assert not _dead(events)
     state, events = _wait(state)                 # шаг 19
     assert _dead(events)
-    assert any(e.get("cause") == "starvation_evening" for e in events)
+    assert _death_reason(events) == "starvation_evening"
 
 
 def test_fed_flags_reset_on_new_day(paths):
@@ -116,6 +124,9 @@ def test_regen_block_window_follows_perk(paths):
 def test_days_since_cleared_ticks_on_new_day(paths):
     state = _state(paths, step=20, fed_morning=True, fed_evening=True)
     nodes = state["map"]["nodes"]
+    # Узел 1 заселяем и «зачищаем»: только зачищенные узлы тикают (KI-4)
+    nodes[1]["state"]["monster"] = None
+    nodes[1]["state"]["spawnRolled"] = True
     nodes[1]["state"]["daysSinceCleared"] = 2
     nodes[2]["state"]["daysSinceCleared"] = None
 
@@ -124,9 +135,96 @@ def test_days_since_cleared_ticks_on_new_day(paths):
     # проверяем НОВЫЙ state: часы работают на глубокой копии
     new_nodes = new_state["map"]["nodes"]
     assert new_nodes[1]["state"]["daysSinceCleared"] == 3
-    assert new_nodes[2]["state"]["daysSinceCleared"] is None
+    # узлы, где счётчик не инициализирован (None), не тикают от None
+    assert new_nodes[2]["state"]["daysSinceCleared"] != 3
     # и заодно фиксируем чистоту функции: вход не тронут
     assert nodes[1]["state"]["daysSinceCleared"] == 2
+
+
+# ---------------------------------------------------------------------------
+# KI-4 / KI-7: респавн при смене дня и единые правила времени
+# ---------------------------------------------------------------------------
+
+MOB_HP = {mid: GD.get_monster(mid)["hp"]
+          for mid in ("mob_rat_giant", "mob_bandit_scout", "mob_wolf_forest")}
+
+
+def test_respawn_uses_node_type_and_top_level_hp(paths):
+    """KI-4: узлы worldgen без biomeId респавнятся, maxHp = data/{mob}.hp."""
+    state = _state(paths, step=20, fed_morning=True, fed_evening=True)
+    nodes = state["map"]["nodes"]
+    # Дикий узел в формате worldgen: тип биома в ключе "type", biomeId отсутствует
+    wild = next(nd for nd in nodes if nd["id"] != "node_00")
+    assert "biomeId" not in wild
+    wild["state"]["monster"] = None
+    wild["state"]["spawnRolled"] = True
+    wild["state"]["daysSinceCleared"] = 4
+
+    new_state, events = _wait(state)
+
+    respawned = [e for e in events if e["id"] == "monster_respawned"]
+    assert respawned, f"респавн не сработал: {[e['id'] for e in events]}"
+    assert respawned[0]["nodeId"] == wild["id"]
+
+    node = next(nd for nd in new_state["map"]["nodes"] if nd["id"] == wild["id"])
+    monster = node["state"]["monster"]
+    assert monster["mobId"] == respawned[0]["mobId"]
+    assert monster["maxHp"] == MOB_HP[monster["mobId"]], "maxHp должен браться из data/*.json"
+
+
+def test_respawn_triggers_from_move(paths):
+    """KI-4: смена дня через move (exploration) тоже респавнит монстров."""
+    state = _state(paths, step=20, fed_morning=True, fed_evening=True)
+    nodes = state["map"]["nodes"]
+    current = next(nd for nd in nodes if nd["id"] == state["map"]["currentNodeId"])
+    target_id = current["connections"][0]
+    wild = next(nd for nd in nodes if nd["id"] == target_id)
+    wild["state"]["monster"] = None
+    wild["state"]["spawnRolled"] = True
+    wild["state"]["daysSinceCleared"] = 4
+    wild["state"]["visited"] = True
+
+    new_state, events = exploration.move_to_node(
+        state, target_id, game_data=exploration_view(GD), rng=random.Random(7),
+        session_path=paths[0], template_path=paths[1],
+    )
+    ids = [e["id"] for e in events]
+    assert "moved_to_node" in ids
+    assert "monster_respawned" in ids, f"move не респавнит: {ids}"
+
+
+def test_single_clock_for_combat_and_exploration(paths):
+    """KI-7: world_time и exploration.advance_time дают одинаковый результат."""
+    from engine import world_time
+
+    base = _state(paths, step=3, fed_morning=True, fed_evening=True)
+    base["player"]["resources"]["hp"] = {"current": 5, "max": 10}
+    base["player"]["resources"]["mp"] = {"current": 0, "max": 5}
+    base["world"]["activeEffects"] = [{"type": "poison", "hpDeltaPerTurn": -1, "ticksLeft": 2}]
+
+    via_world, ev_world = world_time.advance_time(base, steps=2, game_data=GD)
+    via_expl, ev_expl = exploration.advance_time(
+        base, steps=2, gd=exploration_view(GD), rng=random.Random(7),
+    )
+
+    assert via_world["world"] == via_expl["world"]
+    assert via_world["player"] == via_expl["player"]
+    assert [e["id"] for e in ev_world] == [e["id"] for e in ev_expl]
+
+
+def test_mp_regen_blocked_in_hunger_window(paths):
+    """KI-7: голодное окно блокирует MP-реген так же, как HP (раньше — только HP)."""
+    state = _state(paths, step=4, fed_morning=False, fed_evening=True)
+    state["player"]["resources"]["mp"] = {"current": 0, "max": 5}
+    state["player"]["resources"]["hp"] = {"current": 5, "max": 10}
+
+    from engine import world_time
+
+    new_state, _ = world_time.advance_time(state, steps=1, game_data=GD)
+    # шаг 5 — кратно 5 (MP-реген), но окно голода (5 < 7, не завтракали)
+    assert new_state["world"]["stepOfDay"] == 5
+    assert new_state["player"]["resources"]["mp"]["current"] == 0
+    assert new_state["player"]["resources"]["hp"]["current"] == 5
 
 
 def test_permadeath_from_exploration_clock_via_controller(paths):

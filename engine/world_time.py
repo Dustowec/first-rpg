@@ -99,13 +99,33 @@ def _check_kit_compatibility(
 # ---------------------------------------------------------------------------
 
 
+def _biome_for_node(node: dict, game_data: GameData | None) -> dict | None:
+    """Находит описание биома для узла карты.
+
+    Узлы worldgen хранят тип биома в ключе "type" (biomeId у них нет вообще),
+    поэтому сначала пробуем type, затем biomeId (совместимость со старыми картами).
+    """
+    if game_data is None:
+        return None
+    for key in (node.get("type", ""), node.get("biomeId", "")):
+        if not key:
+            continue
+        try:
+            biome = game_data.get_biome(key)
+        except KeyError:
+            biome = None
+        if biome:
+            return biome
+    return None
+
+
 def _on_new_day(
     state: dict,
     game_data: GameData | None,
     rng: random.Random | None,
     events: list[dict],
 ) -> None:
-    """Обработка смены суток: респавн монстров раз в 5 дней.
+    """Обработка смены суток: респавн монстров раз в 5 дней (§ 28.2).
 
     Для каждого зачищенного дикого узла увеличивает daysSinceCleared.
     При daysSinceCleared >= 5 респавнит одного обычного монстра.
@@ -124,28 +144,27 @@ def _on_new_day(
 
         # Узел был зачищен
         if node_state.get("spawnRolled") is True:
-            days_since = node_state.get("daysSinceCleared", 0) + 1
+            days_since = (node_state.get("daysSinceCleared") or 0) + 1
             node_state["daysSinceCleared"] = days_since
 
             if days_since >= 5:
                 node_state["daysSinceCleared"] = 0
 
                 # Респавним монстра из monsterPool биома
-                biome_id = node.get("biomeId", "")
-                if not biome_id:
-                    # Пробуем найти biome по nodeId или используем default
-                    continue
-
-                biome = game_data.get_biome(biome_id) if game_data else None
+                biome = _biome_for_node(node, game_data)
                 if biome is None:
                     continue
                 monster_pool = biome.get("monsterPool", [])
 
                 # Фильтруем обычных монстров (не боссов)
-                ordinary_mobs = [
-                    mid for mid in monster_pool
-                    if not game_data.get_monster(mid).get("isBoss", False)
-                ]
+                ordinary_mobs = []
+                for mid in monster_pool:
+                    try:
+                        mob_def = game_data.get_monster(mid)
+                    except KeyError:
+                        continue
+                    if mob_def and not mob_def.get("isBoss", False):
+                        ordinary_mobs.append(mid)
 
                 if not ordinary_mobs:
                     continue
@@ -153,10 +172,10 @@ def _on_new_day(
                 chosen_mob_id = ordinary_mobs[0]  # берём первого
                 mob_def = game_data.get_monster(chosen_mob_id)
 
-                # Скалируем HP по difficultyMultiplier
+                # Скалируем HP по difficultyMultiplier; у монстров HP — верхним уровнем
                 diff_mult = state.get("meta", {}).get("difficultyMultiplier", 1.0)
-                base_hp = mob_def.get("stats", {}).get("hp", 10)
-                scaled_hp = int(base_hp * diff_mult)
+                base_hp = mob_def.get("hp", 10)
+                scaled_hp = max(1, int(base_hp * diff_mult))
 
                 node_state["monster"] = {
                     "mobId": chosen_mob_id,
@@ -255,9 +274,10 @@ def advance_time(
         # 4. Естественная регенерация вне боя
         if not world.get("inCombat"):
             step = world["stepOfDay"]
+            hungry = is_hungry_now(world, player)
 
-            # Реген MP: каждые 5 шагов
-            if step % 5 == 0:
+            # Реген MP: каждые 5 шагов (KI-7: голод блокирует и HP, и MP)
+            if step % 5 == 0 and not hungry:
                 mp_res = player["resources"]["mp"]
                 mp_res["current"] = min(mp_res["max"], mp_res["current"] + player["level"])
 
@@ -268,7 +288,7 @@ def advance_time(
                     e.get("hpDeltaPerTurn", 0) < 0
                     for e in active_effects
                 )
-                if not has_dot and not is_hungry_now(world, player):
+                if not has_dot and not hungry:
                     hp_res = player["resources"]["hp"]
                     hp_res["current"] = min(hp_res["max"], hp_res["current"] + player["level"])
 
