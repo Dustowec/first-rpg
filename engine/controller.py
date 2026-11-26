@@ -97,6 +97,9 @@ def _route(state, command, game_data, rng, session_path, template_path, llm_tran
 
     # --- Инвентарь, еда, прокачка (Блоки 2.1–2.3) ---
     if ctype == "eat":
+        # KI-10: еда в бою запрещена — иначе бесплатный отхил HP вне механики AP
+        if state.get("world", {}).get("inCombat"):
+            return state, [{"id": "err_in_combat"}]
         return world_time.eat_food(state, command.get("itemId", ""), game_data)
     if ctype == "use_item":
         item_id = command.get("itemId", "")

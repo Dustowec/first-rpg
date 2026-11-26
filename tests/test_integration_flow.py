@@ -206,6 +206,28 @@ def test_retreat_command_routes_to_flee(paths):
     assert fled and state["world"]["inCombat"] is False
 
 
+def test_eat_blocked_in_combat(paths):
+    """KI-10: еда в бою запрещена — err_in_combat, HP не меняется."""
+    state = _start(paths)
+    rng = random.Random(3)
+    target = _first_exit(state)
+    state, _ = _cmd(state, {"type": "move", "targetNodeId": target}, paths, rng)
+    state = _put_monster(state, target, "mob_ghoul")
+    state = _buff_player(state)
+    state["world"]["fedMorning"] = True
+    state, _ = _cmd(state, {"type": "look"}, paths, rng)
+    state, _ = _cmd(state, {"type": "start_combat"}, paths, rng)
+    assert state["world"]["inCombat"] is True
+
+    hp_before = state["player"]["resources"]["hp"]["current"]
+    inv_before = [(e["itemId"], e["count"]) for e in state["player"]["inventory"]]
+    state, events = _cmd(state, {"type": "eat", "itemId": "food_bread"}, paths, rng)
+
+    assert _ids(events) == ["err_in_combat"]
+    assert state["player"]["resources"]["hp"]["current"] == hp_before
+    assert [(e["itemId"], e["count"]) for e in state["player"]["inventory"]] == inv_before
+
+
 # --- 3. Деревня: диалог с LLM-моком, бартер, еда, ночлег ---
 
 def test_village_dialogue_barter_eat_and_inn(paths):
