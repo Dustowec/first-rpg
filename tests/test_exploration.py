@@ -151,6 +151,53 @@ class TestMoveAndSpawn:
 # ---------------------------------------------------------------------------
 
 class TestAmbush:
+
+    class _FixedRollRng(random.Random):
+        """RNG с постоянным броском d100 — для проверки границы шанса."""
+
+        def __init__(self, d100_value: int) -> None:
+            super().__init__(0)
+            self._d100 = d100_value
+
+        def randint(self, a, b):  # type: ignore[override]
+            return self._d100
+
+    def _ambush_state(self, scavenging: int = 0):
+        st = _make_state(scavenging=scavenging)
+        n0 = st["map"]["nodes"][0]
+        target_id = n0["connections"][0]
+        for nd in st["map"]["nodes"]:
+            if nd["id"] == target_id:
+                nd["state"]["spawnRolled"] = True
+                nd["state"]["monster"] = {"mobId": "mob_wolf_forest", "revealed": False,
+                                          "hp": 6, "maxHp": 6}
+                break
+        return st, target_id
+
+    def test_ambush_chance_is_exact(self):
+        """KI-9: ровно ambush_chance исходов из 100 (15% -> не 15.8%)."""
+        st, target_id = self._ambush_state(scavenging=0)
+
+        lo_state = copy.deepcopy(st)
+        _, lo_events = move_to_node(lo_state, target_id, rng=self._FixedRollRng(15))
+        assert any(e["id"] == "ambush_triggered" for e in lo_events), "ролл 15 <= 15 должен дать засаду"
+
+        hi_state = copy.deepcopy(st)
+        _, hi_events = move_to_node(hi_state, target_id, rng=self._FixedRollRng(16))
+        assert not any(e["id"] == "ambush_triggered" for e in hi_events), "ролл 16 > 15 засады быть не должно"
+
+    def test_ambush_min_chance_boundary(self):
+        """KI-9: нижняя граница 5% (scavenging=10) — ролл 5 даёт засаду, 6 — нет."""
+        st, target_id = self._ambush_state(scavenging=10)
+
+        lo_state = copy.deepcopy(st)
+        _, lo_events = move_to_node(lo_state, target_id, rng=self._FixedRollRng(5))
+        assert any(e["id"] == "ambush_triggered" for e in lo_events)
+
+        hi_state = copy.deepcopy(st)
+        _, hi_events = move_to_node(hi_state, target_id, rng=self._FixedRollRng(6))
+        assert not any(e["id"] == "ambush_triggered" for e in hi_events)
+
     def test_ambush_triggers_combat(self):
         """Засада запускает бой без траты доп AP."""
         st = _make_state()
@@ -526,10 +573,28 @@ class TestWaitStep:
         assert new_st["world"]["stepOfDay"] == 2
 
     def test_wait_in_combat_blocked(self):
-        """Ожидание в бою заблокировано."""
+        """Ожидание в бою заблокировано (KI-8: err_in_combat, не молчаливый no-op)."""
         st = _make_state(in_combat=True)
+        before = copy.deepcopy(st)
         new_st, events = wait_step(st)
-        assert not events
+        assert [e["id"] for e in events] == ["err_in_combat"]
+        assert new_st == before
+
+    def test_look_in_combat_blocked(self):
+        """Осмотреться в бою — err_in_combat, состояние не меняется."""
+        st = _make_state(in_combat=True)
+        before = copy.deepcopy(st)
+        new_st, events = look_around(st)
+        assert [e["id"] for e in events] == ["err_in_combat"]
+        assert new_st == before
+
+    def test_search_in_combat_blocked_with_error(self):
+        """Поиск в бою — err_in_combat, состояние не меняется."""
+        st = _make_state(in_combat=True)
+        before = copy.deepcopy(st)
+        new_st, events = scavenge_node(st)
+        assert [e["id"] for e in events] == ["err_in_combat"]
+        assert new_st == before
 
     def test_wait_ticks_regeneration(self):
         """Ожидание тикает регенерацию HP/MP."""

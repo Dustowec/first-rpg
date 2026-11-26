@@ -451,12 +451,12 @@ def move_to_node(state: dict, target_node_id: str, game_data: dict | None = None
         "type": tnode["type"],
     })
 
-    # 4. Проверка засады (§27.2)
+    # 4. Проверка засады (§27.2): ровно ambush_chance процентов исходов
     monster = tnode["state"].get("monster")
     if monster and not monster.get("revealed"):
         scav = new_state["player"]["skills"].get("scavenging", 0)
         ambush_chance = max(5, 15 - scav)
-        if rng.randint(0, 100) <= ambush_chance:
+        if rng.randint(1, 100) <= ambush_chance:
             monster["revealed"] = True
             events.append({"id": "ambush_triggered", "mobId": monster["mobId"]})
             combat_state, combat_events = _start_combat(new_state, game_data, is_ambush=True, rng=rng,
@@ -485,7 +485,7 @@ def look_around(state: dict, game_data: dict | None = None,
     map_data = st["map"]
 
     if world.get("inCombat"):
-        return st, []
+        return st, [{"id": "err_in_combat"}]
 
     current_node_id = map_data["currentNodeId"]
     current_node = None
@@ -564,7 +564,7 @@ def scavenge_node(state: dict, game_data: dict | None = None,
 
     # 1. Валидация
     if world.get("inCombat"):
-        return st, []
+        return st, [{"id": "err_in_combat"}]
 
     current_node_id = map_data["currentNodeId"]
     current_node = None
@@ -699,7 +699,7 @@ def wait_step(state: dict, game_data: dict | None = None,
 
     st = copy.deepcopy(state)
     if st["world"].get("inCombat"):
-        return st, []
+        return st, [{"id": "err_in_combat"}]
 
     new_state, events = advance_time(st, steps=1, gd=game_data, rng=rng,
                                      session_path=session_path, template_path=template_path)
