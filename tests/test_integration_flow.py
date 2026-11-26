@@ -230,14 +230,20 @@ def test_eat_blocked_in_combat(paths):
 
 # --- 3. Деревня: диалог с LLM-моком, бартер, еда, ночлег ---
 
+def _say_boris(state, paths, rng, transport=_barter_transport):
+    """Реплика Борису со включённым LLM (шаблон по умолчанию KI-12 держит LLM выключенным)."""
+    state["meta"]["llm"]["enabled"] = True
+    return _cmd(state, {"type": "talk_npc", "npcId": BORIS, "playerInput": "Меняемся?"},
+                paths, rng, transport=transport)
+
+
 def test_village_dialogue_barter_eat_and_inn(paths):
     state = _start(paths)
     rng = random.Random(11)
     state["player"]["inventory"].append({"itemId": "junk_broken_hilt", "count": 1})
 
     state, _ = _cmd(state, {"type": "open_dialogue", "npcId": BORIS}, paths, rng)
-    state, events = _cmd(state, {"type": "talk_npc", "npcId": BORIS, "playerInput": "Есть сломанная рукоять"},
-                         paths, rng, transport=_barter_transport)
+    state, events = _say_boris(state, paths, rng)
     assert _ids(events)[0] == "npc_spoke"
     assert "dialogue_barter_offered" in _ids(events)
     assert "llm_fallback_used" not in _ids(events)
@@ -273,8 +279,7 @@ def test_talk_npc_uses_fallback_when_llm_disabled(paths):
 def test_dialogue_screen_shows_offer_and_replies(paths):
     state = _start(paths)
     state["player"]["inventory"].append({"itemId": "junk_broken_hilt", "count": 1})
-    state, _ = _cmd(state, {"type": "talk_npc", "npcId": BORIS, "playerInput": "Меняемся?"},
-                    paths, transport=_barter_transport)
+    state, _ = _say_boris(state, paths, random.Random(11))
     state["npcs"][BORIS]["lastSuggestedReplies"] = ["Согласиться", "Уйти"]
     screen = app.render_dialogue_screen(state, BORIS, GD)
     assert "Борис" in screen and "Хлеб" in screen and "Сломанная рукоять" in screen
